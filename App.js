@@ -13,6 +13,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Context as AuthContext } from './src/context/AuthContext';
+import ResolveAuthScreen from './src/screen/ResolveAuthScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -20,26 +21,14 @@ const Tab = createBottomTabNavigator();
 const App = () => {
 	const { state } = useContext(AuthContext);
 	const token = state.token;
-	// console.log('Run');
-	// // read token from our storage
-	// const getToken = async () => {
-	// 	try {
-	// 		const token = await AsyncStorage.getItem('token');
-
-	// 		console.log(token + 'from gettoken');
-	// 		return token;
-	// 	} catch (e) {
-	// 		// error reading value
-	// 	}
-	// };
 
 	if (token === null) {
 		return (
 			<NavigationContainer>
 				<Stack.Navigator>
 					<Stack.Screen
-						name="Signup"
-						component={SignupScreen}
+						name="ResolveAuth"
+						component={ResolveAuthScreen}
 						options={{
 							headerShown: false,
 						}}
@@ -47,6 +36,13 @@ const App = () => {
 					<Stack.Screen
 						name="Signin"
 						component={SigninScreen}
+						options={{
+							headerShown: false,
+						}}
+					/>
+					<Stack.Screen
+						name="Signup"
+						component={SignupScreen}
 						options={{
 							headerShown: false,
 						}}

@@ -67,11 +67,13 @@ const signout = (dispatch) => {
 
 //get token feom local storage
 const trylocalSignin = (dispatch) => {
-	return async () => {
+	return async (callback) => {
 		const token = await AsyncStorage.getItem('token');
 		token != null ? JSON.parse(token) : null;
 		if (token) {
 			dispatch({ type: 'sigin', payload: token });
+		} else {
+			return callback();
 		}
 	};
 };
