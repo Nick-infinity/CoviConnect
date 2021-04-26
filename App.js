@@ -18,17 +18,22 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const App = () => {
-	// read token from our storage
-	const getToken = async () => {
-		try {
-			const token = await AsyncStorage.getItem('token');
-			return token != null ? JSON.parse(token) : null;
-		} catch (e) {
-			// error reading value
-		}
-	};
+	const { state } = useContext(AuthContext);
+	const token = state.token;
+	// console.log('Run');
+	// // read token from our storage
+	// const getToken = async () => {
+	// 	try {
+	// 		const token = await AsyncStorage.getItem('token');
 
-	if (getToken === null) {
+	// 		console.log(token + 'from gettoken');
+	// 		return token;
+	// 	} catch (e) {
+	// 		// error reading value
+	// 	}
+	// };
+
+	if (token === null) {
 		return (
 			<NavigationContainer>
 				<Stack.Navigator>
@@ -49,7 +54,8 @@ const App = () => {
 				</Stack.Navigator>
 			</NavigationContainer>
 		);
-	} else {
+	}
+	if (token !== null) {
 		return (
 			<NavigationContainer>
 				<Tab.Navigator>

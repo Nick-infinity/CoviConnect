@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Context as AuthContext } from '../context/AuthContext';
 import { Text, Input, Button, Icon } from 'react-native-elements';
@@ -7,7 +7,12 @@ import Spacer from '../components/Spacer';
 const SignupScreen = ({ navigation }) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const { state, signup } = useContext(AuthContext);
+	const { state, signup, trylocalSignin } = useContext(AuthContext);
+
+	// try local sigin when we load a sigin up screen
+	useEffect(() => {
+		trylocalSignin();
+	}, []);
 
 	return (
 		<View style={styles.container}>
