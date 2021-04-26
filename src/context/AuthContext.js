@@ -71,7 +71,7 @@ const trylocalSignin = (dispatch) => {
 		const token = await AsyncStorage.getItem('token');
 		token != null ? JSON.parse(token) : null;
 		if (token) {
-			dispatch({ type: 'sigin', payload: token });
+			dispatch({ type: 'signin', payload: token });
 		} else {
 			return callback();
 		}
