@@ -17,7 +17,7 @@ const SigninScreen = ({ navigation }) => {
 
 			<Spacer>
 				<Text h3 style={styles.bannerStyle}>
-					Login
+					Log in your account
 				</Text>
 			</Spacer>
 			<Spacer />

@@ -1,9 +1,8 @@
 import React, { useState, useContext } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Context as AuthContext } from '../context/AuthContext';
 import { Text, Input, Button, Icon } from 'react-native-elements';
 import Spacer from '../components/Spacer';
-import { TouchableOpacity } from 'react-native';
 
 const SignupScreen = ({ navigation }) => {
 	const [email, setEmail] = useState('');
@@ -18,7 +17,7 @@ const SignupScreen = ({ navigation }) => {
 
 			<Spacer>
 				<Text h3 style={styles.bannerStyle}>
-					Sign Up
+					Sign Up for new account
 				</Text>
 			</Spacer>
 			<Spacer />
@@ -50,7 +49,7 @@ const SignupScreen = ({ navigation }) => {
 
 			<TouchableOpacity onPress={() => navigation.navigate('Signin')}>
 				<Text style={{ color: 'gray', alignSelf: 'center' }}>
-					Already a user? Login
+					Already have an account? Log in instead
 				</Text>
 			</TouchableOpacity>
 		</View>
