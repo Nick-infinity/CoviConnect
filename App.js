@@ -15,6 +15,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Context as AuthContext } from './src/context/AuthContext';
 import ResolveAuthScreen from './src/screen/ResolveAuthScreen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import PlasmaDonorScreen from './src/screen/PlasmaDonorScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -26,6 +27,13 @@ const App = () => {
 		return (
 			<NavigationContainer>
 				<Stack.Navigator>
+					<Stack.Screen
+						name="PlasmaDonor"
+						component={PlasmaDonorScreen}
+						options={{
+							headerShown: false,
+						}}
+					/>
 					<Stack.Screen
 						name="ResolveAuth"
 						component={ResolveAuthScreen}
