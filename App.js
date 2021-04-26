@@ -14,6 +14,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Context as AuthContext } from './src/context/AuthContext';
 import ResolveAuthScreen from './src/screen/ResolveAuthScreen';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -21,7 +22,6 @@ const Tab = createBottomTabNavigator();
 const App = () => {
 	const { state } = useContext(AuthContext);
 	const token = state.token;
-
 	if (token === null) {
 		return (
 			<NavigationContainer>
@@ -51,6 +51,7 @@ const App = () => {
 			</NavigationContainer>
 		);
 	}
+
 	if (token !== null) {
 		return (
 			<NavigationContainer>
@@ -76,7 +77,9 @@ const styles = StyleSheet.create({
 export default () => {
 	return (
 		<AuthProvider>
-			<App />
+			<SafeAreaProvider>
+				<App />
+			</SafeAreaProvider>
 		</AuthProvider>
 	);
 };

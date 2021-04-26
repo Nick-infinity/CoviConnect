@@ -2,14 +2,15 @@ import React, { useContext } from 'react';
 import { Button } from 'react-native';
 import { Text, StyleSheet, View } from 'react-native';
 import { Context as AuthContext } from '../context/AuthContext';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const AccountsScreen = () => {
 	const { state, signout } = useContext(AuthContext);
 	return (
-		<View style={{ marginTop: 400 }}>
-			<Text>AccountsScreen</Text>
+		<SafeAreaView forceInset={{ top: 'always' }}>
+			{/* <Text>AccountsScreen</Text> */}
 			<Button title="Logout" onPress={() => signout()} />
-		</View>
+		</SafeAreaView>
 	);
 };
 const styles = StyleSheet.create({});
