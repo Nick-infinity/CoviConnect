@@ -8,12 +8,26 @@ import TrackCreateScreen from './src/screen/TrackCreateScreen';
 import TrackDetailsScreen from './src/screen/TrackDetailsScreen';
 import TrackListScreen from './src/screen/TrackListScreen';
 
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
 export default function App() {
 	return (
-		<View style={styles.container}>
-			<Text>Open up App.js to start working on your app!</Text>
-			<StatusBar style="auto" />
-		</View>
+		<NavigationContainer>
+			{/* <Stack.Navigator>
+				<Stack.Screen name="Sigin" component={SiginScreen} />
+				<Stack.Screen name="Signup" component={SignupScreen} />
+			</Stack.Navigator>
+			<Tab.Navigator>
+				<Tab.Screen name="TrackList" component={TrackListScreen} />
+				<Tab.Screen name="TrackCreate" component={TrackCreateScreen} />
+				<Tab.Screen name="Account" component={AccountsScreen} />
+			</Tab.Navigator> */}
+		</NavigationContainer>
 	);
 }
 
