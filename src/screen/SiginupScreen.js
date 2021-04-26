@@ -1,20 +1,74 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Context as AuthContext } from '../context/AuthContext';
+import { Text, Input, Button, Icon } from 'react-native-elements';
+import Spacer from '../components/Spacer';
 
-const SignupScreen = () => {
+const SignupScreen = ({ navigation }) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const { state, signup } = useContext(AuthContext);
 
 	return (
-		<View>
-			<TextInput value={email} onChangeText={(text) => setEmail(text)} />
-			<TextInput value={password} onChangeText={(text) => setPassword(text)} />
+		<View style={styles.container}>
+			<Text h1 style={styles.appNameStyle}>
+				Tracker
+			</Text>
 
-			<Button title="Sigunup" onPress={() => signup({ email, password })} />
+			<Spacer>
+				<Text h3 style={styles.bannerStyle}>
+					Sign Up
+				</Text>
+			</Spacer>
+			<Spacer />
+			<Input
+				autoCapitalize="none"
+				autoCorrect={false}
+				placeholder="Enter Email"
+				style={styles.inputStyle}
+				label="Email"
+				value={email}
+				onChangeText={(text) => setEmail(text)}
+			/>
+			<Spacer />
+			<Input
+				secureTextEntry
+				autoCapitalize="none"
+				autoCorrect={false}
+				placeholder="Enter Password"
+				label="Password"
+				value={password}
+				onChangeText={(text) => setPassword(text)}
+			/>
+			<Spacer>
+				<Button title="Sign Up" onPress={() => signup({ email, password })} />
+			</Spacer>
 		</View>
 	);
 };
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+	bannerStyle: {
+		alignSelf: 'center',
+		// borderWidth: 1,
+		// borderColor: 'gray',
+		// borderRadius: 30,
+		// paddingHorizontal: 10,
+		// paddingVertical: 3,
+	},
+	inputStyle: {},
+	container: {
+		marginTop: 80,
+		justifyContent: 'center',
+		// borderColor: 'red',
+		// borderWidth: 10,
+	},
+	appNameStyle: {
+		alignSelf: 'center',
+		borderWidth: 1,
+		borderColor: 'gray',
+		borderRadius: 15,
+		paddingHorizontal: 20,
+		paddingVertical: 1,
+	},
+});
 export default SignupScreen;

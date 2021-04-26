@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import AccountsScreen from './src/screen/AccountsScreen';
 import SignupScreen from './src/screen/SiginupScreen';
-import SiginScreen from './src/screen/SigninScreen';
+import SigninScreen from './src/screen/SigninScreen';
 import TrackCreateScreen from './src/screen/TrackCreateScreen';
 import TrackDetailsScreen from './src/screen/TrackDetailsScreen';
 import TrackListScreen from './src/screen/TrackListScreen';
@@ -12,6 +12,7 @@ import { Provider as AuthProvider } from './src/context/AuthContext';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Header } from 'react-native/Libraries/NewAppScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -20,8 +21,20 @@ const App = () => {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator>
-				{/* <Stack.Screen name="Sigin" component={SiginScreen} /> */}
-				<Stack.Screen name="Signup" component={SignupScreen} />
+				<Stack.Screen
+					name="Signup"
+					component={SignupScreen}
+					options={{
+						headerShown: false,
+					}}
+				/>
+				<Stack.Screen
+					name="Sigin"
+					component={SigninScreen}
+					options={{
+						headerShown: false,
+					}}
+				/>
 			</Stack.Navigator>
 			{/* <Tab.Navigator>
 				<Tab.Screen name="TrackList" component={TrackListScreen} />
