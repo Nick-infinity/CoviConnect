@@ -40,6 +40,9 @@ const SigninScreen = ({ navigation }) => {
 				value={password}
 				onChangeText={(text) => setPassword(text)}
 			/>
+			{state.errorMessage ? (
+				<Text style={styles.errorStyle}>{state.errorMessage}</Text>
+			) : null}
 			<Spacer>
 				<Button title="Login" onPress={() => signin({ email, password })} />
 			</Spacer>
@@ -74,6 +77,11 @@ const styles = StyleSheet.create({
 		borderRadius: 15,
 		paddingHorizontal: 20,
 		paddingVertical: 1,
+	},
+	errorStyle: {
+		fontSize: 16,
+		color: 'red',
+		alignSelf: 'center',
 	},
 });
 export default SigninScreen;
