@@ -29,7 +29,7 @@ const App = () => {
 					}}
 				/>
 				<Stack.Screen
-					name="Sigin"
+					name="Signin"
 					component={SigninScreen}
 					options={{
 						headerShown: false,

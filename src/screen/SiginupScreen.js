@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { Context as AuthContext } from '../context/AuthContext';
 import { Text, Input, Button, Icon } from 'react-native-elements';
 import Spacer from '../components/Spacer';
+import { TouchableOpacity } from 'react-native';
 
 const SignupScreen = ({ navigation }) => {
 	const [email, setEmail] = useState('');
@@ -40,9 +41,18 @@ const SignupScreen = ({ navigation }) => {
 				value={password}
 				onChangeText={(text) => setPassword(text)}
 			/>
+			{state.errorMessage ? (
+				<Text style={styles.errorStyle}>{state.errorMessage}</Text>
+			) : null}
 			<Spacer>
 				<Button title="Sign Up" onPress={() => signup({ email, password })} />
 			</Spacer>
+
+			<TouchableOpacity onPress={() => navigation.navigate('Signin')}>
+				<Text style={{ color: 'gray', alignSelf: 'center' }}>
+					Already a user? Login
+				</Text>
+			</TouchableOpacity>
 		</View>
 	);
 };
@@ -69,6 +79,11 @@ const styles = StyleSheet.create({
 		borderRadius: 15,
 		paddingHorizontal: 20,
 		paddingVertical: 1,
+	},
+	errorStyle: {
+		fontSize: 16,
+		color: 'red',
+		alignSelf: 'center',
 	},
 });
 export default SignupScreen;
