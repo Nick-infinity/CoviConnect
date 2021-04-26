@@ -19,15 +19,15 @@ const Tab = createBottomTabNavigator();
 const App = () => {
 	return (
 		<NavigationContainer>
-			{/* <Stack.Navigator>
-				<Stack.Screen name="Sigin" component={SiginScreen} />
+			<Stack.Navigator>
+				{/* <Stack.Screen name="Sigin" component={SiginScreen} /> */}
 				<Stack.Screen name="Signup" component={SignupScreen} />
 			</Stack.Navigator>
-			<Tab.Navigator>
+			{/* <Tab.Navigator>
 				<Tab.Screen name="TrackList" component={TrackListScreen} />
 				<Tab.Screen name="TrackCreate" component={TrackCreateScreen} />
 				<Tab.Screen name="Account" component={AccountsScreen} />
-			</Tab.Navigator> */}
+			</Tab.Navigator>  */}
 		</NavigationContainer>
 	);
 };

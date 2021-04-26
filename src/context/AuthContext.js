@@ -15,7 +15,7 @@ const signup = (dispatch) => {
 		//if we are signup, modify our state and say we are authenticatedd
 		// if sigunup fails , reflect error mesg
 		try {
-			const response = await trackerApi.post('/', { email, password });
+			const response = await trackerApi.post('/signup', { email, password });
 			console.log(response.data);
 		} catch (err) {
 			console.log(err);
