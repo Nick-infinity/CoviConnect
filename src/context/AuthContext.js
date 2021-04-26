@@ -25,6 +25,7 @@ const signup = (dispatch) => {
 			//save our token in storage
 			await AsyncStorage.setItem('token', JSON.stringify(response.data.token));
 			dispatch({ type: 'signup', payload: response.data.token });
+			// go to main flow
 		} catch (err) {
 			dispatch({
 				type: 'add_error',

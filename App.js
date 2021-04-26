@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import AccountsScreen from './src/screen/AccountsScreen';
 import SignupScreen from './src/screen/SiginupScreen';
@@ -12,37 +12,54 @@ import { Provider as AuthProvider } from './src/context/AuthContext';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Header } from 'react-native/Libraries/NewAppScreen';
+import { Context as AuthContext } from './src/context/AuthContext';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const App = () => {
-	return (
-		<NavigationContainer>
-			<Stack.Navigator>
-				<Stack.Screen
-					name="Signup"
-					component={SignupScreen}
-					options={{
-						headerShown: false,
-					}}
-				/>
-				<Stack.Screen
-					name="Signin"
-					component={SigninScreen}
-					options={{
-						headerShown: false,
-					}}
-				/>
-			</Stack.Navigator>
-			{/* <Tab.Navigator>
-				<Tab.Screen name="TrackList" component={TrackListScreen} />
-				<Tab.Screen name="TrackCreate" component={TrackCreateScreen} />
-				<Tab.Screen name="Account" component={AccountsScreen} />
-			</Tab.Navigator>  */}
-		</NavigationContainer>
-	);
+	// read token from our storage
+	const getToken = async () => {
+		try {
+			const token = await AsyncStorage.getItem('token');
+			return token != null ? JSON.parse(token) : null;
+		} catch (e) {
+			// error reading value
+		}
+	};
+
+	if (getToken === null) {
+		return (
+			<NavigationContainer>
+				<Stack.Navigator>
+					<Stack.Screen
+						name="Signup"
+						component={SignupScreen}
+						options={{
+							headerShown: false,
+						}}
+					/>
+					<Stack.Screen
+						name="Signin"
+						component={SigninScreen}
+						options={{
+							headerShown: false,
+						}}
+					/>
+				</Stack.Navigator>
+			</NavigationContainer>
+		);
+	} else {
+		return (
+			<NavigationContainer>
+				<Tab.Navigator>
+					<Tab.Screen name="TrackList" component={TrackListScreen} />
+					<Tab.Screen name="TrackCreate" component={TrackCreateScreen} />
+					<Tab.Screen name="Account" component={AccountsScreen} />
+				</Tab.Navigator>
+			</NavigationContainer>
+		);
+	}
 };
 
 const styles = StyleSheet.create({
