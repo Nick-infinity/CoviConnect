@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View, StyleSheet, Text } from 'react-native';
 import { Input, Button, Icon, ButtonGroup } from 'react-native-elements';
 import Spacer from '../components/Spacer';
 import { ScrollView } from 'react-native';
+import pincodeApi from '../api/pincode';
+import { Context as PlasmaContext } from '../context/PlasmaContext';
 
 const PlasmaDonorScreen = () => {
 	const [genderIndex, setGenderIndex] = useState();
@@ -19,6 +21,27 @@ const PlasmaDonorScreen = () => {
 	const [dstate, setDState] = useState('');
 	const [city, setcity] = useState('');
 	const [recovery, setRecovery] = useState('');
+
+	//get city and state from pin code
+	const getPincode = async (pincode) => {
+		try {
+			const response = await pincodeApi.get(`/${pincode}`);
+			const status = response.data.Status;
+			//console.log(response.data);
+			if (status === 'Error') {
+				setPincode('Invalid PinCode');
+				setcity('');
+				setDState('');
+			} else {
+				const city = response.data.PostOffice[0].District;
+				const dstate = response.data.PostOffice[0].State;
+				setcity(city);
+				setDState(dstate);
+			}
+		} catch (e) {
+			console.log(e);
+		}
+	};
 
 	return (
 		<SafeAreaView>
@@ -86,7 +109,12 @@ const PlasmaDonorScreen = () => {
 						style={styles.inputStyle}
 						label="Pincode"
 						value={pincode}
-						onChangeText={(text) => setPincode(text)}
+						onSubmitEditing={() => {
+							getPincode(pincode);
+						}}
+						onChangeText={(text) => {
+							setPincode(text);
+						}}
 					/>
 					<Input
 						placeholder="State"
@@ -139,7 +167,7 @@ const PlasmaDonorScreen = () => {
 						by pressing on "Apply For Donation" button
 					</Text>
 					<Spacer></Spacer>
-					<Button title="Apply For Donation" />
+					<Button title="Apply For Donation" onPress={() => {}} />
 				</View>
 			</ScrollView>
 		</SafeAreaView>
