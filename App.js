@@ -7,6 +7,7 @@ import SiginScreen from './src/screen/SigninScreen';
 import TrackCreateScreen from './src/screen/TrackCreateScreen';
 import TrackDetailsScreen from './src/screen/TrackDetailsScreen';
 import TrackListScreen from './src/screen/TrackListScreen';
+import { Provider as AuthProvider } from './src/context/AuthContext';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -15,7 +16,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-export default function App() {
+const App = () => {
 	return (
 		<NavigationContainer>
 			{/* <Stack.Navigator>
@@ -29,7 +30,7 @@ export default function App() {
 			</Tab.Navigator> */}
 		</NavigationContainer>
 	);
-}
+};
 
 const styles = StyleSheet.create({
 	container: {
@@ -39,3 +40,11 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 });
+
+export default () => {
+	return (
+		<AuthProvider>
+			<App />
+		</AuthProvider>
+	);
+};
