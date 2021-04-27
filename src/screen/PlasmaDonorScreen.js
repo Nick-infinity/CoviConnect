@@ -5,8 +5,8 @@ import { Input, Button, Icon, ButtonGroup } from 'react-native-elements';
 import Spacer from '../components/Spacer';
 import { ScrollView } from 'react-native';
 import pincodeApi from '../api/pincode';
-import { Context as PlasmaContext } from '../context/PlasmaContext';
-import { Provider as PlasmaProvider } from '../context/PlasmaContext';
+import { Context as PlasmaDonorContext } from '../context/PlasmaDonorContext';
+import { Provider as PlasmaDonorProvider } from '../context/PlasmaDonorContext';
 const PlasmaDonorScreen = () => {
 	const [genderIndex, setGenderIndex] = useState('');
 	const genders = ['Male', 'Female', 'Not to say'];
@@ -22,7 +22,7 @@ const PlasmaDonorScreen = () => {
 	const [city, setcity] = useState('');
 	const [recovery, setRecovery] = useState('');
 
-	const { postPlasmainfo } = useContext(PlasmaContext);
+	const { postPlasmainfo } = useContext(PlasmaDonorContext);
 	//get city and state from pin code
 	const getPincode = async (pincode) => {
 		try {
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
 });
 
 export default () => (
-	<PlasmaProvider>
+	<PlasmaDonorProvider>
 		<PlasmaDonorScreen />
-	</PlasmaProvider>
+	</PlasmaDonorProvider>
 );

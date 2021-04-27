@@ -2,15 +2,8 @@ import createDataContext from './createDataContext';
 import pincodeApi from '../api/pincode';
 import trackerApi from '../api/tracker';
 
-const plasamaReducer = (state, action) => {
+const plasamaDonorReducer = (state, action) => {
 	switch (action.type) {
-		case 'add_error': {
-			return { ...state, errorMessage: action.payload };
-		}
-		case 'signin':
-			return { errorMessage: '', token: action.payload };
-		case 'signout':
-			return { errorMessage: '', token: null };
 		case 'postDonorInfo':
 			return { errorMessage: '', tofind: '', plasmaDonorInfo: action.payload };
 		default:
@@ -98,7 +91,7 @@ const trylocalSignin = (dispatch) => {
 };
 
 export const { Provider, Context } = createDataContext(
-	plasamaReducer,
+	plasamaDonorReducer,
 	{ postPlasmainfo },
-	{ plasmaDonorInfo: null, errorMessage: '', tofind: '' }
+	{ plasmaDonorInfo: null }
 );
