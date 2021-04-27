@@ -48,7 +48,7 @@ const OxygenScreen = () => {
 								<FlatList />
 							</View>
 						) : (
-							<View>
+							<View style={styles.formContainer}>
 								<OxygenDonorScreen />
 							</View>
 						)}
@@ -59,6 +59,10 @@ const OxygenScreen = () => {
 	);
 };
 const styles = StyleSheet.create({
+	formContainer: {
+		backgroundColor: 'white',
+		borderRadius: 20,
+	},
 	headingStyle: {
 		marginLeft: 10,
 		marginTop: 5,

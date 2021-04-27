@@ -53,7 +53,7 @@ const PlasmaScreen = () => {
 								<FlatList />
 							</View>
 						) : (
-							<View>
+							<View style={styles.formContainer}>
 								<PlasmaDonorScreen />
 							</View>
 						)}
@@ -64,6 +64,10 @@ const PlasmaScreen = () => {
 	);
 };
 const styles = StyleSheet.create({
+	formContainer: {
+		backgroundColor: 'white',
+		borderRadius: 20,
+	},
 	headingStyle: {
 		marginLeft: 10,
 		marginTop: 5,
