@@ -7,6 +7,7 @@ import ShortcutBar from '../components/ShortcutBar';
 import { FlatList } from 'react-native';
 import PlasmaDonorScreen from './PlasmaDonorScreen';
 import DonorTypeSelector from '../components/DonorTypeSelector';
+import Spacer from '../components/Spacer';
 
 const PlasmaScreen = () => {
 	// for cehcking which screen is running
@@ -19,6 +20,7 @@ const PlasmaScreen = () => {
 					<Text h1 style={styles.headingStyle}>
 						Plasma
 					</Text>
+					<Spacer />
 					<Text style={styles.shortcutBannerStyle}>Shortcuts</Text>
 					<ShortcutBar
 						title1="Search Donor"
@@ -75,6 +77,7 @@ const styles = StyleSheet.create({
 	},
 	container: {
 		height: '100%',
+		marginTop: 10,
 	},
 	containerTop: {
 		marginBottom: 10,

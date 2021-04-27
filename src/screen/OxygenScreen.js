@@ -6,6 +6,7 @@ import { ScrollView } from 'react-native';
 import ShortcutBar from '../components/ShortcutBar';
 import OxygenDonorScreen from './OxygenDonorScreen';
 import DonorTypeSelector from '../components/DonorTypeSelector';
+import Spacer from '../components/Spacer';
 
 const OxygenScreen = () => {
 	// for cehcking which screen is running
@@ -18,6 +19,7 @@ const OxygenScreen = () => {
 					<Text h1 style={styles.headingStyle}>
 						Oxygen
 					</Text>
+					<Spacer />
 					<Text style={styles.shortcutBannerStyle}>Shortcuts</Text>
 					<ShortcutBar
 						title1="Search Oxygen"
@@ -70,6 +72,7 @@ const styles = StyleSheet.create({
 	},
 	container: {
 		height: '100%',
+		marginTop: 10,
 	},
 	containerTop: {
 		marginBottom: 10,
