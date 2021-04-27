@@ -11,19 +11,28 @@ const plasamaReducer = (state, action) => {
 			return { errorMessage: '', token: action.payload };
 		case 'signout':
 			return { errorMessage: '', token: null };
+		case 'postDonorInfo':
+			return { errorMessage: '', tofind: '', plasmaDonorInfo: action.payload };
 		default:
 			return state;
 	}
 };
 
-//get city and state from pin code
-const getPincode = async (pincode) => {
-	const response = await pincodeApi.get(`/${pincode}`);
-	const status = response.status;
-	const city = response.PostOffice[0].District;
-	const dstate = response.PostOffice[0].State;
-	const res = { status, city, dstate };
-	return res;
+const postPlasmainfo = (dispatch) => {
+	return async (plasmaDonorInfo) => {
+		try {
+			console.log(plasmaDonorInfo);
+			const response = await trackerApi.post('/plasma', { plasmaDonorInfo });
+			console.log(response.data);
+			// await AsyncStorage.setItem(
+			// 	'donorInfo',
+			// 	JSON.stringify(response.data.token)
+			// );
+			dispatch({ type: 'postDonorInfo', payload: plasmaDonorInfo });
+		} catch (e) {
+			console.log(e);
+		}
+	};
 };
 
 //signup
@@ -90,6 +99,6 @@ const trylocalSignin = (dispatch) => {
 
 export const { Provider, Context } = createDataContext(
 	plasamaReducer,
-	{ getPincode },
-	{ something: null, errorMessage: '' }
+	{ postPlasmainfo },
+	{ plasmaDonorInfo: null, errorMessage: '', tofind: '' }
 );

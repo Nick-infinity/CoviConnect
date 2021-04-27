@@ -6,9 +6,9 @@ import Spacer from '../components/Spacer';
 import { ScrollView } from 'react-native';
 import pincodeApi from '../api/pincode';
 import { Context as PlasmaContext } from '../context/PlasmaContext';
-
+import { Provider as PlasmaProvider } from '../context/PlasmaContext';
 const PlasmaDonorScreen = () => {
-	const [genderIndex, setGenderIndex] = useState();
+	const [genderIndex, setGenderIndex] = useState('');
 	const genders = ['Male', 'Female', 'Not to say'];
 	const [bloodGroup, setBloodGroup] = useState('');
 	const bloodGroups = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
@@ -22,6 +22,7 @@ const PlasmaDonorScreen = () => {
 	const [city, setcity] = useState('');
 	const [recovery, setRecovery] = useState('');
 
+	const { postPlasmainfo } = useContext(PlasmaContext);
 	//get city and state from pin code
 	const getPincode = async (pincode) => {
 		try {
@@ -41,6 +42,55 @@ const PlasmaDonorScreen = () => {
 		} catch (e) {
 			console.log(e);
 		}
+	};
+
+	// makeSatteObject
+	const makeSateObject = () => {
+		const nbloodGroup = bloodGroups[bloodGroup];
+		const nGender = genders[genderIndex];
+		const plasmaDonorInfo = {
+			name,
+			age,
+			gender: nGender,
+			contact,
+			pincode,
+			state: dstate,
+			city,
+			bgroup: nbloodGroup,
+			recovery,
+			consent: true,
+		};
+		return plasmaDonorInfo;
+	};
+
+	// clear allfields
+	const clearFields = () => {
+		setBloodGroup('');
+		setGenderIndex('');
+		setName('');
+		setAge('');
+		setcity('');
+		setPincode('');
+		setDState('');
+		setContact('');
+		setRecovery('');
+	};
+
+	const allFieldsSet = () => {
+		if (
+			name === '' ||
+			age === '' ||
+			contact === '' ||
+			genderIndex === '' ||
+			bloodGroup === '' ||
+			pincode === '' ||
+			dstate === '' ||
+			city === '' ||
+			recovery === ''
+		) {
+			return false;
+		}
+		return true;
 	};
 
 	return (
@@ -167,7 +217,21 @@ const PlasmaDonorScreen = () => {
 						by pressing on "Apply For Donation" button
 					</Text>
 					<Spacer></Spacer>
-					<Button title="Apply For Donation" onPress={() => {}} />
+					<Button
+						title="Apply For Donation"
+						onPress={() => {
+							if (allFieldsSet()) {
+								const plasmaDonorInfo = makeSateObject();
+								// call post function
+								postPlasmainfo(plasmaDonorInfo);
+								//clearFields();
+							} else {
+							}
+							{
+								<Text>Please Fill all Required Fields</Text>;
+							}
+						}}
+					/>
 				</View>
 			</ScrollView>
 		</SafeAreaView>
@@ -178,4 +242,8 @@ const styles = StyleSheet.create({
 	inputStyle: {},
 });
 
-export default PlasmaDonorScreen;
+export default () => (
+	<PlasmaProvider>
+		<PlasmaDonorScreen />
+	</PlasmaProvider>
+);

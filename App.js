@@ -28,13 +28,6 @@ const App = () => {
 			<NavigationContainer>
 				<Stack.Navigator>
 					<Stack.Screen
-						name="PlasmaDonor"
-						component={PlasmaDonorScreen}
-						options={{
-							headerShown: false,
-						}}
-					/>
-					<Stack.Screen
 						name="ResolveAuth"
 						component={ResolveAuthScreen}
 						options={{
@@ -64,7 +57,7 @@ const App = () => {
 		return (
 			<NavigationContainer>
 				<Tab.Navigator>
-					<Tab.Screen name="TrackList" component={TrackListScreen} />
+					<Tab.Screen name="TrackList" component={PlasmaDonorScreen} />
 					<Tab.Screen name="TrackCreate" component={TrackCreateScreen} />
 					<Tab.Screen name="Account" component={AccountsScreen} />
 				</Tab.Navigator>
