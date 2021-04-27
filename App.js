@@ -1,12 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import AccountsScreen from './src/screen/AccountsScreen';
+import DonorDashBoardScreen from './src/screen/DonorDashBoardScreen';
 import SignupScreen from './src/screen/SiginupScreen';
 import SigninScreen from './src/screen/SigninScreen';
-import TrackCreateScreen from './src/screen/TrackCreateScreen';
+import OxygenScreen from './src/screen/OxygenScreen';
 import TrackDetailsScreen from './src/screen/TrackDetailsScreen';
-import TrackListScreen from './src/screen/TrackListScreen';
+import PlasmaScreen from './src/screen/PlasmaScreen';
 import { Provider as AuthProvider } from './src/context/AuthContext';
 
 import { createStackNavigator } from '@react-navigation/stack';
@@ -57,9 +57,9 @@ const App = () => {
 		return (
 			<NavigationContainer>
 				<Tab.Navigator>
-					<Tab.Screen name="TrackList" component={PlasmaDonorScreen} />
-					<Tab.Screen name="TrackCreate" component={TrackCreateScreen} />
-					<Tab.Screen name="Account" component={AccountsScreen} />
+					<Tab.Screen name="Plasma" component={PlasmaScreen} />
+					<Tab.Screen name="Oxygen" component={OxygenScreen} />
+					<Tab.Screen name="Dashboard" component={DonorDashBoardScreen} />
 				</Tab.Navigator>
 			</NavigationContainer>
 		);
