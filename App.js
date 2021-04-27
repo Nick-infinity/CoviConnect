@@ -5,7 +5,7 @@ import DonorDashBoardScreen from './src/screen/DonorDashBoardScreen';
 import SignupScreen from './src/screen/SiginupScreen';
 import SigninScreen from './src/screen/SigninScreen';
 import OxygenScreen from './src/screen/OxygenScreen';
-import TrackDetailsScreen from './src/screen/TrackDetailsScreen';
+import SettingsScreen from './src/screen/SettingsScreen';
 import PlasmaScreen from './src/screen/PlasmaScreen';
 import { Provider as AuthProvider } from './src/context/AuthContext';
 
@@ -56,14 +56,29 @@ const App = () => {
 	if (token !== null) {
 		return (
 			<NavigationContainer>
-				<Tab.Navigator>
+				<Tab.Navigator tabBarOptions={customTabBarStyle}>
 					<Tab.Screen name="Plasma" component={PlasmaScreen} />
 					<Tab.Screen name="Oxygen" component={OxygenScreen} />
 					<Tab.Screen name="Dashboard" component={DonorDashBoardScreen} />
+					<Tab.Screen name="Settings" component={SettingsScreen} />
 				</Tab.Navigator>
 			</NavigationContainer>
 		);
 	}
+};
+const customTabBarStyle = {
+	activeTintColor: '#272727',
+	inactiveTintColor: 'gray',
+	style: {
+		borderTopLeftRadius: 20,
+		borderTopRightRadius: 20,
+		backgroundColor: 'white',
+		position: 'absolute',
+		bottom: 0,
+		padding: 10,
+		height: 70,
+		zIndex: 8,
+	},
 };
 
 const styles = StyleSheet.create({
