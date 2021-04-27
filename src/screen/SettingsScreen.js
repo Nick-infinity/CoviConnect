@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const TrackDetailsScreen = () => {
+const SettingsScreen = () => {
 	return (
 		<View>
 			<Text>TrackDetailsScreen</Text>
@@ -9,4 +9,4 @@ const TrackDetailsScreen = () => {
 	);
 };
 const styles = StyleSheet.create({});
-export default TrackDetailsScreen;
+export default SettingsScreen;

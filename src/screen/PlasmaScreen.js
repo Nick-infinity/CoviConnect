@@ -13,8 +13,8 @@ const PlasmaScreen = () => {
 
 	return (
 		<SafeAreaView forceInset={{ top: 'always' }}>
-			<ScrollView>
-				<View style={styles.container}>
+			<View style={styles.container}>
+				<View style={styles.containerTop}>
 					<Text h1 style={styles.headingStyle}>
 						Plasma
 					</Text>
@@ -31,31 +31,35 @@ const PlasmaScreen = () => {
 							setScreenState(1);
 						}}
 					/>
-					{!screenState ? (
-						<View style={styles.resultScreen}>
-							<Input
-								leftIcon={
-									<Icon
-										name="search-location"
-										type="font-awesome-5"
-										size={24}
-										color="black"
-									/>
-								}
-								placeholderTextColor="gray"
-								placeholder="Search Pincode/City/State"
-								style={styles.searchStyle}
-								inputContainerStyle={{ borderBottomWidth: 0 }}
-							></Input>
-							<FlatList />
-						</View>
-					) : (
-						<View>
-							<PlasmaDonorScreen />
-						</View>
-					)}
 				</View>
-			</ScrollView>
+				<ScrollView>
+					<View style={styles.containerBottom}>
+						{!screenState ? (
+							<View style={styles.resultScreen}>
+								<Input
+									leftIcon={
+										<Icon
+											name="search-location"
+											type="font-awesome-5"
+											size={24}
+											color="black"
+										/>
+									}
+									placeholderTextColor="gray"
+									placeholder="Search Pincode/City/State"
+									style={styles.searchStyle}
+									inputContainerStyle={{ borderBottomWidth: 0 }}
+								></Input>
+								<FlatList />
+							</View>
+						) : (
+							<View>
+								<PlasmaDonorScreen />
+							</View>
+						)}
+					</View>
+				</ScrollView>
+			</View>
 		</SafeAreaView>
 	);
 };
@@ -65,9 +69,17 @@ const styles = StyleSheet.create({
 		marginTop: 5,
 	},
 	container: {
-		flex: 1,
+		height: '100%',
+	},
+	containerTop: {
 		borderColor: 'red',
 		borderWidth: 4,
+		marginBottom: 10,
+	},
+	containerBottom: {
+		borderColor: 'blue',
+		borderWidth: 4,
+		marginBottom: 80,
 	},
 	shortcutBannerStyle: {
 		marginLeft: 10,

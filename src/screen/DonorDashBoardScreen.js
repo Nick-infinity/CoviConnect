@@ -4,7 +4,7 @@ import { Text, StyleSheet, View } from 'react-native';
 import { Context as AuthContext } from '../context/AuthContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const AccountsScreen = () => {
+const DonorDashBoardScreen = () => {
 	const { state, signout } = useContext(AuthContext);
 	return (
 		<SafeAreaView forceInset={{ top: 'always' }}>
@@ -14,4 +14,4 @@ const AccountsScreen = () => {
 	);
 };
 const styles = StyleSheet.create({});
-export default AccountsScreen;
+export default DonorDashBoardScreen;
