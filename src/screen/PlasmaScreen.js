@@ -77,14 +77,11 @@ const styles = StyleSheet.create({
 		height: '100%',
 	},
 	containerTop: {
-		borderColor: 'red',
-		borderWidth: 4,
 		marginBottom: 10,
 	},
 	containerBottom: {
-		borderColor: 'blue',
-		borderWidth: 4,
 		marginBottom: 80,
+		marginHorizontal: 10,
 	},
 	shortcutBannerStyle: {
 		marginLeft: 10,

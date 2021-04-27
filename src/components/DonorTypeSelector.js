@@ -47,7 +47,9 @@ const styles = StyleSheet.create({
 		alignItems: 'stretch',
 		marginHorizontal: 60,
 	},
-	container: {},
+	container: {
+		marginBottom: 20,
+	},
 	bannerStyle: {
 		alignSelf: 'center',
 		marginTop: 20,
