@@ -83,26 +83,44 @@ const App = () => {
 					<DonorCategoryStack.Screen
 						name="PDhospital"
 						component={PlasmaHospital}
+						options={{
+							headerShown: false,
+						}}
 					/>
 					<DonorCategoryStack.Screen
 						name="PDorganization"
 						component={PlasmaOrganization}
+						options={{
+							headerShown: false,
+						}}
 					/>
 					<DonorCategoryStack.Screen
 						name="PDindividual"
 						component={PlasmaIndividual}
+						options={{
+							headerShown: false,
+						}}
 					/>
 					<DonorCategoryStack.Screen
 						name="ODindividual"
 						component={OxygenInidividual}
+						options={{
+							headerShown: false,
+						}}
 					/>
 					<DonorCategoryStack.Screen
 						name="ODorganization"
 						component={OxyegenOrganization}
+						options={{
+							headerShown: false,
+						}}
 					/>
 					<DonorCategoryStack.Screen
 						name="ODhospital"
 						component={OxygenHospital}
+						options={{
+							headerShown: false,
+						}}
 					/>
 				</DonorCategoryStack.Navigator>
 			</NavigationContainer>
