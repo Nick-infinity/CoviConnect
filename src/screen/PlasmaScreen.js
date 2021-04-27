@@ -9,9 +9,18 @@ import PlasmaDonorScreen from './PlasmaDonorScreen';
 import DonorTypeSelector from '../components/DonorTypeSelector';
 import Spacer from '../components/Spacer';
 
-const PlasmaScreen = () => {
+const PlasmaScreen = ({ navigation }) => {
 	// for cehcking which screen is running
 	const [screenState, setScreenState] = useState(0);
+	// 0 for search screen
+	// 1 for donor screen
+
+	// for Category Selection
+	const [categoryState, setCategoryState] = useState(-1);
+	// -1 for none
+	//0 for hospital
+	// 1 for org
+	// 2 for individul
 
 	return (
 		<SafeAreaView forceInset={{ top: 'always' }}>
@@ -37,7 +46,7 @@ const PlasmaScreen = () => {
 				</View>
 				<ScrollView>
 					<View style={styles.containerBottom}>
-						{!screenState ? (
+						{screenState === 0 ? (
 							<View style={styles.resultScreen}>
 								<Input
 									leftIcon={
@@ -57,7 +66,12 @@ const PlasmaScreen = () => {
 							</View>
 						) : (
 							<View style={styles.formContainer}>
-								<DonorTypeSelector />
+								<DonorTypeSelector
+									myNav={navigation}
+									scrn1={'PDhospital'}
+									scrn2={'PDorganization'}
+									scrn3={'PDindividual'}
+								/>
 							</View>
 						)}
 					</View>

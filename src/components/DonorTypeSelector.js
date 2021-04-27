@@ -3,14 +3,18 @@ import { StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { View } from 'react-native';
 import { Text, Input, Button, Icon } from 'react-native-elements';
-const DonorTypeSelector = () => {
+
+const DonorTypeSelector = ({ myNav, scrn1, scrn2, scrn3 }) => {
 	return (
 		<View style={styles.container}>
 			<Text h2 style={styles.bannerStyle}>
 				Choose Category
 			</Text>
 			<View style={styles.btncontainer}>
-				<TouchableOpacity style={styles.btnStyle}>
+				<TouchableOpacity
+					style={styles.btnStyle}
+					onPress={() => myNav.navigate(scrn1)}
+				>
 					<Icon
 						size={30}
 						type="material-icons-outlined"
@@ -19,7 +23,10 @@ const DonorTypeSelector = () => {
 					/>
 					<Text style={styles.txtStyle}>Hospital</Text>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.btnStyle}>
+				<TouchableOpacity
+					style={styles.btnStyle}
+					onPress={() => myNav.navigate(scrn2)}
+				>
 					<Icon
 						size={35}
 						type="material-icons-outlined"
@@ -28,7 +35,10 @@ const DonorTypeSelector = () => {
 					/>
 					<Text style={styles.txtStyle}>Organization</Text>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.btnStyle}>
+				<TouchableOpacity
+					style={styles.btnStyle}
+					onPress={() => myNav.navigate(scrn3)}
+				>
 					<Icon
 						size={30}
 						type="font-awesome-5"

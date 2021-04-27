@@ -16,10 +16,28 @@ import { Context as AuthContext } from './src/context/AuthContext';
 import ResolveAuthScreen from './src/screen/ResolveAuthScreen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import PlasmaDonorScreen from './src/screen/PlasmaDonorScreen';
+import DonorTypeSelector from './src/components/DonorTypeSelector';
+import PlasmaHospital from './src/screen/forms/PlasmaHospital';
+import PlasmaOrganization from './src/screen/forms/PlasmaOrganization';
+import PlasmaIndividual from './src/screen/forms/PlasmaIndividual';
+import OxygenInidividual from './src/screen/forms/OxygenInidividual';
+import OxyegenOrganization from './src/screen/forms/OxyegenOrganization';
+import OxygenHospital from './src/screen/forms/OxygenHospital';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+const DonorCategoryStack = createStackNavigator();
 
+const TabScreens = () => {
+	return (
+		<Tab.Navigator tabBarOptions={customTabBarStyle}>
+			<Tab.Screen name="PlasmaScreen" component={PlasmaScreen} />
+			<Tab.Screen name="OxygenScreen" component={OxygenScreen} />
+			<Tab.Screen name="Dashboard" component={DonorDashBoardScreen} />
+			<Tab.Screen name="Settings" component={SettingsScreen} />
+		</Tab.Navigator>
+	);
+};
 const App = () => {
 	const { state } = useContext(AuthContext);
 	const token = state.token;
@@ -56,12 +74,37 @@ const App = () => {
 	if (token !== null) {
 		return (
 			<NavigationContainer>
-				<Tab.Navigator tabBarOptions={customTabBarStyle}>
-					<Tab.Screen name="Plasma" component={PlasmaScreen} />
-					<Tab.Screen name="Oxygen" component={OxygenScreen} />
-					<Tab.Screen name="Dashboard" component={DonorDashBoardScreen} />
-					<Tab.Screen name="Settings" component={SettingsScreen} />
-				</Tab.Navigator>
+				<DonorCategoryStack.Navigator>
+					<DonorCategoryStack.Screen
+						name="TabScreens"
+						component={TabScreens}
+						options={{ headerShown: false }}
+					/>
+					<DonorCategoryStack.Screen
+						name="PDhospital"
+						component={PlasmaHospital}
+					/>
+					<DonorCategoryStack.Screen
+						name="PDorganization"
+						component={PlasmaOrganization}
+					/>
+					<DonorCategoryStack.Screen
+						name="PDindividual"
+						component={PlasmaIndividual}
+					/>
+					<DonorCategoryStack.Screen
+						name="ODindividual"
+						component={OxygenInidividual}
+					/>
+					<DonorCategoryStack.Screen
+						name="ODorganization"
+						component={OxyegenOrganization}
+					/>
+					<DonorCategoryStack.Screen
+						name="ODhospital"
+						component={OxygenHospital}
+					/>
+				</DonorCategoryStack.Navigator>
 			</NavigationContainer>
 		);
 	}

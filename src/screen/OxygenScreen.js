@@ -8,9 +8,14 @@ import OxygenDonorScreen from './OxygenDonorScreen';
 import DonorTypeSelector from '../components/DonorTypeSelector';
 import Spacer from '../components/Spacer';
 
-const OxygenScreen = () => {
+const OxygenScreen = ({ navigation }) => {
 	// for cehcking which screen is running
 	const [screenState, setScreenState] = useState(0);
+	const [category, setCategory] = useState(-1);
+	// -1 for none
+	//0 for hospital
+	// 1 for org
+	// 2 for individul
 
 	return (
 		<SafeAreaView forceInset={{ top: 'always' }}>
@@ -52,7 +57,12 @@ const OxygenScreen = () => {
 							</View>
 						) : (
 							<View style={styles.formContainer}>
-								<DonorTypeSelector />
+								<DonorTypeSelector
+									myNav={navigation}
+									scrn1={'ODhospital'}
+									scrn2={'ODorganization'}
+									scrn3={'ODindividual'}
+								/>
 							</View>
 						)}
 					</View>
