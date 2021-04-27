@@ -5,6 +5,7 @@ import { Text, Input, Button, Icon } from 'react-native-elements';
 import { ScrollView } from 'react-native';
 import ShortcutBar from '../components/ShortcutBar';
 import OxygenDonorScreen from './OxygenDonorScreen';
+import DonorTypeSelector from '../components/DonorTypeSelector';
 
 const OxygenScreen = () => {
 	// for cehcking which screen is running
@@ -49,7 +50,7 @@ const OxygenScreen = () => {
 							</View>
 						) : (
 							<View style={styles.formContainer}>
-								<OxygenDonorScreen />
+								<DonorTypeSelector />
 							</View>
 						)}
 					</View>

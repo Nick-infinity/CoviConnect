@@ -31,6 +31,10 @@ const Shortcut = ({ title, iconName, onClick }) => {
 const styles = StyleSheet.create({
 	ShortcutContainer: {
 		padding: 10,
+		justifyContent: 'center',
+		alignContent: 'center',
+		alignSelf: 'center',
+		alignItems: 'center',
 	},
 
 	btnNormal: {

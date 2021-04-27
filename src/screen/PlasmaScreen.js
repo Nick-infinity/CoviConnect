@@ -6,6 +6,7 @@ import { ScrollView } from 'react-native';
 import ShortcutBar from '../components/ShortcutBar';
 import { FlatList } from 'react-native';
 import PlasmaDonorScreen from './PlasmaDonorScreen';
+import DonorTypeSelector from '../components/DonorTypeSelector';
 
 const PlasmaScreen = () => {
 	// for cehcking which screen is running
@@ -54,7 +55,7 @@ const PlasmaScreen = () => {
 							</View>
 						) : (
 							<View style={styles.formContainer}>
-								<PlasmaDonorScreen />
+								<DonorTypeSelector />
 							</View>
 						)}
 					</View>
