@@ -34,7 +34,9 @@ const MultiBloodGroupChecker = ({ takeBloodGroupValues }) => {
 
 	return (
 		<View style={styles.btnContainer}>
-			<Text style={styles.btnGrpBannerStyle}>Available bloodgroups</Text>
+			<Text style={styles.btnGrpBannerStyle}>
+				Available plasama blood groups
+			</Text>
 			<View style={styles.btnContainerTop}>
 				<CheckBox
 					textStyle={{ paddingRight: 0, paddingLeft: 0 }}

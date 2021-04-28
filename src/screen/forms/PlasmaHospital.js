@@ -13,6 +13,16 @@ import { ScrollView } from 'react-native-gesture-handler';
 import MultiBloodGroupChecker from '../../components/MultiBloodGroupChecker';
 
 const PlasmaHospital = () => {
+	/* schmema for object
+    plasmaDonorHospital{
+        name:
+         contact: convert to string
+        pin:
+        availability:status:
+        consent
+        bloddgroups:[]
+    }
+    */
 	// states
 	const [name, setName] = useState('');
 	const [contact, setContact] = useState('');
@@ -20,8 +30,6 @@ const PlasmaHospital = () => {
 	const [consent, SetConsent] = useState(false);
 	const [availability, SetAvailability] = useState(0);
 	const availabilityOptions = ['Available', 'Not Available'];
-	// const [bloodGroup, setBloodGroup] = useState();
-	// const bloodGroups = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
 
 	//check validity of data on submit
 	const isValid = (value, setValue) => {};

@@ -6,9 +6,21 @@ import { ScrollView } from 'react-native-gesture-handler';
 import MultiBloodGroupChecker from '../../components/MultiBloodGroupChecker';
 
 const PlasmaOrganization = () => {
+	/* schmema for object
+    plasmaDonorOrganization{
+        name:
+        contact: convert to string
+        contact2: convert to string
+        pin:
+        availability:status:
+        consent
+        bloddgroups:[]
+    }
+    */
 	// states
 	const [name, setName] = useState('');
 	const [contact, setContact] = useState('');
+	const [contact2, setContact2] = useState('');
 	const [pin, setPin] = useState('');
 	const [consent, SetConsent] = useState(false);
 	const [availability, SetAvailability] = useState(0);
@@ -40,17 +52,24 @@ const PlasmaOrganization = () => {
 						<View style={styles.formContainer}>
 							<View style={styles.fieldContainer}>
 								<Input
-									placeholder="Enter hospital name"
-									label="Hospital Name"
+									placeholder="Enter organization name"
+									label="Organization Name"
 									value={name}
 									onChangeText={(t) => setName(t)}
 									inputContainerStyle={inputStyle}
 								/>
 								<Input
 									placeholder="Enter active phone number "
-									label="Plasma Helpline"
+									label="Representative Contact"
 									value={contact}
 									onChangeText={(t) => setContact(t)}
+									inputContainerStyle={inputStyle}
+								/>
+								<Input
+									placeholder="Secondary phone number "
+									label="Secondary Contact"
+									value={contact2}
+									onChangeText={(t) => setContact2(t)}
 									inputContainerStyle={inputStyle}
 								/>
 								<Input
