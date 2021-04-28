@@ -13,6 +13,8 @@ const PlasmaOrganization = () => {
         contact: convert to string
         contact2: convert to string
         pin:
+        state:
+        city:
         availability:status:
         consent
         bloddgroups:[]
@@ -23,7 +25,6 @@ const PlasmaOrganization = () => {
 	const [contact, setContact] = useState('');
 	const [contact2, setContact2] = useState('');
 	const [pin, setPin] = useState('');
-	const [consent, SetConsent] = useState(false);
 	const [availability, SetAvailability] = useState(0);
 	const availabilityOptions = ['Available', 'Not Available'];
 
@@ -60,6 +61,7 @@ const PlasmaOrganization = () => {
 									inputContainerStyle={inputStyle}
 								/>
 								<Input
+									keyboardType="numeric"
 									placeholder="Enter active phone number "
 									label="Representative Contact"
 									value={contact}
@@ -67,6 +69,7 @@ const PlasmaOrganization = () => {
 									inputContainerStyle={inputStyle}
 								/>
 								<Input
+									keyboardType="numeric"
 									placeholder="Secondary phone number "
 									label="Secondary Contact"
 									value={contact2}

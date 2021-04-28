@@ -19,6 +19,8 @@ const PlasmaHospital = () => {
         name:
          contact: convert to string
         pin:
+        state:
+        city:
         availability:status:
         consent
         bloddgroups:[]
@@ -28,7 +30,6 @@ const PlasmaHospital = () => {
 	const [name, setName] = useState('');
 	const [contact, setContact] = useState('');
 	const [pin, setPin] = useState('');
-	const [consent, SetConsent] = useState(false);
 	const [availability, SetAvailability] = useState(0);
 	const availabilityOptions = ['Available', 'Not Available'];
 
@@ -64,6 +65,7 @@ const PlasmaHospital = () => {
 									inputContainerStyle={inputStyle}
 								/>
 								<Input
+									keyboardType="numeric"
 									placeholder="Enter active phone number "
 									label="Plasma Helpline"
 									value={contact}
