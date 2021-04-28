@@ -18,7 +18,7 @@ const PlasmaIndividual = ({ navigation }) => {
         city
         state
         availability:status:
-         bloddgroups:[]
+         bloddgroup:
          recovery
         donated:
         type
