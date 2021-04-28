@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { View, StyleSheet, SafeAreaView } from 'react-native';
-import { Input, Button, Icon, ButtonGroup, Text } from 'react-native-elements';
+import {
+	Input,
+	Button,
+	Icon,
+	ButtonGroup,
+	Text,
+	CheckBox,
+} from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
+import MultiBloodGroupChecker from '../../components/MultiBloodGroupChecker';
 
 const PlasmaHospital = () => {
 	// states
@@ -12,8 +20,8 @@ const PlasmaHospital = () => {
 	const [consent, SetConsent] = useState(false);
 	const [availability, SetAvailability] = useState(0);
 	const availabilityOptions = ['Available', 'Not Available'];
-	const [bloodGroup, setBloodGroup] = useState();
-	const bloodGroups = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
+	// const [bloodGroup, setBloodGroup] = useState();
+	// const bloodGroups = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
 
 	//check validity of data on submit
 	const isValid = (value, setValue) => {};
@@ -23,6 +31,11 @@ const PlasmaHospital = () => {
 
 	// onClick for save button
 	const onSaveClick = () => {};
+
+	takeBloodGroupValues = (selectedBloodGroups) => {
+		bloodGroups = selectedBloodGroups.filter((bg) => bg !== 'none');
+		console.log(bloodGroups);
+	};
 
 	return (
 		<SafeAreaView forceInset={{ top: 'always' }}>
@@ -61,23 +74,37 @@ const PlasmaHospital = () => {
 								</Text>
 								<ButtonGroup
 									style={styles.btnGroupStyle}
-									onPress={(num) => SetAvailability(num)}
+									onPress={(num) => {
+										SetAvailability(num);
+										//console.log(availability);
+									}}
 									selectedIndex={availability}
 									buttons={availabilityOptions}
 									containerStyle={btnGroupStyle}
 								/>
-								<Text style={styles.btnGrpBannerStyle}>
+								<MultiBloodGroupChecker
+									takeBloodGroupValues={takeBloodGroupValues}
+								/>
+								{/* <Text style={styles.btnGrpBannerStyle}>
 									Available bloodgroups
 								</Text>
 								<ButtonGroup
-									onPress={(text) => setBloodGroup(text)}
+									selectMultiple
+									onPress={(num) => {
+										setBloodGroup(num);
+										//console.log(bloodGroup);
+									}}
+									selectMultiple={true}
 									selectedIndex={bloodGroup}
 									buttons={bloodGroups}
 									containerStyle={btnGroupStyle}
-								/>
+								/> */}
 							</View>
 						</View>
-						<TouchableOpacity style={styles.btnStyle}>
+						<TouchableOpacity
+							style={styles.btnStyle}
+							onPress={() => console.log(bloodGroup)}
+						>
 							<View style={styles.btnContainer}>
 								<Text h4 style={styles.btnTextStyle}>
 									Save
@@ -93,7 +120,7 @@ const PlasmaHospital = () => {
 
 const btnGroupStyle = {
 	marginBottom: 20,
-	height: 30,
+	height: 40,
 	borderRadius: 12,
 };
 const inputStyle = {
