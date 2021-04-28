@@ -3,6 +3,7 @@ import { TouchableOpacity } from 'react-native';
 import { View, StyleSheet, SafeAreaView } from 'react-native';
 import { Input, Button, Icon, ButtonGroup, Text } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
+import ConsentText from '../../components/ConsentText';
 import MultiBloodGroupChecker from '../../components/MultiBloodGroupChecker';
 
 const PlasmaOrganization = () => {
@@ -95,6 +96,7 @@ const PlasmaOrganization = () => {
 								/>
 							</View>
 						</View>
+						<ConsentText />
 						<TouchableOpacity style={styles.btnStyle}>
 							<View style={styles.btnContainer}>
 								<Text h4 style={styles.btnTextStyle}>

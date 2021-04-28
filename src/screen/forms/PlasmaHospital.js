@@ -10,6 +10,7 @@ import {
 	CheckBox,
 } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
+import ConsentText from '../../components/ConsentText';
 import MultiBloodGroupChecker from '../../components/MultiBloodGroupChecker';
 
 const PlasmaHospital = () => {
@@ -109,6 +110,7 @@ const PlasmaHospital = () => {
 								/> */}
 							</View>
 						</View>
+						<ConsentText />
 						<TouchableOpacity
 							style={styles.btnStyle}
 							onPress={() => console.log(bloodGroup)}
