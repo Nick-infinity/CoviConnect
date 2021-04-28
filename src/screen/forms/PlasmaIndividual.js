@@ -5,9 +5,9 @@ import { Input, Button, Icon, ButtonGroup, Text } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import ConsentText from '../../components/ConsentText';
 import DonorsNote from '../../components/DonorsNote';
-import MultiBloodGroupChecker from '../../components/MultiBloodGroupChecker';
+import pincodeApi from '../../api/pincode';
 
-const PlasmaIndividual = () => {
+const PlasmaIndividual = ({ navigation }) => {
 	/* schmema for object
     plasmaDonorOrganization{
         name:
@@ -15,31 +15,107 @@ const PlasmaIndividual = () => {
         gender:
         contact: convert to string
         pin:
+        city
+        state
         availability:status:
-        consent:
+         bloddgroups:[]
+         recovery
         donated:
-        bloddgroups:[]
-        recovery
+        type
+        
     }
     */
 	// states
 	const [name, setName] = useState('');
 	const [age, setAge] = useState('');
-	const [genderIndex, setGenderIndex] = useState('');
+	const [genderIndex, setGenderIndex] = useState();
 	const genders = ['Male', 'Female', 'Other'];
 	const [contact, setContact] = useState('');
 	const [pin, setPin] = useState('');
 	const [availability, SetAvailability] = useState(0);
 	const availabilityOptions = ['Available', 'Not Available'];
-	const [bloodGroup, setBloodGroup] = useState([]);
+	const [bloodGroupIndex, setBloodGroup] = useState();
 	const bloodGroups = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
 	const [recoveryDate, setRcoveryDate] = useState('');
+	const [valid, SetValid] = useState(-1);
+	const [state, setState] = useState('');
+	const [city, setCity] = useState('');
+
+	const clearFields = () => {
+		setName('');
+		setAge('');
+		setGenderIndex();
+		setContact('');
+		setPin('');
+		setCity('');
+		setState('');
+		SetAvailability(0);
+		setBloodGroup();
+		setRcoveryDate('');
+	};
 
 	//check validity of data on submit
-	const isValid = (value, setValue) => {};
+	const isSubmissionValid = () => {
+		if (
+			name === '' ||
+			age === '' ||
+			genderIndex === undefined ||
+			genderIndex === '' ||
+			recoveryDate === '' ||
+			contact === '' ||
+			bloodGroupIndex === undefined ||
+			bloodGroupIndex === '' ||
+			pin === '' ||
+			state === '' ||
+			state === undefined ||
+			city === '' ||
+			city === undefined ||
+			availability === 1
+		) {
+			return false;
+		}
+		return true;
+	};
+
+	//create a postreqObject
+
+	const createPostReqObject = () => {
+		const individualPlasmaPostReqObject = {
+			name,
+			age,
+			gender: genders[genderIndex],
+			contact,
+			pin,
+			city,
+			state,
+			donated: 0,
+			availability,
+			bloodGroup: bloodGroups[bloodGroupIndex],
+			type: 'pIndividual',
+			recoveryDate,
+		};
+
+		console.log(individualPlasmaPostReqObject);
+	};
 
 	//get state and city from custom api and validate pin
-	const isPinValid = () => {};
+	const pinValidation = async (pincode) => {
+		try {
+			const response = await pincodeApi.get(`/${pincode}`);
+			const status = response.data.Status;
+			//console.log(response.data);
+			if (status === 'Error') {
+				setPin('');
+			} else {
+				setCity(response.data.PostOffice[0].District);
+				setState(response.data.PostOffice[0].State);
+				//console.log(city, state);
+			}
+		} catch (e) {
+			setPin('');
+			//console.log(e);
+		}
+	};
 
 	// onClick for save button
 	const onSaveClick = () => {};
@@ -101,6 +177,9 @@ const PlasmaIndividual = () => {
 									value={pin}
 									onChangeText={(t) => setPin(t)}
 									inputContainerStyle={inputStyle}
+									onBlur={() => {
+										pinValidation(pin);
+									}}
 								/>
 								<Text style={styles.btnGrpBannerStyle}>
 									Plasma availability
@@ -116,7 +195,7 @@ const PlasmaIndividual = () => {
 								<ButtonGroup
 									style={styles.btnGroupStyle}
 									onPress={(num) => setBloodGroup(num)}
-									selectedIndex={bloodGroup}
+									selectedIndex={bloodGroupIndex}
 									buttons={bloodGroups}
 									containerStyle={btnGroupStyle}
 								/>
@@ -128,13 +207,32 @@ const PlasmaIndividual = () => {
 									onChangeText={(t) => setRcoveryDate(t)}
 									inputContainerStyle={inputStyle}
 								/>
-								{/* <MultiBloodGroupChecker
-									takeBloodGroupValues={takeBloodGroupValues}
-								/> */}
 							</View>
 						</View>
 						<ConsentText />
-						<TouchableOpacity style={styles.btnStyle}>
+						{valid === 0 ? (
+							<Text style={styles.errorMesg}>
+								Please fill all fileds with correct information
+							</Text>
+						) : null}
+						<TouchableOpacity
+							style={styles.btnStyle}
+							onPress={() => {
+								const res = isSubmissionValid();
+								if (res) {
+									SetValid(1);
+									createPostReqObject();
+									clearFields();
+									console.log('Submitted');
+									// call to server for post
+									navigation.goBack();
+								} else {
+									SetValid(0);
+									createPostReqObject();
+									console.log('Failed to Submit');
+								}
+							}}
+						>
 							<View style={styles.btnContainer}>
 								<Text h4 style={styles.btnTextStyle}>
 									Save
@@ -206,6 +304,12 @@ const styles = StyleSheet.create({
 	},
 	btnTextStyle: {
 		color: 'white',
+	},
+	errorMesg: {
+		color: 'red',
+		alignSelf: 'center',
+		textAlign: 'center',
+		marginTop: 5,
 	},
 });
 export default PlasmaIndividual;

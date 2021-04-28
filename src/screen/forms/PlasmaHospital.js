@@ -13,16 +13,18 @@ import { ScrollView } from 'react-native-gesture-handler';
 import ConsentText from '../../components/ConsentText';
 import MultiBloodGroupChecker from '../../components/MultiBloodGroupChecker';
 
-const PlasmaHospital = () => {
+import pincodeApi from '../../api/pincode';
+
+const PlasmaHospital = ({ navigation }) => {
 	/* schmema for object
     plasmaDonorHospital{
         name:
          contact: convert to string
         pin:
         state:
+        type
         city:
         availability:status:
-        consent
         bloddgroups:[]
     }
     */
@@ -32,19 +34,82 @@ const PlasmaHospital = () => {
 	const [pin, setPin] = useState('');
 	const [availability, SetAvailability] = useState(0);
 	const availabilityOptions = ['Available', 'Not Available'];
+	const [valid, SetValid] = useState(-1);
+	const [state, setState] = useState('');
+	const [city, setCity] = useState('');
+	let bloodGroups = [];
+
+	const clearFields = () => {
+		setName('');
+		setCity('');
+		setPin('');
+		setState('');
+		setContact('');
+		SetAvailability(0);
+	};
 
 	//check validity of data on submit
-	const isValid = (value, setValue) => {};
+	const isSubmissionValid = () => {
+		if (
+			name === '' ||
+			contact === '' ||
+			bloodGroups === [] ||
+			pin === '' ||
+			state === '' ||
+			state === undefined ||
+			city === '' ||
+			city === undefined ||
+			availability === 1
+		) {
+			return false;
+		}
+		return true;
+	};
+
+	//create a postreqObject
+
+	const createPostReqObject = () => {
+		const hospitalPlasmaPostReqObject = {
+			name,
+			contact,
+			pin,
+			city,
+			state,
+			availability,
+			bloodGroups,
+			type: 'phospital',
+		};
+
+		console.log(hospitalPostReqObject);
+	};
 
 	//get state and city from custom api and validate pin
-	const isPinValid = () => {};
+	const pinValidation = async (pincode) => {
+		try {
+			const response = await pincodeApi.get(`/${pincode}`);
+			const status = response.data.Status;
+			//console.log(response.data);
+			if (status === 'Error') {
+				setPin('');
+			} else {
+				setCity(response.data.PostOffice[0].District);
+				setState(response.data.PostOffice[0].State);
+				//console.log(city, state);
+			}
+		} catch (e) {
+			setPin('');
+			//console.log(e);
+		}
+	};
 
-	// onClick for save button
+	// onClick for save button for postt req
 	const onSaveClick = () => {};
 
-	takeBloodGroupValues = (selectedBloodGroups) => {
+	const takeBloodGroupValues = (selectedBloodGroups) => {
 		bloodGroups = selectedBloodGroups.filter((bg) => bg !== 'none');
-		console.log(bloodGroups);
+
+		//	console.log(bloodGroups);
+		//console.log(bloodGroups);
 	};
 
 	return (
@@ -78,6 +143,9 @@ const PlasmaHospital = () => {
 									label="Pincode"
 									value={pin}
 									onChangeText={(t) => setPin(t)}
+									onBlur={() => {
+										pinValidation(pin);
+									}}
 									inputContainerStyle={inputStyle}
 								/>
 								<Text style={styles.btnGrpBannerStyle}>
@@ -113,9 +181,28 @@ const PlasmaHospital = () => {
 							</View>
 						</View>
 						<ConsentText />
+						{valid === 0 ? (
+							<Text style={styles.errorMesg}>
+								Please fill all fileds with correct information
+							</Text>
+						) : null}
 						<TouchableOpacity
 							style={styles.btnStyle}
-							onPress={() => console.log(bloodGroup)}
+							onPress={() => {
+								const res = isSubmissionValid();
+								if (res) {
+									SetValid(1);
+									createPostReqObject();
+									clearFields();
+									console.log('Submitted');
+									// call to server for post
+									navigation.goBack();
+								} else {
+									SetValid(0);
+									createPostReqObject();
+									console.log('Failed to Submit');
+								}
+							}}
 						>
 							<View style={styles.btnContainer}>
 								<Text h4 style={styles.btnTextStyle}>
@@ -188,6 +275,12 @@ const styles = StyleSheet.create({
 	},
 	btnTextStyle: {
 		color: 'white',
+	},
+	errorMesg: {
+		color: 'red',
+		alignSelf: 'center',
+		textAlign: 'center',
+		marginTop: 5,
 	},
 });
 export default PlasmaHospital;

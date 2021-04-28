@@ -5,8 +5,8 @@ import { Input, Button, Icon, ButtonGroup, Text } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import ConsentText from '../../components/ConsentText';
 import MultiBloodGroupChecker from '../../components/MultiBloodGroupChecker';
-
-const PlasmaOrganization = () => {
+import pincodeApi from '../../api/pincode';
+const PlasmaOrganization = ({ navigation }) => {
 	/* schmema for object
     plasmaDonorOrganization{
         name:
@@ -14,9 +14,9 @@ const PlasmaOrganization = () => {
         contact2: convert to string
         pin:
         state:
+        type
         city:
         availability:status:
-        consent
         bloddgroups:[]
     }
     */
@@ -27,20 +27,84 @@ const PlasmaOrganization = () => {
 	const [pin, setPin] = useState('');
 	const [availability, SetAvailability] = useState(0);
 	const availabilityOptions = ['Available', 'Not Available'];
+	const [valid, SetValid] = useState(-1);
+	const [state, setState] = useState('');
+	const [city, setCity] = useState('');
+	let bloodGroups = [];
+
+	const clearFields = () => {
+		setName('');
+		setCity('');
+		setPin('');
+		setState('');
+		setContact('');
+		setContact2('');
+		SetAvailability(0);
+	};
 
 	//check validity of data on submit
-	const isValid = (value, setValue) => {};
+	const isSubmissionValid = () => {
+		if (
+			name === '' ||
+			contact === '' ||
+			contact2 === '' ||
+			bloodGroups === [] ||
+			pin === '' ||
+			state === '' ||
+			state === undefined ||
+			city === '' ||
+			city === undefined ||
+			availability === 1
+		) {
+			return false;
+		}
+		return true;
+	};
+
+	const createPostReqObject = () => {
+		const organizationPlasmaPostReqObject = {
+			name,
+			contact,
+			contact2,
+			pin,
+			city,
+			state,
+			availability,
+			bloodGroups,
+			type: 'pOrganization',
+		};
+
+		console.log(organizationPlasmaPostReqObject);
+	};
 
 	//get state and city from custom api and validate pin
-	const isPinValid = () => {};
+	const pinValidation = async (pincode) => {
+		try {
+			const response = await pincodeApi.get(`/${pincode}`);
+			const status = response.data.Status;
+			//console.log(response.data);
+			if (status === 'Error') {
+				setPin('');
+			} else {
+				setCity(response.data.PostOffice[0].District);
+				setState(response.data.PostOffice[0].State);
+				//console.log(city, state);
+			}
+		} catch (e) {
+			setPin('');
+			//console.log(e);
+		}
+	};
 
 	// onClick for save button
 	const onSaveClick = () => {};
 
 	// get bloodgroups from checker
-	takeBloodGroupValues = (selectedBloodGroups) => {
+	const takeBloodGroupValues = (selectedBloodGroups) => {
 		bloodGroups = selectedBloodGroups.filter((bg) => bg !== 'none');
-		console.log(bloodGroups);
+
+		//	console.log(bloodGroups);
+		//console.log(bloodGroups);
 	};
 
 	return (
@@ -82,6 +146,9 @@ const PlasmaOrganization = () => {
 									label="Pincode"
 									value={pin}
 									onChangeText={(t) => setPin(t)}
+									onBlur={() => {
+										pinValidation(pin);
+									}}
 									inputContainerStyle={inputStyle}
 								/>
 								<Text style={styles.btnGrpBannerStyle}>
@@ -100,7 +167,29 @@ const PlasmaOrganization = () => {
 							</View>
 						</View>
 						<ConsentText />
-						<TouchableOpacity style={styles.btnStyle}>
+						{valid === 0 ? (
+							<Text style={styles.errorMesg}>
+								Please fill all fileds with correct information
+							</Text>
+						) : null}
+						<TouchableOpacity
+							style={styles.btnStyle}
+							onPress={() => {
+								const res = isSubmissionValid();
+								if (res) {
+									SetValid(1);
+									createPostReqObject();
+									clearFields();
+									console.log('Submitted');
+									// call to server for post
+									navigation.goBack();
+								} else {
+									SetValid(0);
+									createPostReqObject();
+									console.log('Failed to Submit');
+								}
+							}}
+						>
 							<View style={styles.btnContainer}>
 								<Text h4 style={styles.btnTextStyle}>
 									Save
@@ -172,6 +261,12 @@ const styles = StyleSheet.create({
 	},
 	btnTextStyle: {
 		color: 'white',
+	},
+	errorMesg: {
+		color: 'red',
+		alignSelf: 'center',
+		textAlign: 'center',
+		marginTop: 5,
 	},
 });
 export default PlasmaOrganization;
