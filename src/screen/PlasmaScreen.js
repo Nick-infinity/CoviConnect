@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text, Input, Button, Icon, SearchBar } from 'react-native-elements';
+import { Text, Input, Icon, ButtonGroup } from 'react-native-elements';
 import { ScrollView } from 'react-native';
 import ShortcutBar from '../components/ShortcutBar';
 import { FlatList } from 'react-native';
@@ -10,6 +10,10 @@ import DonorTypeSelector from '../components/DonorTypeSelector';
 import Spacer from '../components/Spacer';
 import MultiBloodGroupCheckr from '../components/MultiBloodGroupChecker';
 import { Context as PlasmaDonorContext } from '../context/PlasmaDonorContext';
+import color from 'color';
+import PlasmaDonorCardHospital from '../components/PlasmaDonorCardHospital';
+import PlasmaDonorCardIndividual from '../components/PlasmaDonorCardIndividual';
+import PlasmaDonorCardOrganization from '../components/PlasmaDonorCardOrganization';
 
 const PlasmaScreen = ({ navigation }) => {
 	// for cehcking which screen is running
@@ -20,6 +24,10 @@ const PlasmaScreen = ({ navigation }) => {
 	// for search
 	const [searchCity, setSearchCity] = useState('');
 	const { getDonorListFromCity, state } = useContext(PlasmaDonorContext);
+
+	// for selection in donor list
+	const [donorCategoryIndex, setdonorCategoryIndex] = useState(0);
+	const donorCategories = ['Hospitals', 'Organizations', 'Individuals'];
 
 	return (
 		<SafeAreaView forceInset={{ top: 'always' }}>
@@ -64,14 +72,48 @@ const PlasmaScreen = ({ navigation }) => {
 									getDonorListFromCity(searchCity.toLocaleLowerCase());
 								}}
 							></Input>
-
-							<FlatList
-								data={state.donorList[0]}
-								keyExtractor={(item) => item._id}
-								renderItem={({ item }) => {
-									return <Text>{item.name}</Text>;
-								}}
+							<ButtonGroup
+								selectedButtonStyle={{ backgroundColor: '#272727' }}
+								style={styles.btnGroupStyle}
+								onPress={(num) => setdonorCategoryIndex(num)}
+								selectedIndex={donorCategoryIndex}
+								buttons={donorCategories}
+								containerStyle={btnGroupStyle}
 							/>
+							<Text style={styles.errorMesg}>{state.responseMsg}</Text>
+							{donorCategoryIndex === 0 ? (
+								<FlatList
+									style={styles.flatList}
+									numColumns={2}
+									data={state.donorList[0]}
+									keyExtractor={(item) => item._id}
+									renderItem={({ item }) => {
+										return <PlasmaDonorCardHospital item={item} />;
+									}}
+								/>
+							) : null}
+							{donorCategoryIndex === 1 ? (
+								<FlatList
+									numColumns={2}
+									style={styles.flatList}
+									data={state.donorList[1]}
+									keyExtractor={(item) => item._id}
+									renderItem={({ item }) => {
+										return <PlasmaDonorCardOrganization item={item} />;
+									}}
+								/>
+							) : null}
+							{donorCategoryIndex === 2 ? (
+								<FlatList
+									numColumns={2}
+									style={styles.flatList}
+									data={state.donorList[2]}
+									keyExtractor={(item) => item._id}
+									renderItem={({ item }) => {
+										return <PlasmaDonorCardIndividual item={item} />;
+									}}
+								/>
+							) : null}
 						</View>
 					) : (
 						<View style={styles.formContainer}>
@@ -89,7 +131,23 @@ const PlasmaScreen = ({ navigation }) => {
 	);
 };
 
+const windowWidth = Dimensions.get('screen').width;
+const windowHeight = Dimensions.get('screen').height;
+
+const btnGroupStyle = {
+	marginBottom: 20,
+	height: 40,
+	borderRadius: 12,
+};
+
 const styles = StyleSheet.create({
+	btnGrpBannerStyle: {
+		fontSize: 16,
+		fontWeight: 'bold',
+		color: '#87929d',
+		marginLeft: 10,
+		marginBottom: 10,
+	},
 	formContainer: {
 		backgroundColor: 'white',
 		borderRadius: 20,
@@ -108,6 +166,7 @@ const styles = StyleSheet.create({
 	containerBottom: {
 		marginBottom: 80,
 		marginHorizontal: 10,
+		flex: 1,
 	},
 	shortcutBannerStyle: {
 		marginLeft: 10,
@@ -134,6 +193,16 @@ const styles = StyleSheet.create({
 	resultScreen: {
 		backgroundColor: 'white',
 		borderRadius: 20,
+		marginBottom: windowHeight / 5,
+	},
+	flatList: {
+		alignSelf: 'center',
+	},
+	errorMesg: {
+		color: 'red',
+		alignSelf: 'center',
+		textAlign: 'center',
+		marginTop: 5,
 	},
 });
 export default PlasmaScreen;

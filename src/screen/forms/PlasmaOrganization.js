@@ -42,6 +42,7 @@ const PlasmaOrganization = ({ navigation }) => {
 	const [valid, SetValid] = useState(-1);
 	const [state, setState] = useState('');
 	const [city, setCity] = useState('');
+	const [area, setArea] = useState('');
 	let bloodGroups = [];
 
 	const clearFields = () => {
@@ -50,6 +51,7 @@ const PlasmaOrganization = ({ navigation }) => {
 		setPin('');
 		setState('');
 		setContact('');
+		setArea('');
 		setContact2('');
 		SetAvailability(0);
 	};
@@ -63,6 +65,7 @@ const PlasmaOrganization = ({ navigation }) => {
 			bloodGroups.length === 0 ||
 			bloodGroups === [] ||
 			pin === '' ||
+			area === '' ||
 			state === '' ||
 			state === undefined ||
 			city === '' ||
@@ -88,6 +91,7 @@ const PlasmaOrganization = ({ navigation }) => {
 			contact,
 			contact2,
 			pin,
+			area,
 			city,
 			state,
 			availability,
@@ -110,8 +114,11 @@ const PlasmaOrganization = ({ navigation }) => {
 			} else {
 				const city = response.data.PostOffice[0].District;
 				const state = response.data.PostOffice[0].State;
+				const area = response.data.PostOffice[0].Name;
 				setCity(city.toLowerCase());
 				setState(state.toLowerCase());
+				setArea(area);
+				//console.log(city, state);
 			}
 		} catch (e) {
 			setPin('');

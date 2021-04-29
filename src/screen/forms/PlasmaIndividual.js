@@ -42,6 +42,7 @@ const PlasmaIndividual = ({ navigation }) => {
 	const [valid, SetValid] = useState(-1);
 	const [state, setState] = useState('');
 	const [city, setCity] = useState('');
+	const [area, setArea] = useState('');
 
 	const clearFields = () => {
 		setName('');
@@ -50,6 +51,7 @@ const PlasmaIndividual = ({ navigation }) => {
 		setContact('');
 		setPin('');
 		setCity('');
+		setArea('');
 		setState('');
 		SetAvailability(0);
 		setBloodGroup();
@@ -68,6 +70,7 @@ const PlasmaIndividual = ({ navigation }) => {
 			bloodGroupIndex === undefined ||
 			bloodGroupIndex === '' ||
 			pin === '' ||
+			area === '' ||
 			state === '' ||
 			state === undefined ||
 			city === '' ||
@@ -89,6 +92,7 @@ const PlasmaIndividual = ({ navigation }) => {
 			gender: genders[genderIndex],
 			contact,
 			pin,
+			area,
 			city,
 			state,
 			donated: 0,
@@ -113,8 +117,10 @@ const PlasmaIndividual = ({ navigation }) => {
 			} else {
 				const city = response.data.PostOffice[0].District;
 				const state = response.data.PostOffice[0].State;
+				const area = response.data.PostOffice[0].Name;
 				setCity(city.toLowerCase());
 				setState(state.toLowerCase());
+				setArea(area);
 				//console.log(city, state);
 			}
 		} catch (e) {

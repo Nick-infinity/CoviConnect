@@ -40,18 +40,20 @@ const getDonorListFromCity = (dispatch) => {
 			) {
 				dispatch({
 					type: 'error_msg',
-					payload:
-						'Cant find donors in your area. Enter proper city name or try with nearby city.',
+					payload: `Cant find donors in your area.\n Enter proper city name or try with nearby city.`,
 				});
+				return;
 			}
 			// resposne.data === [[{}...],[{}..],[{}...]]
 			dispatch({ type: 'get_donorList', payload: response.data });
+			return;
 		} catch (e) {
 			dispatch({
 				type: 'error_msg',
 				payload: 'Something went wrong. Please try again',
 			});
 			console.log(e);
+			return;
 		}
 	};
 };
