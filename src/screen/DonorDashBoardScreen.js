@@ -8,7 +8,6 @@ const DonorDashBoardScreen = () => {
 	const { state, signout } = useContext(AuthContext);
 	return (
 		<SafeAreaView forceInset={{ top: 'always' }}>
-			{/* <Text>AccountsScreen</Text> */}
 			<Button title="Logout" onPress={() => signout()} />
 		</SafeAreaView>
 	);

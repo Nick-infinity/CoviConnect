@@ -26,6 +26,10 @@ const signup = (dispatch) => {
 			const response = await authApi.post('/signup', { email, password });
 			//save our token in storage
 			await AsyncStorage.setItem('token', JSON.stringify(response.data.token));
+			await AsyncStorage.setItem(
+				'userId',
+				JSON.stringify(response.data.userId)
+			);
 			dispatch({ type: 'signin', payload: response.data.token });
 			// go to main flow
 		} catch (err) {
@@ -46,6 +50,11 @@ const signin = (dispatch) => {
 		try {
 			const response = await authApi.post('/signin', { email, password });
 			await AsyncStorage.setItem('token', JSON.stringify(response.data.token));
+			await AsyncStorage.setItem(
+				'userId',
+				JSON.stringify(response.data.userId)
+			);
+			console.log(response.data.userId);
 			dispatch({ type: 'signin', payload: response.data.token });
 		} catch (err) {
 			dispatch({
@@ -61,6 +70,7 @@ const signout = (dispatch) => {
 	return async () => {
 		//signout
 		await AsyncStorage.removeItem('token');
+		await AsyncStorage.removeItem('userId');
 		dispatch({ type: 'signout' });
 	};
 };
