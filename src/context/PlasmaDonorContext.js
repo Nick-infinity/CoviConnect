@@ -6,9 +6,54 @@ const plasamaDonorReducer = (state, action) => {
 	switch (action.type) {
 		case 'postHospitalPlasmaReq':
 			return state;
+
+		case 'get_donorList': {
+			return { donorList: action.payload };
+		}
+		case 'error_msg': {
+			return { ...state, responseMsg: action.payload };
+		}
 		default:
 			return state;
 	}
+};
+// et req fro donor list
+const getDonorListFromCity = (dispatch) => {
+	return async (searchCity) => {
+		//clear error
+		dispatch({
+			type: 'error_msg',
+			payload: '',
+		});
+		console.log(searchCity);
+		try {
+			const response = await trackerApi.get('/plasma', {
+				params: { searchCity: searchCity },
+			});
+			console.log('Sent get request');
+			console.log(response.data);
+			const plasmaListArray = response.data;
+			if (
+				plasmaListArray[0].length === 0 &&
+				plasmaListArray[1].length === 0 &&
+				plasmaListArray[2].length === 0
+			) {
+				dispatch({
+					type: 'error_msg',
+					payload:
+						'Cant find donors in your area. Enter proper city name or try with nearby city.',
+				});
+			}
+			// resposne.data === [[{}...],[{}..],[{}...]]
+			dispatch({ type: 'get_donorList', payload: response.data });
+		} catch (e) {
+			dispatch({
+				type: 'error_msg',
+				payload: 'Something went wrong. Please try again',
+			});
+			console.log(e);
+		}
+	};
 };
 
 // post hospital
@@ -152,6 +197,11 @@ const postIndividualPlasmaReq = (dispatch) => {
 
 export const { Provider, Context } = createDataContext(
 	plasamaDonorReducer,
-	{ postHospitalPlasmaReq, postOrganizationPlasmaReq, postIndividualPlasmaReq },
-	{ responseMsg: '' }
+	{
+		postHospitalPlasmaReq,
+		postOrganizationPlasmaReq,
+		postIndividualPlasmaReq,
+		getDonorListFromCity,
+	},
+	{ responseMsg: '', donorList: [] }
 );

@@ -82,8 +82,9 @@ const PlasmaIndividual = ({ navigation }) => {
 	//create a postreqObject
 
 	const createPostReqObject = () => {
+		const lowername = name.toLocaleLowerCase();
 		const individualPlasmaPostReqObject = {
-			name,
+			name: lowername,
 			age,
 			gender: genders[genderIndex],
 			contact,
@@ -110,8 +111,10 @@ const PlasmaIndividual = ({ navigation }) => {
 			if (status === 'Error') {
 				setPin('');
 			} else {
-				setCity(response.data.PostOffice[0].District);
-				setState(response.data.PostOffice[0].State);
+				const city = response.data.PostOffice[0].District;
+				const state = response.data.PostOffice[0].State;
+				setCity(city.toLowerCase());
+				setState(state.toLowerCase());
 				//console.log(city, state);
 			}
 		} catch (e) {

@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text, Input, Button, Icon } from 'react-native-elements';
+import { Text, Input, Button, Icon, SearchBar } from 'react-native-elements';
 import { ScrollView } from 'react-native';
 import ShortcutBar from '../components/ShortcutBar';
 import { FlatList } from 'react-native';
 import { Provider as PlasmaDonorProvider } from '../context/PlasmaDonorContext';
 import DonorTypeSelector from '../components/DonorTypeSelector';
 import Spacer from '../components/Spacer';
+import MultiBloodGroupCheckr from '../components/MultiBloodGroupChecker';
+import { Context as PlasmaDonorContext } from '../context/PlasmaDonorContext';
 
 const PlasmaScreen = ({ navigation }) => {
 	// for cehcking which screen is running
@@ -15,12 +17,9 @@ const PlasmaScreen = ({ navigation }) => {
 	// 0 for search screen
 	// 1 for donor screen
 
-	// for Category Selection
-	const [categoryState, setCategoryState] = useState(-1);
-	// -1 for none
-	//0 for hospital
-	// 1 for org
-	// 2 for individul
+	// for search
+	const [searchCity, setSearchCity] = useState('');
+	const { getDonorListFromCity, state } = useContext(PlasmaDonorContext);
 
 	return (
 		<SafeAreaView forceInset={{ top: 'always' }}>
@@ -44,42 +43,52 @@ const PlasmaScreen = ({ navigation }) => {
 						}}
 					/>
 				</View>
-				<ScrollView>
-					<View style={styles.containerBottom}>
-						{screenState === 0 ? (
-							<View style={styles.resultScreen}>
-								<Input
-									leftIcon={
-										<Icon
-											name="search-location"
-											type="font-awesome-5"
-											size={24}
-											color="black"
-										/>
-									}
-									placeholderTextColor="gray"
-									placeholder="Search Pincode/City/State"
-									style={styles.searchStyle}
-									inputContainerStyle={{ borderBottomWidth: 0 }}
-								></Input>
-								<FlatList />
-							</View>
-						) : (
-							<View style={styles.formContainer}>
-								<DonorTypeSelector
-									myNav={navigation}
-									scrn1={'PDhospital'}
-									scrn2={'PDorganization'}
-									scrn3={'PDindividual'}
-								/>
-							</View>
-						)}
-					</View>
-				</ScrollView>
+
+				<View style={styles.containerBottom}>
+					{screenState === 0 ? (
+						<View style={styles.resultScreen}>
+							<Input
+								leftIcon={
+									<Icon name="search" type="material" size={30} color="black" />
+								}
+								placeholderTextColor="gray"
+								placeholder="Enter your city to find donors"
+								style={styles.searchStyle}
+								inputContainerStyle={{
+									borderBottomWidth: 0,
+								}}
+								value={searchCity}
+								onChangeText={(city) => setSearchCity(city)}
+								onSubmitEditing={() => {
+									console.log(searchCity.toLocaleLowerCase());
+									getDonorListFromCity(searchCity.toLocaleLowerCase());
+								}}
+							></Input>
+
+							<FlatList
+								data={state.donorList[0]}
+								keyExtractor={(item) => item._id}
+								renderItem={({ item }) => {
+									return <Text>{item.name}</Text>;
+								}}
+							/>
+						</View>
+					) : (
+						<View style={styles.formContainer}>
+							<DonorTypeSelector
+								myNav={navigation}
+								scrn1={'PDhospital'}
+								scrn2={'PDorganization'}
+								scrn3={'PDindividual'}
+							/>
+						</View>
+					)}
+				</View>
 			</View>
 		</SafeAreaView>
 	);
 };
+
 const styles = StyleSheet.create({
 	formContainer: {
 		backgroundColor: 'white',
@@ -108,8 +117,19 @@ const styles = StyleSheet.create({
 	},
 	searchStyle: {
 		marginTop: 10,
-		backgroundColor: 'white',
-		padding: 10,
+		borderWidth: 1,
+		borderColor: 'gray',
+		borderRadius: 20,
+		paddingHorizontal: 15,
+		paddingVertical: 10,
+	},
+	searchStyleCity: {
+		marginTop: 10,
+		borderWidth: 1,
+		borderColor: 'gray',
+		borderRadius: 20,
+		paddingHorizontal: 15,
+		paddingVertical: 10,
 	},
 	resultScreen: {
 		backgroundColor: 'white',

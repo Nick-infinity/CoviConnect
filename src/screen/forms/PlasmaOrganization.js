@@ -82,8 +82,9 @@ const PlasmaOrganization = ({ navigation }) => {
 	};
 
 	const createPostReqObject = () => {
+		const lowername = name.toLocaleLowerCase();
 		const organizationPlasmaPostReqObject = {
-			name,
+			name: lowername,
 			contact,
 			contact2,
 			pin,
@@ -107,9 +108,10 @@ const PlasmaOrganization = ({ navigation }) => {
 			if (status === 'Error') {
 				setPin('');
 			} else {
-				setCity(response.data.PostOffice[0].District);
-				setState(response.data.PostOffice[0].State);
-				//console.log(city, state);
+				const city = response.data.PostOffice[0].District;
+				const state = response.data.PostOffice[0].State;
+				setCity(city.toLowerCase());
+				setState(state.toLowerCase());
 			}
 		} catch (e) {
 			setPin('');
