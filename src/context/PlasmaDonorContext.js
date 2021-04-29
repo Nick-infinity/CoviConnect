@@ -1,6 +1,7 @@
 import createDataContext from './createDataContext';
 import pincodeApi from '../api/pincode';
 import trackerApi from '../api/tracker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const plasamaDonorReducer = (state, action) => {
 	switch (action.type) {
@@ -89,6 +90,16 @@ const postHospitalPlasmaReq = (dispatch) => {
 			if (res === 'err') {
 				return false;
 			}
+			//set user posts in async storage
+			const userPostsArray = await AsyncStorage.getItem('userPosts');
+			const newUserPostsArray = userPostsArray
+				? JSON.parse(userPostsArray)
+				: [];
+			newUserPostsArray.push(response.data);
+			await AsyncStorage.setItem(
+				'userPosts',
+				JSON.stringify(newUserPostsArray)
+			);
 			dispatch({
 				type: 'postHospitalPlasmaReq',
 			});
@@ -116,6 +127,16 @@ const postOrganizationPlasmaReq = (dispatch) => {
 			if (res === 'err') {
 				return false;
 			}
+			//set user posts in async storage
+			const userPostsArray = await AsyncStorage.getItem('userPosts');
+			const newUserPostsArray = userPostsArray
+				? JSON.parse(userPostsArray)
+				: [];
+			newUserPostsArray.push(response.data);
+			await AsyncStorage.setItem(
+				'userPosts',
+				JSON.stringify(newUserPostsArray)
+			);
 			dispatch({
 				type: 'postHospitalPlasmaReq',
 			});
@@ -141,6 +162,16 @@ const postIndividualPlasmaReq = (dispatch) => {
 			if (res === 'err') {
 				return false;
 			}
+			//set user posts in async storage
+			const userPostsArray = await AsyncStorage.getItem('userPosts');
+			const newUserPostsArray = userPostsArray
+				? JSON.parse(userPostsArray)
+				: [];
+			newUserPostsArray.push(response.data);
+			await AsyncStorage.setItem(
+				'userPosts',
+				JSON.stringify(newUserPostsArray)
+			);
 			dispatch({
 				type: 'postHospitalPlasmaReq',
 			});
@@ -213,6 +244,20 @@ const postHospitalOxygenReq = (dispatch) => {
 			if (res === 'err') {
 				return false;
 			}
+
+			//set user posts in async storage
+			const userPostsArrayOxygen = await AsyncStorage.getItem(
+				'userPostsOxygen'
+			);
+			const newUserPostsArrayOxygen = userPostsArrayOxygen
+				? JSON.parse(userPostsArrayOxygen)
+				: [];
+			newUserPostsArrayOxygen.push(response.data);
+			await AsyncStorage.setItem(
+				'userPostsOxygen',
+				JSON.stringify(newUserPostsArrayOxygen)
+			);
+
 			dispatch({
 				type: 'postHospitalPlasmaReq',
 			});
@@ -241,6 +286,18 @@ const postOrganizationOxygenReq = (dispatch) => {
 			if (res === 'err') {
 				return false;
 			}
+			//set user posts in async storage
+			const userPostsArrayOxygen = await AsyncStorage.getItem(
+				'userPostsOxygen'
+			);
+			const newUserPostsArrayOxygen = userPostsArrayOxygen
+				? JSON.parse(userPostsArrayOxygen)
+				: [];
+			newUserPostsArrayOxygen.push(response.data);
+			await AsyncStorage.setItem(
+				'userPostsOxygen',
+				JSON.stringify(newUserPostsArrayOxygen)
+			);
 			dispatch({
 				type: 'postHospitalPlasmaReq',
 			});
@@ -268,6 +325,18 @@ const postIndividualOxygenReq = (dispatch) => {
 			if (res === 'err') {
 				return false;
 			}
+			//set user posts in async storage
+			const userPostsArrayOxygen = await AsyncStorage.getItem(
+				'userPostsOxygen'
+			);
+			const newUserPostsArrayOxygen = userPostsArrayOxygen
+				? JSON.parse(userPostsArrayOxygen)
+				: [];
+			newUserPostsArrayOxygen.push(response.data);
+			await AsyncStorage.setItem(
+				'userPostsOxygen',
+				JSON.stringify(newUserPostsArrayOxygen)
+			);
 			dispatch({
 				type: 'postHospitalPlasmaReq',
 			});
