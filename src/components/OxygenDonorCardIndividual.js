@@ -39,9 +39,9 @@ const OxygenDonorCardIndividual = ({ item }) => {
 const styles = StyleSheet.create({
 	container: {
 		borderRadius: 10,
-		borderWidth: 1,
+		borderWidth: 2,
 		marginHorizontal: 10,
-		marginBottom: 5,
+		marginBottom: 10,
 		borderColor: 'gray',
 		paddingHorizontal: 5,
 		paddingVertical: 5,
