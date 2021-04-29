@@ -54,6 +54,7 @@ const OxygenScreen = ({ navigation }) => {
 								style={styles.searchStyle}
 								inputContainerStyle={{
 									borderBottomWidth: 0,
+									marginBottom: -10,
 								}}
 								value={searchCity}
 								onChangeText={(city) => setSearchCity(city)}
@@ -64,7 +65,6 @@ const OxygenScreen = ({ navigation }) => {
 							></Input>
 							<ButtonGroup
 								selectedButtonStyle={{ backgroundColor: '#272727' }}
-								style={styles.btnGroupStyle}
 								onPress={(num) => setdonorCategoryIndex(num)}
 								selectedIndex={donorCategoryIndex}
 								buttons={donorCategories}
@@ -124,7 +124,7 @@ const windowWidth = Dimensions.get('screen').width;
 const windowHeight = Dimensions.get('screen').height;
 
 const btnGroupStyle = {
-	marginBottom: 20,
+	marginBottom: -10,
 	height: 40,
 	borderRadius: 12,
 };
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
 	resultScreen: {
 		backgroundColor: 'white',
 		borderRadius: 20,
-		marginBottom: windowHeight / 5,
+		marginBottom: windowHeight / 5.5,
 	},
 	flatList: {
 		alignSelf: 'center',
