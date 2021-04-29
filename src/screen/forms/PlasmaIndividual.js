@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { View, StyleSheet, SafeAreaView } from 'react-native';
 import { Input, Button, Icon, ButtonGroup, Text } from 'react-native-elements';
@@ -6,7 +6,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import ConsentText from '../../components/ConsentText';
 import DonorsNote from '../../components/DonorsNote';
 import pincodeApi from '../../api/pincode';
-
+import { Context as PlasmaDonorContext } from '../../context/PlasmaDonorContext';
 const PlasmaIndividual = ({ navigation }) => {
 	/* schmema for object
     plasmaDonorOrganization{
@@ -25,6 +25,8 @@ const PlasmaIndividual = ({ navigation }) => {
         
     }
     */
+
+	const { postIndividualPlasmaReq } = useContext(PlasmaDonorContext);
 	// states
 	const [name, setName] = useState('');
 	const [age, setAge] = useState('');
@@ -96,6 +98,7 @@ const PlasmaIndividual = ({ navigation }) => {
 		};
 
 		console.log(individualPlasmaPostReqObject);
+		return individualPlasmaPostReqObject;
 	};
 
 	//get state and city from custom api and validate pin
@@ -117,8 +120,27 @@ const PlasmaIndividual = ({ navigation }) => {
 		}
 	};
 
-	// onClick for save button
-	const onSaveClick = () => {};
+	// onClick for save button for postt req
+	const onSaveClick = async () => {
+		const res = isSubmissionValid();
+		if (res) {
+			SetValid(1);
+			const individualPlasmaPostReqObject = createPostReqObject();
+			// call to server for post
+			const res = await postIndividualPlasmaReq(individualPlasmaPostReqObject);
+			if (res) {
+				clearFields();
+				console.log('Submitted');
+				navigation.goBack();
+			} else if (res === false) {
+				SetValid(-2);
+			}
+		} else {
+			SetValid(0);
+			createPostReqObject();
+			console.log('Failed to Submit');
+		}
+	};
 
 	// get bloodgroups from checker
 	// takeBloodGroupValues = (selectedBloodGroups) => {
@@ -217,21 +239,7 @@ const PlasmaIndividual = ({ navigation }) => {
 						) : null}
 						<TouchableOpacity
 							style={styles.btnStyle}
-							onPress={() => {
-								const res = isSubmissionValid();
-								if (res) {
-									SetValid(1);
-									createPostReqObject();
-									clearFields();
-									console.log('Submitted');
-									// call to server for post
-									navigation.goBack();
-								} else {
-									SetValid(0);
-									createPostReqObject();
-									console.log('Failed to Submit');
-								}
-							}}
+							onPress={() => onSaveClick()}
 						>
 							<View style={styles.btnContainer}>
 								<Text h4 style={styles.btnTextStyle}>

@@ -8,7 +8,7 @@ import OxygenScreen from './src/screen/OxygenScreen';
 import SettingsScreen from './src/screen/SettingsScreen';
 import PlasmaScreen from './src/screen/PlasmaScreen';
 import { Provider as AuthProvider } from './src/context/AuthContext';
-
+import { Provider as PlasmaDonorProvider } from './src/context/PlasmaDonorContext';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -155,7 +155,9 @@ export default () => {
 	return (
 		<AuthProvider>
 			<SafeAreaProvider>
-				<App />
+				<PlasmaDonorProvider>
+					<App />
+				</PlasmaDonorProvider>
 			</SafeAreaProvider>
 		</AuthProvider>
 	);

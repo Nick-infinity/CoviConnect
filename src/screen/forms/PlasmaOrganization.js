@@ -1,11 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { View, StyleSheet, SafeAreaView } from 'react-native';
-import { Input, Button, Icon, ButtonGroup, Text } from 'react-native-elements';
+import {
+	Input,
+	Button,
+	Icon,
+	ButtonGroup,
+	Text,
+	CheckBox,
+} from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import ConsentText from '../../components/ConsentText';
 import MultiBloodGroupChecker from '../../components/MultiBloodGroupChecker';
 import pincodeApi from '../../api/pincode';
+import { Context as PlasmaDonorContext } from '../../context/PlasmaDonorContext';
+
 const PlasmaOrganization = ({ navigation }) => {
 	/* schmema for object
     plasmaDonorOrganization{
@@ -21,6 +30,9 @@ const PlasmaOrganization = ({ navigation }) => {
     }
     */
 	// states
+
+	const { postOrganizationPlasmaReq } = useContext(PlasmaDonorContext);
+
 	const [name, setName] = useState('');
 	const [contact, setContact] = useState('');
 	const [contact2, setContact2] = useState('');
@@ -48,6 +60,7 @@ const PlasmaOrganization = ({ navigation }) => {
 			name === '' ||
 			contact === '' ||
 			contact2 === '' ||
+			bloodGroups.length === 0 ||
 			bloodGroups === [] ||
 			pin === '' ||
 			state === '' ||
@@ -59,6 +72,13 @@ const PlasmaOrganization = ({ navigation }) => {
 			return false;
 		}
 		return true;
+	};
+
+	const takeBloodGroupValues = (selectedBloodGroups) => {
+		bloodGroups = selectedBloodGroups.filter((bg) => bg !== 'none');
+
+		//	console.log(bloodGroups);
+		//console.log(bloodGroups);
 	};
 
 	const createPostReqObject = () => {
@@ -75,6 +95,7 @@ const PlasmaOrganization = ({ navigation }) => {
 		};
 
 		console.log(organizationPlasmaPostReqObject);
+		return organizationPlasmaPostReqObject;
 	};
 
 	//get state and city from custom api and validate pin
@@ -95,16 +116,30 @@ const PlasmaOrganization = ({ navigation }) => {
 			//console.log(e);
 		}
 	};
-
-	// onClick for save button
-	const onSaveClick = () => {};
-
-	// get bloodgroups from checker
-	const takeBloodGroupValues = (selectedBloodGroups) => {
-		bloodGroups = selectedBloodGroups.filter((bg) => bg !== 'none');
-
-		//	console.log(bloodGroups);
-		//console.log(bloodGroups);
+	//organizationPlasmaPostReqObject;
+	//   postOrganizationPlasmaReq
+	// onClick for save button for postt req
+	const onSaveClick = async () => {
+		const res = isSubmissionValid();
+		if (res) {
+			SetValid(1);
+			const organizationPlasmaPostReqObject = createPostReqObject();
+			// call to server for post
+			const res = await postOrganizationPlasmaReq(
+				organizationPlasmaPostReqObject
+			);
+			if (res) {
+				clearFields();
+				console.log('Submitted');
+				navigation.goBack();
+			} else if (res === false) {
+				SetValid(-2);
+			}
+		} else {
+			SetValid(0);
+			createPostReqObject();
+			console.log('Failed to Submit');
+		}
 	};
 
 	return (
@@ -174,21 +209,7 @@ const PlasmaOrganization = ({ navigation }) => {
 						) : null}
 						<TouchableOpacity
 							style={styles.btnStyle}
-							onPress={() => {
-								const res = isSubmissionValid();
-								if (res) {
-									SetValid(1);
-									createPostReqObject();
-									clearFields();
-									console.log('Submitted');
-									// call to server for post
-									navigation.goBack();
-								} else {
-									SetValid(0);
-									createPostReqObject();
-									console.log('Failed to Submit');
-								}
-							}}
+							onPress={() => onSaveClick()}
 						>
 							<View style={styles.btnContainer}>
 								<Text h4 style={styles.btnTextStyle}>
@@ -268,7 +289,19 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		marginTop: 5,
 	},
+	btnContainerTop: {
+		flexDirection: 'row',
+		justifyContent: 'space-around',
+	},
+	btnContainerBottom: {
+		flexDirection: 'row',
+		justifyContent: 'space-around',
+		marginHorizontal: 5,
+	},
+	btnContainer2: {},
+	checkBoxStyle: {},
 });
+
 export default PlasmaOrganization;
 
 // const styles = StyleSheet.creat({});

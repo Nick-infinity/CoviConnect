@@ -5,7 +5,7 @@ import { Text, Input, Button, Icon } from 'react-native-elements';
 import { ScrollView } from 'react-native';
 import ShortcutBar from '../components/ShortcutBar';
 import { FlatList } from 'react-native';
-import PlasmaDonorScreen from './PlasmaDonorScreen';
+import { Provider as PlasmaDonorProvider } from '../context/PlasmaDonorContext';
 import DonorTypeSelector from '../components/DonorTypeSelector';
 import Spacer from '../components/Spacer';
 

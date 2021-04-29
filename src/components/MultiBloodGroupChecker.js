@@ -28,7 +28,7 @@ const MultiBloodGroupChecker = ({ takeBloodGroupValues }) => {
 		on ? (selectedBloodGroups[5] = 'O-') : (selectedBloodGroups[5] = 'none');
 		abp ? (selectedBloodGroups[6] = 'AB+') : (selectedBloodGroups[6] = 'none');
 		abn ? (selectedBloodGroups[7] = 'AB-') : (selectedBloodGroups[7] = 'none');
-
+		//	console.log(selectedBloodGroups);
 		return selectedBloodGroups;
 	};
 

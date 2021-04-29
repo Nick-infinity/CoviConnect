@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { View } from 'react-native';
 import { Text, Input, Button, Icon } from 'react-native-elements';
+import { Provider as PlasmaDonorProvider } from '../context/PlasmaDonorContext';
 
 const DonorTypeSelector = ({ myNav, scrn1, scrn2, scrn3 }) => {
 	return (

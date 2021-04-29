@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { View, StyleSheet, SafeAreaView } from 'react-native';
 import {
@@ -15,6 +15,8 @@ import MultiBloodGroupChecker from '../../components/MultiBloodGroupChecker';
 
 import pincodeApi from '../../api/pincode';
 
+import { Context as PlasmaDonorContext } from '../../context/PlasmaDonorContext';
+
 const PlasmaHospital = ({ navigation }) => {
 	/* schmema for object
     plasmaDonorHospital{
@@ -29,6 +31,8 @@ const PlasmaHospital = ({ navigation }) => {
     }
     */
 	// states
+	const { postHospitalPlasmaReq } = useContext(PlasmaDonorContext);
+
 	const [name, setName] = useState('');
 	const [contact, setContact] = useState('');
 	const [pin, setPin] = useState('');
@@ -54,6 +58,7 @@ const PlasmaHospital = ({ navigation }) => {
 			name === '' ||
 			contact === '' ||
 			bloodGroups === [] ||
+			bloodGroups.length === 0 ||
 			pin === '' ||
 			state === '' ||
 			state === undefined ||
@@ -80,7 +85,8 @@ const PlasmaHospital = ({ navigation }) => {
 			type: 'phospital',
 		};
 
-		console.log(hospitalPostReqObject);
+		console.log(hospitalPlasmaPostReqObject);
+		return hospitalPlasmaPostReqObject;
 	};
 
 	//get state and city from custom api and validate pin
@@ -103,7 +109,26 @@ const PlasmaHospital = ({ navigation }) => {
 	};
 
 	// onClick for save button for postt req
-	const onSaveClick = () => {};
+	const onSaveClick = async () => {
+		const res = isSubmissionValid();
+		if (res) {
+			SetValid(1);
+			const hospitalPlasmaPostReqObject = createPostReqObject();
+			// call to server for post
+			const res = await postHospitalPlasmaReq(hospitalPlasmaPostReqObject);
+			if (res) {
+				clearFields();
+				console.log('Submitted');
+				navigation.goBack();
+			} else if (res === false) {
+				SetValid(-2);
+			}
+		} else {
+			SetValid(0);
+			createPostReqObject();
+			console.log('Failed to Submit');
+		}
+	};
 
 	const takeBloodGroupValues = (selectedBloodGroups) => {
 		bloodGroups = selectedBloodGroups.filter((bg) => bg !== 'none');
@@ -164,20 +189,6 @@ const PlasmaHospital = ({ navigation }) => {
 								<MultiBloodGroupChecker
 									takeBloodGroupValues={takeBloodGroupValues}
 								/>
-								{/* <Text style={styles.btnGrpBannerStyle}>
-									Available bloodgroups
-								</Text>
-								<ButtonGroup
-									selectMultiple
-									onPress={(num) => {
-										setBloodGroup(num);
-										//console.log(bloodGroup);
-									}}
-									selectMultiple={true}
-									selectedIndex={bloodGroup}
-									buttons={bloodGroups}
-									containerStyle={btnGroupStyle}
-								/> */}
 							</View>
 						</View>
 						<ConsentText />
@@ -186,22 +197,15 @@ const PlasmaHospital = ({ navigation }) => {
 								Please fill all fileds with correct information
 							</Text>
 						) : null}
+						{valid === -2 ? (
+							<Text style={styles.errorMesg}>
+								Error Saving your Application. Please Try Again
+							</Text>
+						) : null}
 						<TouchableOpacity
 							style={styles.btnStyle}
 							onPress={() => {
-								const res = isSubmissionValid();
-								if (res) {
-									SetValid(1);
-									createPostReqObject();
-									clearFields();
-									console.log('Submitted');
-									// call to server for post
-									navigation.goBack();
-								} else {
-									SetValid(0);
-									createPostReqObject();
-									console.log('Failed to Submit');
-								}
+								onSaveClick();
 							}}
 						>
 							<View style={styles.btnContainer}>
@@ -284,11 +288,3 @@ const styles = StyleSheet.create({
 	},
 });
 export default PlasmaHospital;
-
-// const styles = StyleSheet.creat({});
-
-// return (
-//     <SafeAreaView>
-//         <View></View>
-//     </SafeAreaView>
-// );
