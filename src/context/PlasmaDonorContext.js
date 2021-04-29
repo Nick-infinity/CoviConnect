@@ -31,6 +31,7 @@ const plasamaDonorReducer = (state, action) => {
 // et req fro donor list
 const getDonorListFromCity = (dispatch) => {
 	return async (searchCity) => {
+		dispatch({ type: 'error_msg', payload: '' });
 		console.log(searchCity);
 		try {
 			const response = await trackerApi.get('/plasma', {
@@ -152,6 +153,7 @@ const postIndividualPlasmaReq = (dispatch) => {
 
 const getOxygenDonorListFromCity = (dispatch) => {
 	return async (searchCity) => {
+		dispatch({ type: 'error_msg_oxygen', payload: '' });
 		console.log(searchCity, 'oxygen');
 		try {
 			const response = await trackerApi.get('/oxygen', {
