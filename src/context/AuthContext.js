@@ -1,5 +1,5 @@
 import createDataContext from './createDataContext';
-import trackerApi from '../api/tracker';
+import authApi from '../api/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const authReducer = (state, action) => {
@@ -23,7 +23,7 @@ const signup = (dispatch) => {
 		//if we are signup, modify our state and say we are authenticatedd
 		// if sigunup fails , reflect error mesg
 		try {
-			const response = await trackerApi.post('/signup', { email, password });
+			const response = await authApi.post('/signup', { email, password });
 			//save our token in storage
 			await AsyncStorage.setItem('token', JSON.stringify(response.data.token));
 			dispatch({ type: 'signin', payload: response.data.token });
@@ -44,7 +44,7 @@ const signin = (dispatch) => {
 		//if we are signin  modify our state and say we are authenticatedd
 		// if siguin fails , reflect error mesg
 		try {
-			const response = await trackerApi.post('/signin', { email, password });
+			const response = await authApi.post('/signin', { email, password });
 			await AsyncStorage.setItem('token', JSON.stringify(response.data.token));
 			dispatch({ type: 'signin', payload: response.data.token });
 		} catch (err) {
