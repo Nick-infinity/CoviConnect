@@ -1,21 +1,27 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import React, { useState, useContext } from 'react';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text, Input, Button, Icon } from 'react-native-elements';
-import { ScrollView } from 'react-native';
+import { Text, Input, Icon, ButtonGroup } from 'react-native-elements';
 import ShortcutBar from '../components/ShortcutBar';
-import OxygenDonorScreen from './OxygenDonorScreen';
+import { FlatList } from 'react-native';
 import DonorTypeSelector from '../components/DonorTypeSelector';
 import Spacer from '../components/Spacer';
+import { Context as OxygenDonorContext } from '../context/PlasmaDonorContext';
+import OxygenDonorCardHospital from '../components/OxygenDonorCardHospital';
+import OxygenDonorCardOrganization from '../components/OxygenDonorCardOrganization';
+import OxygenDonorCardIndividual from '../components/OxygenDonorCardIndividual';
 
 const OxygenScreen = ({ navigation }) => {
 	// for cehcking which screen is running
 	const [screenState, setScreenState] = useState(0);
-	const [category, setCategory] = useState(-1);
-	// -1 for none
-	//0 for hospital
-	// 1 for org
-	// 2 for individul
+
+	// for search
+	const [searchCity, setSearchCity] = useState('');
+	const { getOxygenDonorListFromCity, state } = useContext(OxygenDonorContext);
+
+	// for selection in donor list
+	const [donorCategoryIndex, setdonorCategoryIndex] = useState(0);
+	const donorCategories = ['Hospitals', 'Organizations', 'Individuals'];
 
 	return (
 		<SafeAreaView forceInset={{ top: 'always' }}>
@@ -35,43 +41,102 @@ const OxygenScreen = ({ navigation }) => {
 						onClick2={() => setScreenState(1)}
 					/>
 				</View>
-				<ScrollView>
-					<View style={styles.containerBottom}>
-						{!screenState ? (
-							<View style={styles.resultScreen}>
-								<Input
-									leftIcon={
-										<Icon
-											name="search-location"
-											type="font-awesome-5"
-											size={24}
-											color="black"
-										/>
-									}
-									placeholderTextColor="gray"
-									placeholder="Search Pincode/City/State"
-									style={styles.searchStyle}
-									inputContainerStyle={{ borderBottomWidth: 0 }}
-								></Input>
-								<FlatList />
-							</View>
-						) : (
-							<View style={styles.formContainer}>
-								<DonorTypeSelector
-									myNav={navigation}
-									scrn1={'ODhospital'}
-									scrn2={'ODorganization'}
-									scrn3={'ODindividual'}
+
+				<View style={styles.containerBottom}>
+					{screenState === 0 ? (
+						<View style={styles.resultScreen}>
+							<Input
+								leftIcon={
+									<Icon name="search" type="material" size={30} color="black" />
+								}
+								placeholderTextColor="gray"
+								placeholder="Enter your city to find donors"
+								style={styles.searchStyle}
+								inputContainerStyle={{
+									borderBottomWidth: 0,
+								}}
+								value={searchCity}
+								onChangeText={(city) => setSearchCity(city)}
+								onSubmitEditing={() => {
+									console.log(searchCity.toLocaleLowerCase());
+									getOxygenDonorListFromCity(searchCity.toLocaleLowerCase());
+								}}
+							></Input>
+							<ButtonGroup
+								selectedButtonStyle={{ backgroundColor: '#272727' }}
+								style={styles.btnGroupStyle}
+								onPress={(num) => setdonorCategoryIndex(num)}
+								selectedIndex={donorCategoryIndex}
+								buttons={donorCategories}
+								containerStyle={btnGroupStyle}
+							/>
+							<Text style={styles.errorMesg}>{state.oxygenresponseMsg}</Text>
+							{donorCategoryIndex === 0 ? (
+								<FlatList
+									style={styles.flatList}
+									numColumns={2}
+									data={state.donorListOxygen[0]}
+									keyExtractor={(item) => item._id}
+									renderItem={({ item }) => {
+										return <OxygenDonorCardHospital item={item} />;
+									}}
 								/>
-							</View>
-						)}
-					</View>
-				</ScrollView>
+							) : null}
+							{donorCategoryIndex === 1 ? (
+								<FlatList
+									numColumns={2}
+									style={styles.flatList}
+									data={state.donorListOxygen[1]}
+									keyExtractor={(item) => item._id}
+									renderItem={({ item }) => {
+										return <OxygenDonorCardOrganization item={item} />;
+									}}
+								/>
+							) : null}
+							{donorCategoryIndex === 2 ? (
+								<FlatList
+									numColumns={2}
+									style={styles.flatList}
+									data={state.donorListOxygen[2]}
+									keyExtractor={(item) => item._id}
+									renderItem={({ item }) => {
+										return <OxygenDonorCardIndividual item={item} />;
+									}}
+								/>
+							) : null}
+						</View>
+					) : (
+						<View style={styles.formContainer}>
+							<DonorTypeSelector
+								myNav={navigation}
+								scrn1={'ODhospital'}
+								scrn2={'ODorganization'}
+								scrn3={'ODindividual'}
+							/>
+						</View>
+					)}
+				</View>
 			</View>
 		</SafeAreaView>
 	);
 };
+const windowWidth = Dimensions.get('screen').width;
+const windowHeight = Dimensions.get('screen').height;
+
+const btnGroupStyle = {
+	marginBottom: 20,
+	height: 40,
+	borderRadius: 12,
+};
+
 const styles = StyleSheet.create({
+	btnGrpBannerStyle: {
+		fontSize: 16,
+		fontWeight: 'bold',
+		color: '#87929d',
+		marginLeft: 10,
+		marginBottom: 10,
+	},
 	formContainer: {
 		backgroundColor: 'white',
 		borderRadius: 20,
@@ -90,6 +155,7 @@ const styles = StyleSheet.create({
 	containerBottom: {
 		marginBottom: 80,
 		marginHorizontal: 10,
+		flex: 1,
 	},
 	shortcutBannerStyle: {
 		marginLeft: 10,
@@ -99,12 +165,33 @@ const styles = StyleSheet.create({
 	},
 	searchStyle: {
 		marginTop: 10,
-		backgroundColor: 'white',
-		padding: 10,
+		borderWidth: 1,
+		borderColor: 'gray',
+		borderRadius: 20,
+		paddingHorizontal: 15,
+		paddingVertical: 10,
+	},
+	searchStyleCity: {
+		marginTop: 10,
+		borderWidth: 1,
+		borderColor: 'gray',
+		borderRadius: 20,
+		paddingHorizontal: 15,
+		paddingVertical: 10,
 	},
 	resultScreen: {
 		backgroundColor: 'white',
 		borderRadius: 20,
+		marginBottom: windowHeight / 5,
+	},
+	flatList: {
+		alignSelf: 'center',
+	},
+	errorMesg: {
+		color: 'red',
+		alignSelf: 'center',
+		textAlign: 'center',
+		marginTop: 5,
 	},
 });
 export default OxygenScreen;

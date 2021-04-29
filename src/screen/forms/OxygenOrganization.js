@@ -11,29 +11,30 @@ import {
 } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import ConsentText from '../../components/ConsentText';
-
 import pincodeApi from '../../api/pincode';
-
 import { Context as OxygenDonorContext } from '../../context/PlasmaDonorContext';
 
-const OxygenHospital = ({ navigation }) => {
+const OxygenOrganization = ({ navigation }) => {
 	/* schmema for object
-    oxygenDonorHospital{
+    oxygenDonorOrganization{
         name:
-         contact: convert to string
+        contact: convert to string
+        contact2: convert to string
         pin:
         state:
         type
         city:
         availability:status:
-        bloddgroups:[]
+       
     }
     */
 	// states
-	const { postHospitalOxygenReq } = useContext(OxygenDonorContext);
+
+	const { postOrganizationOxygenReq } = useContext(OxygenDonorContext);
 
 	const [name, setName] = useState('');
 	const [contact, setContact] = useState('');
+	const [contact2, setContact2] = useState('');
 	const [pin, setPin] = useState('');
 	const [availability, SetAvailability] = useState(0);
 	const availabilityOptions = ['Available', 'Not Available'];
@@ -49,6 +50,7 @@ const OxygenHospital = ({ navigation }) => {
 		setState('');
 		setContact('');
 		setArea('');
+		setContact2('');
 		SetAvailability(0);
 	};
 
@@ -57,6 +59,7 @@ const OxygenHospital = ({ navigation }) => {
 		if (
 			name === '' ||
 			contact === '' ||
+			contact2 === '' ||
 			pin === '' ||
 			area === '' ||
 			state === '' ||
@@ -70,23 +73,22 @@ const OxygenHospital = ({ navigation }) => {
 		return true;
 	};
 
-	//create a postreqObject
-
 	const createPostReqObject = () => {
 		const lowername = name.toLocaleLowerCase();
-		const hospitalOxygenPostReqObject = {
+		const organizationOxygenPostReqObject = {
 			name: lowername,
 			contact,
+			contact2,
 			pin,
-			city,
 			area,
+			city,
 			state,
 			availability,
-			type: 'ohospital',
+			type: 'oOrganization',
 		};
 
-		console.log(hospitalOxygenPostReqObject);
-		return hospitalOxygenPostReqObject;
+		console.log(organizationOxygenPostReqObject);
+		return organizationOxygenPostReqObject;
 	};
 
 	//get state and city from custom api and validate pin
@@ -111,15 +113,18 @@ const OxygenHospital = ({ navigation }) => {
 			//console.log(e);
 		}
 	};
-
+	//organizationPlasmaPostReqObject;
+	//   postOrganizationPlasmaReq
 	// onClick for save button for postt req
 	const onSaveClick = async () => {
 		const res = isSubmissionValid();
 		if (res) {
 			SetValid(1);
-			const hospitalOxygenPostReqObject = createPostReqObject();
+			const organizationOxygenPostReqObject = createPostReqObject();
 			// call to server for post
-			const res = await postHospitalOxygenReq(hospitalOxygenPostReqObject);
+			const res = await postOrganizationOxygenReq(
+				organizationOxygenPostReqObject
+			);
 			if (res) {
 				clearFields();
 				console.log('Submitted');
@@ -140,13 +145,13 @@ const OxygenHospital = ({ navigation }) => {
 				<ScrollView>
 					<View style={styles.secondContainer}>
 						<Text h2 style={styles.banner}>
-							Hospital Information
+							Organization Information
 						</Text>
 						<View style={styles.formContainer}>
 							<View style={styles.fieldContainer}>
 								<Input
-									placeholder="Enter hospital name"
-									label="Hospital Name"
+									placeholder="Enter organization name"
+									label="Organization Name"
 									value={name}
 									onChangeText={(t) => setName(t)}
 									inputContainerStyle={inputStyle}
@@ -165,21 +170,26 @@ const OxygenHospital = ({ navigation }) => {
 								<Input
 									keyboardType="numeric"
 									placeholder="Enter active phone number "
-									label="Helpline number"
+									label="Representative Contact"
 									value={contact}
 									onChangeText={(t) => setContact(t)}
 									inputContainerStyle={inputStyle}
 								/>
+								<Input
+									keyboardType="numeric"
+									placeholder="Secondary phone number "
+									label="Secondary Contact"
+									value={contact2}
+									onChangeText={(t) => setContact2(t)}
+									inputContainerStyle={inputStyle}
+								/>
 
 								<Text style={styles.btnGrpBannerStyle}>
-									Oxygen / Bed availability
+									Oxygen availability
 								</Text>
 								<ButtonGroup
 									style={styles.btnGroupStyle}
-									onPress={(num) => {
-										SetAvailability(num);
-										//console.log(availability);
-									}}
+									onPress={(num) => SetAvailability(num)}
 									selectedIndex={availability}
 									buttons={availabilityOptions}
 									containerStyle={btnGroupStyle}
@@ -192,16 +202,9 @@ const OxygenHospital = ({ navigation }) => {
 								Please fill all fileds with correct information
 							</Text>
 						) : null}
-						{valid === -2 ? (
-							<Text style={styles.errorMesg}>
-								Error Saving your Application. Please Try Again
-							</Text>
-						) : null}
 						<TouchableOpacity
 							style={styles.btnStyle}
-							onPress={() => {
-								onSaveClick();
-							}}
+							onPress={() => onSaveClick()}
 						>
 							<View style={styles.btnContainer}>
 								<Text h4 style={styles.btnTextStyle}>
@@ -233,7 +236,7 @@ const inputStyle = {
 
 const styles = StyleSheet.create({
 	banner: {
-		alignSelf: 'center',
+		textAlign: 'center',
 	},
 	container: {
 		marginTop: 70,
@@ -281,5 +284,25 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		marginTop: 5,
 	},
+	btnContainerTop: {
+		flexDirection: 'row',
+		justifyContent: 'space-around',
+	},
+	btnContainerBottom: {
+		flexDirection: 'row',
+		justifyContent: 'space-around',
+		marginHorizontal: 5,
+	},
+	btnContainer2: {},
+	checkBoxStyle: {},
 });
-export default OxygenHospital;
+
+export default OxygenOrganization;
+
+// const styles = StyleSheet.creat({});
+
+// return (
+//     <SafeAreaView>
+//         <View></View>
+//     </SafeAreaView>
+// );

@@ -21,7 +21,7 @@ import PlasmaHospital from './src/screen/forms/PlasmaHospital';
 import PlasmaOrganization from './src/screen/forms/PlasmaOrganization';
 import PlasmaIndividual from './src/screen/forms/PlasmaIndividual';
 import OxygenInidividual from './src/screen/forms/OxygenInidividual';
-import OxyegenOrganization from './src/screen/forms/OxyegenOrganization';
+import OxygenOrganization from './src/screen/forms/OxygenOrganization';
 import OxygenHospital from './src/screen/forms/OxygenHospital';
 
 const Stack = createStackNavigator();
@@ -110,7 +110,7 @@ const App = () => {
 					/>
 					<DonorCategoryStack.Screen
 						name="ODorganization"
-						component={OxyegenOrganization}
+						component={OxygenOrganization}
 						options={{
 							headerShown: false,
 						}}
