@@ -8,17 +8,22 @@ const plasamaDonorReducer = (state, action) => {
 			return state;
 
 		case 'get_donorList': {
-			return { donorList: action.payload };
+			return { ...state, donorList: action.payload, responseMsg: '' };
 		}
 		case 'get_donorList_oxygen': {
-			return { donorListOxygen: action.payload };
+			return {
+				...state,
+				donorListOxygen: action.payload,
+				oxygenresponseMsg: '',
+			};
 		}
 		case 'error_msg': {
-			return { ...state, responseMsg: action.payload };
+			return { ...state, responseMsg: action.payload, donorList: [] };
 		}
 		case 'error_msg_oxygen': {
-			return { ...state, responseMsg: action.payload };
+			return { ...state, responseMsg: action.payload, donorListOxygen: [] };
 		}
+
 		default:
 			return state;
 	}
@@ -26,11 +31,6 @@ const plasamaDonorReducer = (state, action) => {
 // et req fro donor list
 const getDonorListFromCity = (dispatch) => {
 	return async (searchCity) => {
-		//clear error
-		dispatch({
-			type: 'error_msg',
-			payload: '',
-		});
 		console.log(searchCity);
 		try {
 			const response = await trackerApi.get('/plasma', {
@@ -152,11 +152,6 @@ const postIndividualPlasmaReq = (dispatch) => {
 
 const getOxygenDonorListFromCity = (dispatch) => {
 	return async (searchCity) => {
-		//clear error
-		dispatch({
-			type: 'error_msg_oxygen',
-			payload: '',
-		});
 		console.log(searchCity, 'oxygen');
 		try {
 			const response = await trackerApi.get('/oxygen', {
@@ -353,5 +348,10 @@ export const { Provider, Context } = createDataContext(
 		postIndividualOxygenReq,
 		getOxygenDonorListFromCity,
 	},
-	{ responseMsg: '', oxygenresponseMsg: '', donorList: [], donorListOxygen: [] }
+	{
+		responseMsg: '',
+		oxygenresponseMsg: '',
+		donorList: [],
+		donorListOxygen: [],
+	}
 );
