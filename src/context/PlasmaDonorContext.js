@@ -21,7 +21,11 @@ const plasamaDonorReducer = (state, action) => {
 			return { ...state, responseMsg: action.payload, donorList: [] };
 		}
 		case 'error_msg_oxygen': {
-			return { ...state, responseMsg: action.payload, donorListOxygen: [] };
+			return {
+				...state,
+				oxygenresponseMsg: action.payload,
+				donorListOxygen: [],
+			};
 		}
 
 		default:
