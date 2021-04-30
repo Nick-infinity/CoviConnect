@@ -33,6 +33,9 @@ const plasamaDonorReducer = (state, action) => {
 		case 'error_msg_userposts': {
 			return { ...state, userResponseMesg: action.payload, userPosts: [] };
 		}
+		case 'error_msg_deletpost': {
+			return { ...state, deleteErrorMsg: action.payload };
+		}
 
 		default:
 			return state;
@@ -335,6 +338,42 @@ const getUserPosts = (dispatch) => {
 	};
 };
 
+const deletePost = (dispatch) => {
+	return async (_id, type, availabilityType) => {
+		console.log('Runnig delete for dashboard');
+		try {
+			const response = await trackerApi.put('/deleteuserPost', {
+				_id,
+				type,
+				availabilityType,
+			});
+			console.log('From Context screen : ', response.data);
+			if (response.data === 'err') {
+				dispatch({
+					type: 'error_msg_deletpost',
+					payload: 'Something went wrong. Please try deleting  again',
+				});
+				return;
+			}
+			if (response.data === 'Deleted Successfully') {
+				dispatch({
+					type: 'error_msg_deletpost',
+					payload: `Deleted Successfully`,
+				});
+				return;
+			}
+			return;
+		} catch (e) {
+			dispatch({
+				type: 'error_msg_deletpost',
+				payload: 'Something went wrong. Please try deleting again',
+			});
+			console.log(e);
+			return;
+		}
+	};
+};
+
 export const { Provider, Context } = createDataContext(
 	plasamaDonorReducer,
 	{
@@ -347,6 +386,7 @@ export const { Provider, Context } = createDataContext(
 		postIndividualOxygenReq,
 		getOxygenDonorListFromCity,
 		getUserPosts,
+		deletePost,
 	},
 	{
 		userResponseMesg: '',
@@ -355,5 +395,6 @@ export const { Provider, Context } = createDataContext(
 		donorList: [],
 		donorListOxygen: [],
 		userPosts: [],
+		deleteErrorMsg: '',
 	}
 );

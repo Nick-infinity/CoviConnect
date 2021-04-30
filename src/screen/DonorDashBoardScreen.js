@@ -11,6 +11,8 @@ import { useIsFocused } from '@react-navigation/native';
 import ShortcutBar from '../components/ShortcutBar';
 import { FlatList } from 'react-native';
 import { ButtonGroup } from 'react-native-elements/dist/buttons/ButtonGroup';
+import PlasmaCard from '../components/dashboardCards/PlasmaCard';
+import OxygenCard from '../components/dashboardCards/OxygenCard';
 
 const DonorDashBoardScreen = ({ navigation }) => {
 	const [screenState, setScreenState] = useState(0);
@@ -49,16 +51,13 @@ const DonorDashBoardScreen = ({ navigation }) => {
 
 				<View style={styles.containerBottom}>
 					<View style={styles.resultScreen}>
+						<Text>{state.userResponseMesg}</Text>
 						{screenState === 0 ? (
 							<FlatList
 								data={state.userPosts[0]}
 								keyExtractor={(item) => item._id}
 								renderItem={({ item }) => {
-									return (
-										<View>
-											<Text>Plasma</Text>
-										</View>
-									);
+									return <PlasmaCard item={item} />;
 								}}
 							/>
 						) : null}
@@ -67,11 +66,7 @@ const DonorDashBoardScreen = ({ navigation }) => {
 								data={state.userPosts[1]}
 								keyExtractor={(item) => item._id}
 								renderItem={({ item }) => {
-									return (
-										<View>
-											<Text>Oxygen</Text>
-										</View>
-									);
+									return <OxygenCard item={item} />;
 								}}
 							/>
 						) : null}
@@ -111,9 +106,7 @@ const styles = StyleSheet.create({
 	resultScreen: {
 		backgroundColor: 'white',
 		borderRadius: 20,
-		marginBottom: windowHeight / 5.5,
-		borderColor: 'red',
-		borderWidth: 5,
+		marginBottom: windowHeight / 22,
 	},
 });
 export default DonorDashBoardScreen;
