@@ -1,5 +1,4 @@
 import createDataContext from './createDataContext';
-import pincodeApi from '../api/pincode';
 import trackerApi from '../api/tracker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -18,6 +17,8 @@ const plasamaDonorReducer = (state, action) => {
 				oxygenresponseMsg: '',
 			};
 		}
+		case 'get_userPosts':
+			return { ...state, userResponseMesg: '', userPosts: action.payload };
 		case 'error_msg': {
 			return { ...state, responseMsg: action.payload, donorList: [] };
 		}
@@ -27,6 +28,10 @@ const plasamaDonorReducer = (state, action) => {
 				oxygenresponseMsg: action.payload,
 				donorListOxygen: [],
 			};
+		}
+
+		case 'error_msg_userposts': {
+			return { ...state, userResponseMesg: action.payload, userPosts: [] };
 		}
 
 		default:
@@ -90,16 +95,7 @@ const postHospitalPlasmaReq = (dispatch) => {
 			if (res === 'err') {
 				return false;
 			}
-			//set user posts in async storage
-			const userPostsArray = await AsyncStorage.getItem('userPosts');
-			const newUserPostsArray = userPostsArray
-				? JSON.parse(userPostsArray)
-				: [];
-			newUserPostsArray.push(response.data);
-			await AsyncStorage.setItem(
-				'userPosts',
-				JSON.stringify(newUserPostsArray)
-			);
+
 			dispatch({
 				type: 'postHospitalPlasmaReq',
 			});
@@ -127,16 +123,7 @@ const postOrganizationPlasmaReq = (dispatch) => {
 			if (res === 'err') {
 				return false;
 			}
-			//set user posts in async storage
-			const userPostsArray = await AsyncStorage.getItem('userPosts');
-			const newUserPostsArray = userPostsArray
-				? JSON.parse(userPostsArray)
-				: [];
-			newUserPostsArray.push(response.data);
-			await AsyncStorage.setItem(
-				'userPosts',
-				JSON.stringify(newUserPostsArray)
-			);
+
 			dispatch({
 				type: 'postHospitalPlasmaReq',
 			});
@@ -162,16 +149,7 @@ const postIndividualPlasmaReq = (dispatch) => {
 			if (res === 'err') {
 				return false;
 			}
-			//set user posts in async storage
-			const userPostsArray = await AsyncStorage.getItem('userPosts');
-			const newUserPostsArray = userPostsArray
-				? JSON.parse(userPostsArray)
-				: [];
-			newUserPostsArray.push(response.data);
-			await AsyncStorage.setItem(
-				'userPosts',
-				JSON.stringify(newUserPostsArray)
-			);
+
 			dispatch({
 				type: 'postHospitalPlasmaReq',
 			});
@@ -245,19 +223,6 @@ const postHospitalOxygenReq = (dispatch) => {
 				return false;
 			}
 
-			//set user posts in async storage
-			const userPostsArrayOxygen = await AsyncStorage.getItem(
-				'userPostsOxygen'
-			);
-			const newUserPostsArrayOxygen = userPostsArrayOxygen
-				? JSON.parse(userPostsArrayOxygen)
-				: [];
-			newUserPostsArrayOxygen.push(response.data);
-			await AsyncStorage.setItem(
-				'userPostsOxygen',
-				JSON.stringify(newUserPostsArrayOxygen)
-			);
-
 			dispatch({
 				type: 'postHospitalPlasmaReq',
 			});
@@ -286,18 +251,7 @@ const postOrganizationOxygenReq = (dispatch) => {
 			if (res === 'err') {
 				return false;
 			}
-			//set user posts in async storage
-			const userPostsArrayOxygen = await AsyncStorage.getItem(
-				'userPostsOxygen'
-			);
-			const newUserPostsArrayOxygen = userPostsArrayOxygen
-				? JSON.parse(userPostsArrayOxygen)
-				: [];
-			newUserPostsArrayOxygen.push(response.data);
-			await AsyncStorage.setItem(
-				'userPostsOxygen',
-				JSON.stringify(newUserPostsArrayOxygen)
-			);
+
 			dispatch({
 				type: 'postHospitalPlasmaReq',
 			});
@@ -325,18 +279,7 @@ const postIndividualOxygenReq = (dispatch) => {
 			if (res === 'err') {
 				return false;
 			}
-			//set user posts in async storage
-			const userPostsArrayOxygen = await AsyncStorage.getItem(
-				'userPostsOxygen'
-			);
-			const newUserPostsArrayOxygen = userPostsArrayOxygen
-				? JSON.parse(userPostsArrayOxygen)
-				: [];
-			newUserPostsArrayOxygen.push(response.data);
-			await AsyncStorage.setItem(
-				'userPostsOxygen',
-				JSON.stringify(newUserPostsArrayOxygen)
-			);
+
 			dispatch({
 				type: 'postHospitalPlasmaReq',
 			});
@@ -349,67 +292,48 @@ const postIndividualOxygenReq = (dispatch) => {
 	};
 };
 
-// //signup
-// const signup = (dispatch) => {
-// 	return async ({ email, password }) => {
-// 		// make api request to sigup with email and password
-// 		//if we are signup, modify our state and say we are authenticatedd
-// 		// if sigunup fails , reflect error mesg
-// 		try {
-// 			const response = await trackerApi.post('/signup', { email, password });
-// 			//save our token in storage
-// 			await AsyncStorage.setItem('token', JSON.stringify(response.data.token));
-// 			dispatch({ type: 'signin', payload: response.data.token });
-// 			// go to main flow
-// 		} catch (err) {
-// 			dispatch({
-// 				type: 'add_error',
-// 				payload: 'Something went wrong with sign up',
-// 			});
-// 		}
-// 	};
-// };
+//get request for dnorDashboard
+const getUserPosts = (dispatch) => {
+	return async () => {
+		console.log('Runnig get for dashboard');
+		try {
+			let userId = await AsyncStorage.getItem('userId');
+			console.log(userId);
+			userId = userId.replace(/^"(.*)"$/, '$1');
+			console.log(userId);
+			const response = await trackerApi.get('/userPosts', {
+				params: { userId },
+			});
+			console.log('From Context screen : ', response.data);
+			if (response.data === 'err') {
+				dispatch({
+					type: 'error_msg_userposts',
+					payload: 'Something went wrong. Please try again',
+				});
+				return;
+			}
+			const userPosts = response.data;
+			if (userPosts[0].length === 0 && userPosts[1].length === 0) {
+				dispatch({
+					type: 'error_msg_userposts',
+					payload: `You havent made any donations posts yet.`,
+				});
+				return;
+			}
 
-// //signin
-// const signin = (dispatch) => {
-// 	return async ({ email, password }) => {
-// 		// make api request to sigin with email and password
-// 		//if we are signin  modify our state and say we are authenticatedd
-// 		// if siguin fails , reflect error mesg
-// 		try {
-// 			const response = await trackerApi.post('/signin', { email, password });
-// 			await AsyncStorage.setItem('token', JSON.stringify(response.data.token));
-// 			dispatch({ type: 'signin', payload: response.data.token });
-// 		} catch (err) {
-// 			dispatch({
-// 				type: 'add_error',
-// 				payload: 'Something went wrong with sign in',
-// 			});
-// 		}
-// 	};
-// };
-
-// //signout
-// const signout = (dispatch) => {
-// 	return async () => {
-// 		//signout
-// 		await AsyncStorage.removeItem('token');
-// 		dispatch({ type: 'signout' });
-// 	};
-// };
-
-// //get token feom local storage
-// const trylocalSignin = (dispatch) => {
-// 	return async (callback) => {
-// 		const token = await AsyncStorage.getItem('token');
-// 		token != null ? JSON.parse(token) : null;
-// 		if (token) {
-// 			dispatch({ type: 'signin', payload: token });
-// 		} else {
-// 			return callback();
-// 		}
-// 	};
-// };
+			//set userPosts from server in my state
+			dispatch({ type: 'get_userPosts', payload: userPosts });
+			return;
+		} catch (e) {
+			dispatch({
+				type: 'error_msg_userposts',
+				payload: 'Something went wrong. Please try again',
+			});
+			console.log(e);
+			return;
+		}
+	};
+};
 
 export const { Provider, Context } = createDataContext(
 	plasamaDonorReducer,
@@ -422,11 +346,14 @@ export const { Provider, Context } = createDataContext(
 		postOrganizationOxygenReq,
 		postIndividualOxygenReq,
 		getOxygenDonorListFromCity,
+		getUserPosts,
 	},
 	{
+		userResponseMesg: '',
 		responseMsg: '',
 		oxygenresponseMsg: '',
 		donorList: [],
 		donorListOxygen: [],
+		userPosts: [],
 	}
 );

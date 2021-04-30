@@ -11,6 +11,7 @@ const authReducer = (state, action) => {
 			return { errorMessage: '', token: action.payload };
 		case 'signout':
 			return { errorMessage: '', token: null };
+
 		default:
 			return state;
 	}
@@ -31,6 +32,7 @@ const signup = (dispatch) => {
 				JSON.stringify(response.data.userId)
 			);
 			dispatch({ type: 'signin', payload: response.data.token });
+
 			// go to main flow
 		} catch (err) {
 			dispatch({
