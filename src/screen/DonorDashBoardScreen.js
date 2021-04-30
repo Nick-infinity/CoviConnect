@@ -2,11 +2,8 @@ import React, { useContext, useState, useEffect, useFocusEffect } from 'react';
 import { Dimensions } from 'react-native';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Text, Button, Overlay, ButtonGroup } from 'react-native-elements';
-import { Context as AuthContext } from '../context/AuthContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Context as userPostsContext } from '../context/PlasmaDonorContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useIsFocused } from '@react-navigation/native';
 
 import ShortcutBar from '../components/ShortcutBar';
 import { FlatList } from 'react-native';
@@ -139,9 +136,7 @@ const DonorDashBoardScreen = ({ navigation }) => {
 										marginBottom: 10,
 									}}
 								>
-									<Text style={styles.overlayNameText}>
-										{editItem.name.toUpperCase()}
-									</Text>
+									<Text style={styles.overlayNameText}>{editItem.name}</Text>
 									<Text style={styles.overlayFiedsText}>
 										Area: {editItem.area}
 									</Text>

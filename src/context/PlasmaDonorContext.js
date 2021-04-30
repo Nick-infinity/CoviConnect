@@ -46,6 +46,9 @@ const plasamaDonorReducer = (state, action) => {
 				userResponseMesg: action.payload,
 			};
 		}
+		case 'get_usercount': {
+			return { ...state, usercount: action.payload };
+		}
 		default:
 			return state;
 	}
@@ -425,6 +428,27 @@ const updatePost = (dispatch) => {
 	};
 };
 
+const getUserCount = (dispatch) => {
+	return async () => {
+		console.log('Runnig get count for dashboard');
+		try {
+			const response = await trackerApi.get('/userCount');
+			console.log('From Context screen : ', response.data);
+			if (response.data === 'err') {
+				return;
+			}
+			const usercountfromserver = response.data;
+
+			//set userPosts from server in my state
+			dispatch({ type: 'get_usercount', payload: usercountfromserver });
+			return;
+		} catch (e) {
+			console.log(e);
+			return;
+		}
+	};
+};
+
 export const { Provider, Context } = createDataContext(
 	plasamaDonorReducer,
 	{
@@ -439,6 +463,7 @@ export const { Provider, Context } = createDataContext(
 		getUserPosts,
 		deletePost,
 		updatePost,
+		getUserCount,
 	},
 	{
 		userResponseMesg: '',
@@ -447,6 +472,7 @@ export const { Provider, Context } = createDataContext(
 		donorList: [],
 		donorListOxygen: [],
 		userPosts: [],
+		usercount: [],
 		deleteErrorMsg: '',
 		updateResponseMesg: '',
 	}
