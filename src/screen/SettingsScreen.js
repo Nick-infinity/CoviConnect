@@ -123,11 +123,7 @@ const SettingsScreen = ({ navigation }) => {
 								}
 							>
 								<View style={[styles.donateBtnStyle]}>
-									<Icon
-										type="font-awesome-5"
-										name="hand-holding-usd"
-										size={35}
-									/>
+									<Icon type="font-awesome-5" name="rupee-sign" size={30} />
 									<Text style={styles.editbtnTextStyle}>Donate via UPI</Text>
 								</View>
 							</TouchableOpacity>

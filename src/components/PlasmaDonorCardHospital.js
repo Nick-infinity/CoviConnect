@@ -8,7 +8,7 @@ import { Input, Button, Icon, SearchBar } from 'react-native-elements';
 
 const PlasmaDonorCardHospital = ({ item }) => {
 	// destructure the item object
-	const { name, city, state, bloodGroups, contact, area } = item;
+	const { name, city, state, bloodGroups, contact, area, availability } = item;
 
 	const dialCall = () => {
 		let phoneNumber = '';
