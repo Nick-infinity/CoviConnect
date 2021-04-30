@@ -150,8 +150,8 @@ const OxygenIndividual = ({ navigation }) => {
 						<View style={styles.formContainer}>
 							<View style={styles.fieldContainer}>
 								<Input
-									placeholder="Enter Donor name"
-									label="Donor Name"
+									placeholder="Enter Provider name"
+									label="Provider Name"
 									value={name}
 									onChangeText={(t) => setName(t)}
 									inputContainerStyle={inputStyle}
@@ -159,16 +159,15 @@ const OxygenIndividual = ({ navigation }) => {
 
 								<Input
 									keyboardType="numeric"
-									placeholder="Enter donor age "
-									label="Donor age"
+									placeholder="Enter Provider age "
+									label="Provider age"
 									value={age}
 									onChangeText={(t) => setAge(t)}
 									inputContainerStyle={inputStyle}
 								/>
-								<Text style={styles.btnGrpBannerStyle}>Donor Gender</Text>
+								<Text style={styles.btnGrpBannerStyle}>Provider Gender</Text>
 								<ButtonGroup
 									style={styles.btnGroupStyle}
-									label="Donor Gender"
 									onPress={(num) => setGenderIndex(num)}
 									selectedIndex={genderIndex}
 									buttons={genders}
@@ -188,7 +187,7 @@ const OxygenIndividual = ({ navigation }) => {
 								<Input
 									keyboardType="numeric"
 									placeholder="Enter donor mobile "
-									label="Donor Contact"
+									label="Provider Contact"
 									value={contact}
 									onChangeText={(t) => setContact(t)}
 									inputContainerStyle={inputStyle}

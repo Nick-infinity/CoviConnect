@@ -30,10 +30,10 @@ const PlasmaScreen = ({ navigation }) => {
 			<View style={styles.container}>
 				<View style={styles.containerTop}>
 					<Text h1 style={styles.headingStyle}>
-						Plasma
+						PLASMA
 					</Text>
-					<Spacer />
-					<Text style={styles.shortcutBannerStyle}>Shortcuts</Text>
+
+					<Text style={styles.shortcutBannerStyle}>Find Or Donate Plasma</Text>
 					<ShortcutBar
 						title1="Search Donor"
 						title2="Donate Plasma"

@@ -28,10 +28,9 @@ const OxygenScreen = ({ navigation }) => {
 			<View style={styles.container}>
 				<View style={styles.containerTop}>
 					<Text h1 style={styles.headingStyle}>
-						Oxygen
+						OXYGEN
 					</Text>
-					<Spacer />
-					<Text style={styles.shortcutBannerStyle}>Shortcuts</Text>
+					<Text style={styles.shortcutBannerStyle}>Find Or Provide Oxygen</Text>
 					<ShortcutBar
 						title1="Search Oxygen"
 						title2="Provide Oxygen "
@@ -50,7 +49,7 @@ const OxygenScreen = ({ navigation }) => {
 									<Icon name="search" type="material" size={30} color="black" />
 								}
 								placeholderTextColor="gray"
-								placeholder="Enter your city to find donors"
+								placeholder="Enter your city to find providers"
 								style={styles.searchStyle}
 								inputContainerStyle={{
 									borderBottomWidth: 0,

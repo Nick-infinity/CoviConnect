@@ -86,7 +86,7 @@ const DonorDashBoardScreen = ({ navigation }) => {
 			<View style={styles.container}>
 				<View style={styles.containerTop}>
 					<Text h1 style={styles.headingStyle}>
-						Dashboard
+						DASHBOARD
 					</Text>
 					<Text style={styles.shortcutBannerStyle}>Manage donor posts</Text>
 					<ShortcutBar
@@ -105,7 +105,11 @@ const DonorDashBoardScreen = ({ navigation }) => {
 
 				<View style={styles.containerBottom}>
 					<View style={styles.resultScreen}>
-						<Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
+						<Overlay
+							isVisible={visible}
+							onBackdropPress={toggleOverlay}
+							overlayStyle={{ borderRadius: 20 }}
+						>
 							<View style={styles.overlayContainer}>
 								<View
 									style={{
@@ -135,7 +139,9 @@ const DonorDashBoardScreen = ({ navigation }) => {
 										marginBottom: 10,
 									}}
 								>
-									<Text style={styles.overlayNameText}>{editItem.name}</Text>
+									<Text style={styles.overlayNameText}>
+										{editItem.name.toUpperCase()}
+									</Text>
 									<Text style={styles.overlayFiedsText}>
 										Area: {editItem.area}
 									</Text>
@@ -147,7 +153,7 @@ const DonorDashBoardScreen = ({ navigation }) => {
 											Secondary Contact: {editItem.contact2}
 										</Text>
 									) : null}
-									<Text></Text>
+
 									<MultiBloodGroupChecker
 										takeBloodGroupValues={takeBloodGroupValues}
 									/>
