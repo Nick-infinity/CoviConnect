@@ -37,6 +37,15 @@ const plasamaDonorReducer = (state, action) => {
 			return { ...state, deleteErrorMsg: action.payload };
 		}
 
+		case 'error_msg_updatepost': {
+			return { ...state, updateResponseMesg: action.payload };
+		}
+		case 'clear_error_msg_userposts': {
+			return {
+				...state,
+				userResponseMesg: action.payload,
+			};
+		}
 		default:
 			return state;
 	}
@@ -300,6 +309,11 @@ const getUserPosts = (dispatch) => {
 	return async () => {
 		console.log('Runnig get for dashboard');
 		try {
+			//clear error
+			dispatch({
+				type: 'clear_error_msg_userposts',
+				payload: ``,
+			});
 			let userId = await AsyncStorage.getItem('userId');
 			console.log(userId);
 			userId = userId.replace(/^"(.*)"$/, '$1');
@@ -374,6 +388,43 @@ const deletePost = (dispatch) => {
 	};
 };
 
+const updatePost = (dispatch) => {
+	return async (_id, type, availabilityType, bloodGroups) => {
+		console.log('Runnig delete for dashboard');
+		try {
+			const response = await trackerApi.put('/updateuserPost', {
+				_id,
+				type,
+				availabilityType,
+				bloodGroups,
+			});
+			console.log('From Context screen : ', response.data);
+			if (response.data === 'err') {
+				dispatch({
+					type: 'error_msg_updatepost',
+					payload: 'Something went wrong. Please try deleting  again',
+				});
+				return;
+			}
+			if (response.data === 'Updated Successfully') {
+				dispatch({
+					type: 'error_msg_updatepost',
+					payload: ``, //updated successfull
+				});
+				return true;
+			}
+			return;
+		} catch (e) {
+			dispatch({
+				type: 'error_msg_updatepost',
+				payload: 'Something went wrong. Please try deleting again',
+			});
+			console.log(e);
+			return;
+		}
+	};
+};
+
 export const { Provider, Context } = createDataContext(
 	plasamaDonorReducer,
 	{
@@ -387,6 +438,7 @@ export const { Provider, Context } = createDataContext(
 		getOxygenDonorListFromCity,
 		getUserPosts,
 		deletePost,
+		updatePost,
 	},
 	{
 		userResponseMesg: '',
@@ -396,5 +448,6 @@ export const { Provider, Context } = createDataContext(
 		donorListOxygen: [],
 		userPosts: [],
 		deleteErrorMsg: '',
+		updateResponseMesg: '',
 	}
 );

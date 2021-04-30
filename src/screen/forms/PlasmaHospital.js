@@ -186,7 +186,6 @@ const PlasmaHospital = ({ navigation }) => {
 									Plasma availability
 								</Text>
 								<ButtonGroup
-									style={styles.btnGroupStyle}
 									onPress={(num) => {
 										SetAvailability(num);
 										//console.log(availability);

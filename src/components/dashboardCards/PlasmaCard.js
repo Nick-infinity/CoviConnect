@@ -1,13 +1,20 @@
 import React, { useContext } from 'react';
 import { Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native';
-import { View, StyleSheet, Linking, Platform } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Context as DeleteContext } from '../../context/PlasmaDonorContext';
 
-import { Input, Text, Button, Icon, SearchBar } from 'react-native-elements';
+import {
+	Input,
+	Text,
+	Button,
+	Icon,
+	SearchBar,
+	Overlay,
+} from 'react-native-elements';
 import PlasmaIndividual from '../../screen/forms/PlasmaIndividual';
 
-const PlasmaCard = ({ item }) => {
+const PlasmaCard = ({ item, callback }) => {
 	const { deletePost, getUserPosts } = useContext(DeleteContext);
 	// destructure the item object
 	const {
@@ -96,7 +103,7 @@ const PlasmaCard = ({ item }) => {
 						<Text>Posted on: {reverseString(updatedAt)}</Text>
 					</View>
 					<View style={styles.rightContainer}>
-						<TouchableOpacity>
+						<TouchableOpacity onPress={() => callback({ item })}>
 							<View style={styles.btnStyle}>
 								<Text style={styles.editbtnTextStyle}>Edit</Text>
 							</View>

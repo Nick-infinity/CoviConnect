@@ -199,7 +199,6 @@ const PlasmaOrganization = ({ navigation }) => {
 									Plasma availability
 								</Text>
 								<ButtonGroup
-									style={styles.btnGroupStyle}
 									onPress={(num) => SetAvailability(num)}
 									selectedIndex={availability}
 									buttons={availabilityOptions}
