@@ -11,7 +11,8 @@ const authReducer = (state, action) => {
 			return { errorMessage: '', token: action.payload };
 		case 'signout':
 			return { errorMessage: '', token: null };
-
+		case 'clear_error':
+			return { ...state, errorMessage: action.payload };
 		default:
 			return state;
 	}
@@ -19,12 +20,17 @@ const authReducer = (state, action) => {
 
 //signup
 const signup = (dispatch) => {
-	return async ({ email, password }) => {
+	return async ({ mobile, email, password }) => {
 		// make api request to sigup with email and password
 		//if we are signup, modify our state and say we are authenticatedd
 		// if sigunup fails , reflect error mesg
+		dispatch({ type: 'clear_error', payload: '' });
 		try {
-			const response = await authApi.post('/signup', { email, password });
+			const response = await authApi.post('/signup', {
+				mobile,
+				email,
+				password,
+			});
 			//save our token in storage
 			await AsyncStorage.setItem('token', JSON.stringify(response.data.token));
 			await AsyncStorage.setItem(
@@ -37,7 +43,7 @@ const signup = (dispatch) => {
 		} catch (err) {
 			dispatch({
 				type: 'add_error',
-				payload: 'Something went wrong with sign up',
+				payload: 'Check your mobile, email and password',
 			});
 		}
 	};
@@ -45,12 +51,13 @@ const signup = (dispatch) => {
 
 //signin
 const signin = (dispatch) => {
-	return async ({ email, password }) => {
+	return async ({ mobile, password }) => {
 		// make api request to sigin with email and password
 		//if we are signin  modify our state and say we are authenticatedd
 		// if siguin fails , reflect error mesg
+		dispatch({ type: 'clear_error', payload: '' });
 		try {
-			const response = await authApi.post('/signin', { email, password });
+			const response = await authApi.post('/signin', { mobile, password });
 			await AsyncStorage.setItem('token', JSON.stringify(response.data.token));
 			await AsyncStorage.setItem(
 				'userId',
@@ -61,7 +68,7 @@ const signin = (dispatch) => {
 		} catch (err) {
 			dispatch({
 				type: 'add_error',
-				payload: 'Something went wrong with sign in',
+				payload: 'Check your mobile and password',
 			});
 		}
 	};
