@@ -76,7 +76,12 @@ const PlasmaScreen = ({ navigation }) => {
 								buttons={donorCategories}
 								containerStyle={btnGroupStyle}
 							/>
-							<Text style={styles.errorMesg}>{state.responseMsg}</Text>
+							<Spacer />
+							{state.responseMsg === 'Something went wrong. Please try again' ||
+							state.responseMsg ===
+								'Cant find donors in your area.\n Enter proper city name or try with nearby city.' ? (
+								<Text style={styles.errorMesg}>{state.responseMsg}</Text>
+							) : null}
 							{donorCategoryIndex === 0 ? (
 								<FlatList
 									style={styles.flatList}

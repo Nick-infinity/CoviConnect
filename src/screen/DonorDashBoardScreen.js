@@ -10,6 +10,7 @@ import { FlatList } from 'react-native';
 import PlasmaCard from '../components/dashboardCards/PlasmaCard';
 import OxygenCard from '../components/dashboardCards/OxygenCard';
 import MultiBloodGroupChecker from '../components/MultiBloodGroupChecker';
+import Spacer from '../components/Spacer';
 
 const DonorDashBoardScreen = ({ navigation }) => {
 	const [screenState, setScreenState] = useState(0);
@@ -191,7 +192,14 @@ const DonorDashBoardScreen = ({ navigation }) => {
 								</View>
 							</View>
 						</Overlay>
+						{userResponseMesg === 'Something went wrong. Please try again' ||
+						userResponseMesg === 'You havent made any donations posts yet.' ? (
+							<>
+								<Spacer />
+							</>
+						) : null}
 						<Text style={styles.errorMesg}>{state.userResponseMesg}</Text>
+
 						{screenState === 0 ? (
 							<FlatList
 								data={state.userPosts[0]}

@@ -69,7 +69,13 @@ const OxygenScreen = ({ navigation }) => {
 								buttons={donorCategories}
 								containerStyle={btnGroupStyle}
 							/>
-							<Text style={styles.errorMesg}>{state.oxygenresponseMsg}</Text>
+							<Spacer />
+							{state.oxygenresponseMsg ===
+								'Something went wrong. Please try again' ||
+							state.oxygenresponseMsg ===
+								'Cant find donors in your area.\n Enter proper city name or try with nearby city.' ? (
+								<Text style={styles.errorMesg}>{state.oxygenresponseMsg}</Text>
+							) : null}
 							{donorCategoryIndex === 0 ? (
 								<FlatList
 									style={styles.flatList}
