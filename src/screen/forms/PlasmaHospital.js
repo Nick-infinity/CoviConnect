@@ -149,7 +149,7 @@ const PlasmaHospital = ({ navigation }) => {
 	return (
 		<SafeAreaView forceInset={{ top: 'always' }}>
 			<View style={styles.container}>
-				<ScrollView>
+				<ScrollView showsVerticalScrollIndicator={false}>
 					<View style={styles.secondContainer}>
 						<Text h2 style={styles.banner}>
 							Hospital Information

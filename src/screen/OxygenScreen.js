@@ -78,6 +78,7 @@ const OxygenScreen = ({ navigation }) => {
 							) : null}
 							{donorCategoryIndex === 0 ? (
 								<FlatList
+									showsVerticalScrollIndicator={false}
 									style={styles.flatList}
 									numColumns={2}
 									data={state.donorListOxygen[0]}
@@ -89,6 +90,7 @@ const OxygenScreen = ({ navigation }) => {
 							) : null}
 							{donorCategoryIndex === 1 ? (
 								<FlatList
+									showsVerticalScrollIndicator={false}
 									numColumns={2}
 									style={styles.flatList}
 									data={state.donorListOxygen[1]}
@@ -100,6 +102,7 @@ const OxygenScreen = ({ navigation }) => {
 							) : null}
 							{donorCategoryIndex === 2 ? (
 								<FlatList
+									showsVerticalScrollIndicator={false}
 									numColumns={2}
 									style={styles.flatList}
 									data={state.donorListOxygen[2]}

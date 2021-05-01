@@ -55,6 +55,7 @@ const RemdesivirScreen = ({ navigation }) => {
 						) : null}
 
 						<FlatList
+							showsVerticalScrollIndicator={false}
 							style={styles.flatList}
 							numColumns={2}
 							data={state.donorList[0]}

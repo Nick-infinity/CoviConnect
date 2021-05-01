@@ -202,6 +202,7 @@ const DonorDashBoardScreen = ({ navigation }) => {
 
 						{screenState === 0 ? (
 							<FlatList
+								showsVerticalScrollIndicator={false}
 								data={state.userPosts[0]}
 								keyExtractor={(item) => item._id}
 								renderItem={({ item }) => {
