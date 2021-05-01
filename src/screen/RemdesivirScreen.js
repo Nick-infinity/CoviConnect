@@ -53,7 +53,7 @@ const RemdesivirScreen = () => {
 							<Text style={styles.errorMesg}>{state.remdesivirErrorMesg}</Text>
 						) : null}
 
-						<FlatList
+						{/* <FlatList
 							showsVerticalScrollIndicator={false}
 							style={styles.flatList}
 							numColumns={2}
@@ -62,7 +62,7 @@ const RemdesivirScreen = () => {
 							renderItem={({ item }) => {
 								return <RemdesivirCard item={item} />;
 							}}
-						/>
+						/> */}
 					</View>
 
 					<View style={styles.formContainer}></View>

@@ -97,7 +97,9 @@ const PlasmaCard = ({ item, callback }) => {
 						</Text>
 						<Text>{area}</Text>
 
-						<Text style={[styles.textStyle]}>Plasma for: {bloodGroups}</Text>
+						<Text style={[styles.textStyle]}>
+							Plasma for: {bloodGroups.join(' ')}
+						</Text>
 
 						<Text style={styles.statusStyle}>Plasma: {getAvailability()}</Text>
 						<Text>Posted on: {reverseString(updatedAt)}</Text>

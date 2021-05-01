@@ -10,7 +10,6 @@ import { Context as PlasmaDonorContext } from '../context/PlasmaDonorContext';
 import PlasmaDonorCardHospital from '../components/PlasmaDonorCardHospital';
 import PlasmaDonorCardIndividual from '../components/PlasmaDonorCardIndividual';
 import PlasmaDonorCardOrganization from '../components/PlasmaDonorCardOrganization';
-import { Context as AuthContext } from '../context/AuthContext';
 
 const PlasmaScreen = ({ navigation }) => {
 	// for cehcking which screen is running
