@@ -153,6 +153,16 @@ const SettingsScreen = ({ navigation }) => {
 									<Text style={styles.editbtnTextStyle}>Logout</Text>
 								</View>
 							</TouchableOpacity>
+							<Text
+								style={{
+									textAlign: 'center',
+									marginTop: 10,
+									marginHorizontal: 10,
+									alignSelf: 'center',
+								}}
+							>
+								Covid Helper Version: Beta 1
+							</Text>
 						</View>
 					</View>
 				</ScrollView>

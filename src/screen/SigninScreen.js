@@ -32,7 +32,7 @@ const SigninScreen = ({ navigation }) => {
 	return (
 		<View style={styles.container}>
 			<Text h1 style={styles.appNameStyle}>
-				Tracker
+				Covid Helper
 			</Text>
 
 			<Spacer>
