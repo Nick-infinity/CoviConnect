@@ -137,7 +137,7 @@ const SettingsScreen = ({ navigation }) => {
 								Active Plasma Donors: {state.usercount[0]}
 							</Text>
 							<Text style={styles.userCount}>
-								Active Oxygen Donors: {state.usercount[1]}
+								Active Oxygen Providers: {state.usercount[1]}
 							</Text>
 							<Text style={styles.userCount}>
 								Total Users: {state.usercount[2]}
@@ -200,7 +200,10 @@ const styles = StyleSheet.create({
 	containerTop: {
 		marginBottom: 10,
 	},
-	userCount: {},
+	userCount: {
+		fontWeight: '700',
+		marginHorizontal: 10,
+	},
 
 	headingStyle: {
 		marginLeft: 10,
