@@ -10,23 +10,22 @@ const SigninScreen = ({ navigation }) => {
 	const { state, signin } = useContext(AuthContext);
 	const [valid, Setvalid] = useState(-1);
 
-	const isMobileValid = (mb) => {
-		const pattern = new RegExp('^[0-9]{10}$');
-		return pattern.test(mb);
+	const isMobileValid = (num) => {
+		console.log('checking regex');
+		const pattern = RegExp('^[0-9]{10}$');
+		return pattern.test(num);
 	};
 
 	const isValid = () => {
-		const mobileValidity = isMobileValid(mobile);
-
-		if (mobileValidity === true && password !== '') {
-			Setvalid(1);
-		} else {
-			Setvalid(0);
-		}
-
-		if (valid === 1) {
-			Setvalid(-1);
+		console.log('pressed sigin');
+		const res = isMobileValid(mobile);
+		if (res && password !== '') {
+			console.log('valid regex');
 			signin({ mobile, password });
+			Setvalid(-1);
+		} else {
+			console.log('Regx reject');
+			Setvalid(0);
 		}
 	};
 	return (
@@ -49,7 +48,9 @@ const SigninScreen = ({ navigation }) => {
 				style={styles.inputStyle}
 				label="Registered Mobile"
 				value={mobile}
-				onChangeText={(text) => setMobile(text)}
+				onChangeText={(text) => {
+					setMobile(text);
+				}}
 				inputContainerStyle={inputStyle}
 			/>
 
@@ -70,7 +71,13 @@ const SigninScreen = ({ navigation }) => {
 				<Text style={styles.errorStyle}>{state.errorMessage}</Text>
 			) : null}
 			<Spacer>
-				<Button title="Login" onPress={() => isValid()} />
+				<TouchableOpacity style={styles.btnStyle} onPress={() => isValid()}>
+					<View style={styles.btnContainer}>
+						<Text h4 style={styles.btnTextStyle}>
+							Login
+						</Text>
+					</View>
+				</TouchableOpacity>
 			</Spacer>
 			<TouchableOpacity
 				onPress={() => {
@@ -126,6 +133,19 @@ const styles = StyleSheet.create({
 		color: 'red',
 		alignSelf: 'center',
 		marginHorizontal: 10,
+	},
+	btnContainer: {
+		borderWidth: 1,
+		borderRadius: 20,
+		borderColor: 'gray',
+		paddingHorizontal: 20,
+		paddingVertical: 10,
+		marginHorizontal: 40,
+		alignItems: 'center',
+		backgroundColor: '#67b3ff',
+	},
+	btnTextStyle: {
+		color: 'white',
 	},
 });
 export default SigninScreen;

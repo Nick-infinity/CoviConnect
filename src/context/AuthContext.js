@@ -24,6 +24,8 @@ const signup = (dispatch) => {
 		// make api request to sigup with email and password
 		//if we are signup, modify our state and say we are authenticatedd
 		// if sigunup fails , reflect error mesg
+		console.log('recieved sigup');
+
 		dispatch({ type: 'clear_error', payload: '' });
 		try {
 			const response = await authApi.post('/signup', {
@@ -55,6 +57,8 @@ const signin = (dispatch) => {
 		// make api request to sigin with email and password
 		//if we are signin  modify our state and say we are authenticatedd
 		// if siguin fails , reflect error mesg
+		console.log('recieved sigin');
+
 		dispatch({ type: 'clear_error', payload: '' });
 		try {
 			const response = await authApi.post('/signin', { mobile, password });

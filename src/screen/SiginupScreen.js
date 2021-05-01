@@ -3,6 +3,7 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Context as AuthContext } from '../context/AuthContext';
 import { Text, Input, Button, Icon } from 'react-native-elements';
 import Spacer from '../components/Spacer';
+import { useSafeArea } from 'react-native-safe-area-context';
 
 const SignupScreen = ({ navigation }) => {
 	const [email, setEmail] = useState('');
@@ -15,22 +16,21 @@ const SignupScreen = ({ navigation }) => {
 		const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		return re.test(em);
 	};
-	const isMobileValid = (mb) => {
+	const isMobileValid = (num) => {
 		const pattern = new RegExp('^[0-9]{10}$');
-		return pattern.test(mb);
+		return pattern.test(num);
 	};
 
 	const isValid = () => {
-		const mobileValidity = isMobileValid(mobile);
-		const emailValidity = isEmailValid(email);
-		if (mobileValidity && emailValidity && password !== '') {
-			Setvalid(1);
-		} else {
-			Setvalid(0);
-		}
-		if (valid === 1) {
+		const mobileValid = isMobileValid(mobile);
+		const emailValid = isEmailValid(email);
+		if (mobileValid && emailValid && password !== '') {
+			console.log('VAlid regex');
 			Setvalid(-1);
 			signup({ mobile, email, password });
+		} else {
+			console.log('Invalid regex');
+			Setvalid(0);
 		}
 	};
 
@@ -55,7 +55,9 @@ const SignupScreen = ({ navigation }) => {
 				style={styles.inputStyle}
 				label="Mobile Number"
 				value={mobile}
-				onChangeText={(text) => setMobile(text)}
+				onChangeText={(text) => {
+					setMobile(text);
+				}}
 				inputContainerStyle={inputStyle}
 			/>
 			<Input
@@ -65,7 +67,9 @@ const SignupScreen = ({ navigation }) => {
 				style={styles.inputStyle}
 				label="Email"
 				value={email}
-				onChangeText={(text) => setEmail(text)}
+				onChangeText={(text) => {
+					setEmail(text);
+				}}
 				inputContainerStyle={inputStyle}
 			/>
 
@@ -87,7 +91,13 @@ const SignupScreen = ({ navigation }) => {
 				<Text style={styles.errorStyle}>{state.errorMessage}</Text>
 			) : null}
 			<Spacer>
-				<Button title="Sign Up" onPress={() => isValid()} />
+				<TouchableOpacity style={styles.btnStyle} onPress={() => isValid()}>
+					<View style={styles.btnContainer}>
+						<Text h4 style={styles.btnTextStyle}>
+							Signup
+						</Text>
+					</View>
+				</TouchableOpacity>
 			</Spacer>
 
 			<TouchableOpacity
@@ -145,6 +155,19 @@ const styles = StyleSheet.create({
 		color: 'red',
 		alignSelf: 'center',
 		marginHorizontal: 10,
+	},
+	btnContainer: {
+		borderWidth: 1,
+		borderRadius: 20,
+		borderColor: 'gray',
+		paddingHorizontal: 20,
+		paddingVertical: 10,
+		marginHorizontal: 40,
+		alignItems: 'center',
+		backgroundColor: '#67b3ff',
+	},
+	btnTextStyle: {
+		color: 'white',
 	},
 });
 export default SignupScreen;
