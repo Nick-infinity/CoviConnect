@@ -38,7 +38,7 @@ const PlasmaScreen = ({ navigation }) => {
 						title1="Search Donor"
 						title2="Donate Plasma"
 						iconName1="search"
-						iconName2="hand-holding-heart"
+						iconName2="hand-holding-water"
 						onClick1={() => {
 							setScreenState(0);
 						}}
