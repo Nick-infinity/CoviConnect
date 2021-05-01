@@ -3,8 +3,6 @@ import { Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { View, StyleSheet, Text, Linking, Platform } from 'react-native';
 
-import { Input, Button, Icon, SearchBar } from 'react-native-elements';
-
 const RemdesivirCard = ({ item }) => {
 	// destructure the item object
 
@@ -18,16 +16,16 @@ const RemdesivirCard = ({ item }) => {
 	//     contct2:
 	//     email:""
 	// }
-	const { name, city, state, contact, contact2, email, area } = item;
+	const { name, city, state, contact, contact2 = '', email = '', area } = item;
 
-	const dialCall = () => {
+	const dialCall = (phn) => {
 		let phoneNumber = '';
 
 		if (Platform.OS === 'android') {
-			phoneNumber = `tel:${contact}`;
-			console.log(phoneNumber);
+			phoneNumber = `tel:${phn}`;
+			// console.log(phoneNumber);
 		} else {
-			phoneNumber = `telprompt:${contact}`;
+			phoneNumber = `telprompt:${phn}`;
 		}
 
 		Linking.openURL(phoneNumber);
@@ -39,14 +37,29 @@ const RemdesivirCard = ({ item }) => {
 			>
 				{name.toUpperCase()}
 			</Text>
+			<Text>{city}</Text>
 			<Text style={[styles.textStyle]}>{area}</Text>
-			<Text style={[styles.textStyle]}>Plasma for: {bloodGroups}</Text>
 
-			<TouchableOpacity onPress={() => dialCall()}>
+			{email !== '' ? (
+				<TouchableOpacity onPress={() => Linking.openURL(`mailto:${email}`)}>
+					<View style={styles.callcontainer}>
+						<Text style={[styles.textStyle]}>Email: {email}</Text>
+					</View>
+				</TouchableOpacity>
+			) : null}
+
+			<TouchableOpacity onPress={() => dialCall(contact)}>
 				<View style={styles.callcontainer}>
 					<Text style={[styles.textStyle]}>Call: {contact}</Text>
 				</View>
 			</TouchableOpacity>
+			{contact2 !== '' ? (
+				<TouchableOpacity onPress={() => dialCall(contact2)}>
+					<View style={styles.callcontainer}>
+						<Text style={[styles.textStyle]}>Call: {contact2}</Text>
+					</View>
+				</TouchableOpacity>
+			) : null}
 		</View>
 	);
 };

@@ -1,17 +1,16 @@
 import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text, Input, Icon, ButtonGroup } from 'react-native-elements';
+import { Text, Input, Icon } from 'react-native-elements';
 import { FlatList } from 'react-native';
-
+import RemdesivirCard from '../components/RemdesivirCard';
 import Spacer from '../components/Spacer';
-import { Context as PlasmaDonorContext } from '../context/PlasmaDonorContext';
-import PlasmaDonorCardHospital from '../components/PlasmaDonorCardHospital';
+import { Context as RemdesivirContext } from '../context/PlasmaDonorContext';
 
-const RemdesivirScreen = ({ navigation }) => {
+const RemdesivirScreen = () => {
 	// for search
 	const [searchCity, setSearchCity] = useState('');
-	const { state } = useContext(PlasmaDonorContext);
+	const { state, getremdesivir } = useContext(RemdesivirContext);
 
 	return (
 		<SafeAreaView forceInset={{ top: 'always' }}>
@@ -43,25 +42,25 @@ const RemdesivirScreen = ({ navigation }) => {
 							onChangeText={(city) => setSearchCity(city)}
 							onSubmitEditing={() => {
 								console.log(searchCity.toLocaleLowerCase());
-								getDonorListFromCity(searchCity.toLocaleLowerCase());
+								getremdesivir(searchCity.toLocaleLowerCase());
 							}}
 						></Input>
 
 						<Spacer />
-						{state.responseMsg === 'Something went wrong. Please try again' ||
-						state.responseMsg ===
-							'Cant find donors in your area.\n Enter proper city name or try with nearby city.' ? (
-							<Text style={styles.errorMesg}>{state.responseMsg}</Text>
+						{state.remdesivirErrorMesg ===
+							'Something went wrong. Please try again' ||
+						state.remdesivirErrorMesg === 'No supplier found in your area.' ? (
+							<Text style={styles.errorMesg}>{state.remdesivirErrorMesg}</Text>
 						) : null}
 
 						<FlatList
 							showsVerticalScrollIndicator={false}
 							style={styles.flatList}
 							numColumns={2}
-							data={state.donorList[0]}
+							data={state.remdesivirList}
 							keyExtractor={(item) => item._id}
 							renderItem={({ item }) => {
-								return <PlasmaDonorCardHospital item={item} />;
+								return <RemdesivirCard item={item} />;
 							}}
 						/>
 					</View>

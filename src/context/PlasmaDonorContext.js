@@ -49,6 +49,20 @@ const plasamaDonorReducer = (state, action) => {
 		case 'get_usercount': {
 			return { ...state, usercount: action.payload };
 		}
+		case 'error_msg_remdesivir': {
+			return {
+				...state,
+				remdesivirList: [],
+				remdesivirErrorMesg: action.payload,
+			};
+		}
+		case 'get_remdesivir': {
+			return {
+				...state,
+				remdesivirErrorMesg: '',
+				remdesivirList: action.payload,
+			};
+		}
 
 		case 'clear_state': {
 			return {
@@ -61,6 +75,8 @@ const plasamaDonorReducer = (state, action) => {
 				userPosts: [],
 				deleteErrorMsg: '',
 				updateResponseMesg: '',
+				remdesivirErrorMesg: '',
+				remdesivirList: [],
 			};
 		}
 		default:
@@ -463,6 +479,52 @@ const getUserCount = (dispatch) => {
 	};
 };
 
+//get request for dnorDashboard
+const getremdesivir = (dispatch) => {
+	return async (city) => {
+		console.log(city);
+		console.log('Runnig get remdesivir from context');
+		try {
+			//clear error
+			dispatch({
+				type: 'error_msg_remdesivir',
+				payload: ``,
+			});
+
+			const response = await trackerApi.get('/remdesivir', {
+				params: { city },
+			});
+			console.log('From Context screen : ', response.data);
+			if (response.data === 'err') {
+				dispatch({
+					type: 'error_msg_remdesivir',
+					payload: 'Something went wrong. Please try again',
+				});
+				return;
+			}
+			const remdesivirList = response.data;
+			if (remdesivirList.length === 0) {
+				dispatch({
+					type: 'error_msg_remdesivir',
+					payload: `No supplier found in your area.`,
+				});
+				return;
+			}
+
+			//set rmdesivirList from server in my state
+			dispatch({ type: 'get_remdesivir', payload: remdesivirList });
+			return;
+		} catch (e) {
+			dispatch({
+				type: 'error_msg_remdesivir',
+				payload: 'Something went wrong. Please try again',
+			});
+			console.log(e);
+			return;
+		}
+	};
+};
+
 const resetStateOnSignout = (dispatch) => {
 	return async () => {
 		console.log('Clearing state on logout');
@@ -487,6 +549,7 @@ export const { Provider, Context } = createDataContext(
 		updatePost,
 		getUserCount,
 		resetStateOnSignout,
+		getremdesivir,
 	},
 	{
 		userResponseMesg: '',
@@ -498,5 +561,7 @@ export const { Provider, Context } = createDataContext(
 		usercount: [],
 		deleteErrorMsg: '',
 		updateResponseMesg: '',
+		remdesivirList: [],
+		remdesivirErrorMesg: '',
 	}
 );
