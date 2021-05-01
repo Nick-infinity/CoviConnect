@@ -40,7 +40,11 @@ const PlasmaScreen = ({ navigation }) => {
 			<Overlay
 				isVisible={visible}
 				onBackdropPress={toggleOverlay}
-				overlayStyle={{ borderRadius: 20 }}
+				overlayStyle={{
+					borderRadius: 20,
+					width: windowWidth / 1.1,
+					height: windowHeight / 1.8,
+				}}
 			>
 				<View style={styles.overlayContainer}>
 					<View
@@ -52,7 +56,52 @@ const PlasmaScreen = ({ navigation }) => {
 							alignSelf: 'center',
 							marginBottom: 10,
 						}}
-					></View>
+					>
+						<Text style={{ fontWeight: '700', marginHorizontal: 10 }}>
+							Usage
+						</Text>
+					</View>
+					<Text
+						style={{
+							textAlign: 'center',
+							marginHorizontal: 10,
+							fontWeight: '700',
+						}}
+					>
+						App helps connecting plasma, oxygen, remdesivir providers with
+						covid-19 patients
+					</Text>
+
+					<Spacer />
+					<Text style={{ fontWeight: '700', marginHorizontal: 10 }}>
+						For Patients
+					</Text>
+					<Text style={styles.Overlaytext}>
+						1. You can search for plasma, oxygen, remdesivir providers
+					</Text>
+					<Text style={styles.Overlaytext}>
+						2. Click on search donor button and enter your city
+					</Text>
+					<Text style={styles.Overlaytext}>
+						3. The app will show you list of available donors in your city
+					</Text>
+					<Spacer />
+					<Text style={{ fontWeight: '700', marginHorizontal: 10 }}>
+						For Donors/Providers
+					</Text>
+					<Text style={styles.Overlaytext}>
+						1.Move to Plasma or Oxygen Section based on your requirement
+					</Text>
+					<Text style={styles.Overlaytext}>
+						2. Click on Donate button and chose suitale category
+					</Text>
+					<Text style={styles.Overlaytext}>
+						3. Fill your latest details in the form and click on Save button
+					</Text>
+					<Text style={styles.Overlaytext}>
+						4. You can easily manage the status of your posts in Dashboard
+						section
+					</Text>
 				</View>
 			</Overlay>
 			<View style={styles.container}>
@@ -173,6 +222,9 @@ const btnGroupStyle = {
 };
 
 const styles = StyleSheet.create({
+	Overlaytext: {
+		marginHorizontal: 10,
+	},
 	formContainer: {
 		backgroundColor: 'white',
 		borderRadius: 20,
