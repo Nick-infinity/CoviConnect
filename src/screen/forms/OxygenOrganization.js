@@ -42,6 +42,7 @@ const OxygenOrganization = ({ navigation }) => {
 	const [state, setState] = useState('');
 	const [city, setCity] = useState('');
 	const [area, setArea] = useState('');
+	const [btnState, SetBtnState] = useState(true);
 
 	const clearFields = () => {
 		setName('');
@@ -120,6 +121,7 @@ const OxygenOrganization = ({ navigation }) => {
 		const res = isSubmissionValid();
 		if (res) {
 			SetValid(1);
+			SetBtnState(false);
 			const organizationOxygenPostReqObject = createPostReqObject();
 			// call to server for post
 			const res = await postOrganizationOxygenReq(
@@ -128,12 +130,15 @@ const OxygenOrganization = ({ navigation }) => {
 			if (res) {
 				clearFields();
 				console.log('Submitted');
+				SetBtnState(true);
 				navigation.goBack();
 			} else if (res === false) {
 				SetValid(-2);
+				SetBtnState(true);
 			}
 		} else {
 			SetValid(0);
+			SetBtnState(true);
 			createPostReqObject();
 			console.log('Failed to Submit');
 		}
@@ -203,6 +208,7 @@ const OxygenOrganization = ({ navigation }) => {
 							</Text>
 						) : null}
 						<TouchableOpacity
+							disabled={!btnState}
 							style={styles.btnStyle}
 							onPress={() => onSaveClick()}
 						>

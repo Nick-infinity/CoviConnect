@@ -42,6 +42,7 @@ const PlasmaHospital = ({ navigation }) => {
 	const [state, setState] = useState('');
 	const [city, setCity] = useState('');
 	const [area, setArea] = useState('');
+	const [btnState, SetBtnState] = useState(true);
 	let bloodGroups = [];
 
 	const clearFields = () => {
@@ -122,18 +123,22 @@ const PlasmaHospital = ({ navigation }) => {
 		const res = isSubmissionValid();
 		if (res) {
 			SetValid(1);
+			SetBtnState(false);
 			const hospitalPlasmaPostReqObject = createPostReqObject();
 			// call to server for post
 			const res = await postHospitalPlasmaReq(hospitalPlasmaPostReqObject);
 			if (res) {
 				clearFields();
 				console.log('Submitted');
+				SetBtnState(true);
 				navigation.goBack();
 			} else if (res === false) {
 				SetValid(-2);
+				SetBtnState(true);
 			}
 		} else {
 			SetValid(0);
+			SetBtnState(true);
 			createPostReqObject();
 			console.log('Failed to Submit');
 		}
@@ -211,6 +216,7 @@ const PlasmaHospital = ({ navigation }) => {
 							</Text>
 						) : null}
 						<TouchableOpacity
+							disabled={!btnState}
 							style={styles.btnStyle}
 							onPress={() => {
 								onSaveClick();

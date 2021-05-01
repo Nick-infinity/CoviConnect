@@ -1,7 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Text, Input, Icon, ButtonGroup } from 'react-native-elements';
+import { Text, Input, Icon, ButtonGroup, Overlay } from 'react-native-elements';
 import ShortcutBar from '../components/ShortcutBar';
 import { FlatList } from 'react-native';
 import DonorTypeSelector from '../components/DonorTypeSelector';
@@ -10,10 +10,12 @@ import { Context as PlasmaDonorContext } from '../context/PlasmaDonorContext';
 import PlasmaDonorCardHospital from '../components/PlasmaDonorCardHospital';
 import PlasmaDonorCardIndividual from '../components/PlasmaDonorCardIndividual';
 import PlasmaDonorCardOrganization from '../components/PlasmaDonorCardOrganization';
+import { Context as AuthContext } from '../context/AuthContext';
 
 const PlasmaScreen = ({ navigation }) => {
 	// for cehcking which screen is running
 	const [screenState, setScreenState] = useState(0);
+	const [visible, setVisible] = useState(false);
 	// 0 for search screen
 	// 1 for donor screen
 
@@ -25,8 +27,34 @@ const PlasmaScreen = ({ navigation }) => {
 	const [donorCategoryIndex, setdonorCategoryIndex] = useState(0);
 	const donorCategories = ['Hospitals', 'Organizations', 'Individuals'];
 
+	const toggleOverlay = () => {
+		setVisible(!visible);
+	};
+
+	useEffect(() => {
+		toggleOverlay();
+	}, []);
+
 	return (
 		<SafeAreaView forceInset={{ top: 'always' }}>
+			<Overlay
+				isVisible={visible}
+				onBackdropPress={toggleOverlay}
+				overlayStyle={{ borderRadius: 20 }}
+			>
+				<View style={styles.overlayContainer}>
+					<View
+						style={{
+							borderRadius: 20,
+							borderWidth: 1,
+							borderColor: 'gray',
+							padding: 10,
+							alignSelf: 'center',
+							marginBottom: 10,
+						}}
+					></View>
+				</View>
+			</Overlay>
 			<View style={styles.container}>
 				<View style={styles.containerTop}>
 					<Text h1 style={styles.headingStyle}>

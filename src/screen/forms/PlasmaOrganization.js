@@ -43,6 +43,7 @@ const PlasmaOrganization = ({ navigation }) => {
 	const [state, setState] = useState('');
 	const [city, setCity] = useState('');
 	const [area, setArea] = useState('');
+	const [btnState, SetBtnState] = useState(true);
 	let bloodGroups = [];
 
 	const clearFields = () => {
@@ -132,6 +133,7 @@ const PlasmaOrganization = ({ navigation }) => {
 		const res = isSubmissionValid();
 		if (res) {
 			SetValid(1);
+			SetBtnState(false);
 			const organizationPlasmaPostReqObject = createPostReqObject();
 			// call to server for post
 			const res = await postOrganizationPlasmaReq(
@@ -140,12 +142,15 @@ const PlasmaOrganization = ({ navigation }) => {
 			if (res) {
 				clearFields();
 				console.log('Submitted');
+				SetBtnState(true);
 				navigation.goBack();
 			} else if (res === false) {
 				SetValid(-2);
+				SetBtnState(true);
 			}
 		} else {
 			SetValid(0);
+			SetBtnState(true);
 			createPostReqObject();
 			console.log('Failed to Submit');
 		}
@@ -216,6 +221,7 @@ const PlasmaOrganization = ({ navigation }) => {
 							</Text>
 						) : null}
 						<TouchableOpacity
+							disabled={!btnState}
 							style={styles.btnStyle}
 							onPress={() => onSaveClick()}
 						>

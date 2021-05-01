@@ -43,6 +43,7 @@ const PlasmaIndividual = ({ navigation }) => {
 	const [state, setState] = useState('');
 	const [city, setCity] = useState('');
 	const [area, setArea] = useState('');
+	const [btnState, SetBtnState] = useState(true);
 
 	const clearFields = () => {
 		setName('');
@@ -134,18 +135,22 @@ const PlasmaIndividual = ({ navigation }) => {
 		const res = isSubmissionValid();
 		if (res) {
 			SetValid(1);
+			SetBtnState(false);
 			const individualPlasmaPostReqObject = createPostReqObject();
 			// call to server for post
 			const res = await postIndividualPlasmaReq(individualPlasmaPostReqObject);
 			if (res) {
 				clearFields();
 				console.log('Submitted');
+				SetBtnState(true);
 				navigation.goBack();
 			} else if (res === false) {
 				SetValid(-2);
+				SetBtnState(true);
 			}
 		} else {
 			SetValid(0);
+			SetBtnState(true);
 			createPostReqObject();
 			console.log('Failed to Submit');
 		}
@@ -248,6 +253,7 @@ const PlasmaIndividual = ({ navigation }) => {
 						<TouchableOpacity
 							style={styles.btnStyle}
 							onPress={() => onSaveClick()}
+							disabled={!btnState}
 						>
 							<View style={styles.btnContainer}>
 								<Text h4 style={styles.btnTextStyle}>
