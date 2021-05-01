@@ -30,7 +30,9 @@ const PlasmaDonorOrganization = ({ item }) => {
 				{name.toUpperCase()}
 			</Text>
 			<Text style={[styles.textStyle]}>{area}</Text>
-			<Text style={[styles.textStyle]}>Plasma for: {bloodGroups}</Text>
+			<Text style={[styles.textStyle]}>
+				Plasma for: {bloodGroups.join(' ')}
+			</Text>
 			<TouchableOpacity onPress={() => dialCall(contact)}>
 				<View style={styles.callcontainer}>
 					<Text style={[styles.textStyle]}>Call: {contact}</Text>

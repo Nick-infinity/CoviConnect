@@ -3,19 +3,12 @@ import { View, StyleSheet, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text, Input, Icon, ButtonGroup } from 'react-native-elements';
 import { FlatList } from 'react-native';
-import DonorTypeSelector from '../components/DonorTypeSelector';
+
 import Spacer from '../components/Spacer';
 import { Context as PlasmaDonorContext } from '../context/PlasmaDonorContext';
 import PlasmaDonorCardHospital from '../components/PlasmaDonorCardHospital';
-import PlasmaDonorCardIndividual from '../components/PlasmaDonorCardIndividual';
-import PlasmaDonorCardOrganization from '../components/PlasmaDonorCardOrganization';
 
 const RemdesivirScreen = ({ navigation }) => {
-	// for cehcking which screen is running
-	const [screenState, setScreenState] = useState(0);
-	// 0 for search screen
-	// 1 for donor screen
-
 	// for search
 	const [searchCity, setSearchCity] = useState('');
 	const { state } = useContext(PlasmaDonorContext);
@@ -134,7 +127,7 @@ const styles = StyleSheet.create({
 	resultScreen: {
 		backgroundColor: 'white',
 		borderRadius: 20,
-		marginBottom: windowHeight / 5.5,
+		marginBottom: windowHeight / 7,
 	},
 	flatList: {
 		alignSelf: 'center',
