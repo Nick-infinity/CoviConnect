@@ -23,7 +23,8 @@ import PlasmaIndividual from './src/screen/forms/PlasmaIndividual';
 import OxygenInidividual from './src/screen/forms/OxygenInidividual';
 import OxygenOrganization from './src/screen/forms/OxygenOrganization';
 import OxygenHospital from './src/screen/forms/OxygenHospital';
-
+import RemdesivirScreen from './src/screen/RemdesivirScreen';
+import { Icon } from 'react-native-elements';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const DonorCategoryStack = createStackNavigator();
@@ -31,10 +32,66 @@ const DonorCategoryStack = createStackNavigator();
 const TabScreens = () => {
 	return (
 		<Tab.Navigator tabBarOptions={customTabBarStyle}>
-			<Tab.Screen name="PlasmaScreen" component={PlasmaScreen} />
-			<Tab.Screen name="OxygenScreen" component={OxygenScreen} />
-			<Tab.Screen name="Dashboard" component={DonorDashBoardScreen} />
-			<Tab.Screen name="Settings" component={SettingsScreen} />
+			<Tab.Screen
+				name="Plasma"
+				component={PlasmaScreen}
+				options={{
+					tabBarIcon: ({ color, size }) => (
+						<Icon name="tint" type="font-awesome-5" color={color} size={size} />
+					),
+				}}
+			/>
+			<Tab.Screen
+				name="Oxygen"
+				component={OxygenScreen}
+				options={{
+					tabBarIcon: ({ color, size }) => (
+						<Icon
+							name="lungs"
+							type="font-awesome-5"
+							color={color}
+							size={size}
+						/>
+					),
+				}}
+			/>
+			<Tab.Screen
+				name="Remdesivir"
+				component={RemdesivirScreen}
+				options={{
+					tabBarIcon: ({ color, size }) => (
+						<Icon
+							name="syringe"
+							type="font-awesome-5"
+							color={color}
+							size={size}
+						/>
+					),
+				}}
+			/>
+			<Tab.Screen
+				name="Dashboard"
+				component={DonorDashBoardScreen}
+				options={{
+					tabBarIcon: ({ color, size }) => (
+						<Icon
+							name="user-cog"
+							type="font-awesome-5"
+							color={color}
+							size={size}
+						/>
+					),
+				}}
+			/>
+			<Tab.Screen
+				name="About"
+				component={SettingsScreen}
+				options={{
+					tabBarIcon: ({ color, size }) => (
+						<Icon name="bars" type="font-awesome-5" color={color} size={size} />
+					),
+				}}
+			/>
 		</Tab.Navigator>
 	);
 };
@@ -130,6 +187,7 @@ const App = () => {
 const customTabBarStyle = {
 	activeTintColor: '#272727',
 	inactiveTintColor: 'gray',
+	safeAreaInsets: 'bottom',
 	style: {
 		borderTopLeftRadius: 20,
 		borderTopRightRadius: 20,
@@ -139,6 +197,7 @@ const customTabBarStyle = {
 		padding: 10,
 		height: 70,
 		zIndex: 8,
+		paddingBottom: 10,
 	},
 };
 
