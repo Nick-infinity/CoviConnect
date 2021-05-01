@@ -49,6 +49,20 @@ const plasamaDonorReducer = (state, action) => {
 		case 'get_usercount': {
 			return { ...state, usercount: action.payload };
 		}
+
+		case 'clear_state': {
+			return {
+				...state,
+				userResponseMesg: '',
+				responseMsg: '',
+				oxygenresponseMsg: '',
+				donorList: [],
+				donorListOxygen: [],
+				userPosts: [],
+				deleteErrorMsg: '',
+				updateResponseMesg: '',
+			};
+		}
 		default:
 			return state;
 	}
@@ -449,6 +463,14 @@ const getUserCount = (dispatch) => {
 	};
 };
 
+const resetStateOnSignout = (dispatch) => {
+	return async () => {
+		console.log('Clearing state on logout');
+
+		dispatch({ type: 'clear_state' });
+	};
+};
+
 export const { Provider, Context } = createDataContext(
 	plasamaDonorReducer,
 	{
@@ -464,6 +486,7 @@ export const { Provider, Context } = createDataContext(
 		deletePost,
 		updatePost,
 		getUserCount,
+		resetStateOnSignout,
 	},
 	{
 		userResponseMesg: '',

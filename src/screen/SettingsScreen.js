@@ -16,7 +16,9 @@ import { Context as UserCountContext } from '../context/PlasmaDonorContext';
 
 const SettingsScreen = ({ navigation }) => {
 	const { signout } = useContext(AuthContext);
-	const { getUserCount, state } = useContext(UserCountContext);
+	const { getUserCount, state, resetStateOnSignout } = useContext(
+		UserCountContext
+	);
 
 	useEffect(() => {
 		const unsubscribe = navigation.addListener('focus', () => {
@@ -141,7 +143,12 @@ const SettingsScreen = ({ navigation }) => {
 								Total Users: {state.usercount[2]}
 							</Text>
 							<Text></Text>
-							<TouchableOpacity onPress={() => signout()}>
+							<TouchableOpacity
+								onPress={() => {
+									resetStateOnSignout();
+									signout();
+								}}
+							>
 								<View style={[styles.logoutBtn]}>
 									<Text style={styles.editbtnTextStyle}>Logout</Text>
 								</View>
