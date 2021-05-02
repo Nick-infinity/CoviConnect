@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 import { Context as AuthContext } from '../context/AuthContext';
 import { Text, Input, Button, Icon } from 'react-native-elements';
 import Spacer from '../components/Spacer';
@@ -29,69 +29,71 @@ const SigninScreen = ({ navigation }) => {
 		}
 	};
 	return (
-		<View style={styles.container}>
-			<Text h1 style={styles.appNameStyle}>
-				Covid Helper
-			</Text>
-
-			<Spacer>
-				<Text h3 style={styles.bannerStyle}>
-					Log in your account
+		<SafeAreaView forceInset={{ top: 'always' }}>
+			<View style={styles.container}>
+				<Text h1 style={styles.appNameStyle}>
+					Covid Helper
 				</Text>
-			</Spacer>
-			<Spacer />
-			<Input
-				keyboardType="number-pad"
-				autoCapitalize="none"
-				autoCorrect={false}
-				placeholder="Registred Mobile number"
-				style={styles.inputStyle}
-				label="Registered Mobile"
-				value={mobile}
-				onChangeText={(text) => {
-					setMobile(text);
-				}}
-				inputContainerStyle={inputStyle}
-			/>
 
-			<Input
-				secureTextEntry
-				autoCapitalize="none"
-				autoCorrect={false}
-				placeholder="Password"
-				label="Password"
-				value={password}
-				onChangeText={(text) => setPassword(text)}
-				inputContainerStyle={inputStyle}
-			/>
-			{valid === 0 ? (
-				<Text style={styles.errorStyle}>Invalid mobile or password</Text>
-			) : null}
-			{state.errorMessage ? (
-				<Text style={styles.errorStyle}>{state.errorMessage}</Text>
-			) : null}
-			<Spacer>
-				<TouchableOpacity style={styles.btnStyle} onPress={() => isValid()}>
-					<View style={styles.btnContainer}>
-						<Text h4 style={styles.btnTextStyle}>
-							Login
-						</Text>
-					</View>
+				<Spacer>
+					<Text h3 style={styles.bannerStyle}>
+						Log in your account
+					</Text>
+				</Spacer>
+				<Spacer />
+				<Input
+					keyboardType="number-pad"
+					autoCapitalize="none"
+					autoCorrect={false}
+					placeholder="Registred Mobile number"
+					style={styles.inputStyle}
+					label="Registered Mobile"
+					value={mobile}
+					onChangeText={(text) => {
+						setMobile(text);
+					}}
+					inputContainerStyle={inputStyle}
+				/>
+
+				<Input
+					secureTextEntry
+					autoCapitalize="none"
+					autoCorrect={false}
+					placeholder="Password"
+					label="Password"
+					value={password}
+					onChangeText={(text) => setPassword(text)}
+					inputContainerStyle={inputStyle}
+				/>
+				{valid === 0 ? (
+					<Text style={styles.errorStyle}>Invalid mobile or password</Text>
+				) : null}
+				{state.errorMessage ? (
+					<Text style={styles.errorStyle}>{state.errorMessage}</Text>
+				) : null}
+				<Spacer>
+					<TouchableOpacity style={styles.btnStyle} onPress={() => isValid()}>
+						<View style={styles.btnContainer}>
+							<Text h4 style={styles.btnTextStyle}>
+								Login
+							</Text>
+						</View>
+					</TouchableOpacity>
+				</Spacer>
+				<TouchableOpacity
+					onPress={() => {
+						Setvalid(-1);
+						setMobile('');
+						setPassword('');
+						navigation.navigate('Signup');
+					}}
+				>
+					<Text style={{ color: 'gray', alignSelf: 'center' }}>
+						New user? Sign Up
+					</Text>
 				</TouchableOpacity>
-			</Spacer>
-			<TouchableOpacity
-				onPress={() => {
-					Setvalid(-1);
-					setMobile('');
-					setPassword('');
-					navigation.navigate('Signup');
-				}}
-			>
-				<Text style={{ color: 'gray', alignSelf: 'center' }}>
-					Not a user? Sign Up
-				</Text>
-			</TouchableOpacity>
-		</View>
+			</View>
+		</SafeAreaView>
 	);
 };
 const inputStyle = {

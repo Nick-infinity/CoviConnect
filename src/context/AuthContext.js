@@ -20,7 +20,7 @@ const authReducer = (state, action) => {
 
 //signup
 const signup = (dispatch) => {
-	return async ({ mobile, email, password }) => {
+	return async ({ mobile, email, password, type }) => {
 		// make api request to sigup with email and password
 		//if we are signup, modify our state and say we are authenticatedd
 		// if sigunup fails , reflect error mesg
@@ -32,6 +32,7 @@ const signup = (dispatch) => {
 				mobile,
 				email,
 				password,
+				type,
 			});
 			//save our token in storage
 			await AsyncStorage.setItem('token', JSON.stringify(response.data.token));
