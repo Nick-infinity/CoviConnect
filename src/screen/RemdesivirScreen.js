@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet, Dimensions, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text, Input, Icon, ButtonGroup } from 'react-native-elements';
 import ShortcutBar from '../components/ShortcutBar';
@@ -9,6 +9,7 @@ import Spacer from '../components/Spacer';
 import { Context as PlasmaDonorContext } from '../context/PlasmaDonorContext';
 import RemdesivirCard from '../components/RemdesivirCard';
 import RemdesivirProviderForm from '../screen/forms/RemdesivirProviderForm';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const RemdesivirScreen = ({ navigation }) => {
 	// for cehcking which screen is running
@@ -36,7 +37,7 @@ const RemdesivirScreen = ({ navigation }) => {
 						title1="Search Remdesivir"
 						title2="Provide Remdesivir"
 						iconName1="search"
-						iconName2="hand-holding-water"
+						iconName2="hand-holding-medical"
 						onClick1={() => {
 							setScreenState(0);
 						}}
@@ -49,6 +50,26 @@ const RemdesivirScreen = ({ navigation }) => {
 				<View style={styles.containerBottom}>
 					{screenState === 0 ? (
 						<View style={styles.resultScreen}>
+							<TouchableOpacity
+								onPress={() => {
+									Linking.openURL(
+										`https://drive.google.com/file/d/1Uu0u2hsE3f-sgU52en6tuWPavo5y-fe0/view?usp=sharing`
+									);
+								}}
+								style={[styles.btnNormal]}
+							>
+								<View style={styles.ShortcutContainer}>
+									<Icon
+										color="white"
+										name="file-alt"
+										type="font-awesome-5"
+										style={[styles.iconStyle]}
+									/>
+									<Text style={[styles.titleStyle]}>
+										Click to find remdesivir distributor list
+									</Text>
+								</View>
+							</TouchableOpacity>
 							<Input
 								leftIcon={
 									<Icon name="search" type="material" size={30} color="black" />
@@ -154,7 +175,7 @@ const styles = StyleSheet.create({
 	resultScreen: {
 		backgroundColor: 'white',
 		borderRadius: 20,
-		marginBottom: windowHeight / 7,
+		marginBottom: windowHeight / 6.2,
 	},
 	flatList: {
 		alignSelf: 'center',
@@ -164,6 +185,25 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 		textAlign: 'center',
 		marginTop: 5,
+	},
+	ShortcutContainer: {
+		padding: 10,
+		justifyContent: 'space-evenly',
+		alignContent: 'center',
+		//alignSelf: 'center',
+		alignItems: 'center',
+		flexDirection: 'row',
+	},
+
+	btnNormal: {
+		borderColor: '#272727',
+		borderWidth: 1,
+		borderRadius: 20,
+		backgroundColor: '#272727',
+	},
+	titleStyle: {
+		marginTop: 5,
+		color: 'white',
 	},
 });
 export default RemdesivirScreen;

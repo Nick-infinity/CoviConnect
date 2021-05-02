@@ -89,7 +89,8 @@ const PlasmaScreen = ({ navigation }) => {
 						For Donors/Providers
 					</Text>
 					<Text style={styles.Overlaytext}>
-						1.Move to Plasma or Oxygen Section based on your requirement
+						1.Navigate to Plasma, Oxygen or Remdesivir Section based on your
+						requirement
 					</Text>
 					<Text style={styles.Overlaytext}>
 						2. Click on Donate button and chose suitale category
