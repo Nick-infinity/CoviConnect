@@ -11,6 +11,7 @@ import PlasmaCard from '../components/dashboardCards/PlasmaCard';
 import OxygenCard from '../components/dashboardCards/OxygenCard';
 import MultiBloodGroupChecker from '../components/MultiBloodGroupChecker';
 import Spacer from '../components/Spacer';
+import RemdesivirDashCard from '../components/dashboardCards/RemdesivirDashCard';
 
 const DonorDashBoardScreen = ({ navigation }) => {
 	const [screenState, setScreenState] = useState(0);
@@ -88,15 +89,21 @@ const DonorDashBoardScreen = ({ navigation }) => {
 					</Text>
 					<Text style={styles.shortcutBannerStyle}>Manage donor posts</Text>
 					<ShortcutBar
+						btncount={3}
 						title1="Plasma Posts"
 						title2="Oxygen Posts"
+						title3="Remde. Posts"
 						iconName1="tint"
 						iconName2="lungs"
+						iconName3="syringe"
 						onClick1={() => {
 							setScreenState(0);
 						}}
 						onClick2={() => {
 							setScreenState(1);
+						}}
+						onClick3={() => {
+							setScreenState(3);
 						}}
 					/>
 				</View>
@@ -216,6 +223,15 @@ const DonorDashBoardScreen = ({ navigation }) => {
 								keyExtractor={(item) => item._id}
 								renderItem={({ item }) => {
 									return <OxygenCard item={item} />;
+								}}
+							/>
+						) : null}
+						{screenState === 3 ? (
+							<FlatList
+								data={state.userPosts[2]}
+								keyExtractor={(item) => item._id}
+								renderItem={({ item }) => {
+									return <RemdesivirDashCard item={item} />;
 								}}
 							/>
 						) : null}

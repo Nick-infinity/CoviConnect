@@ -113,6 +113,9 @@ const PlasmaScreen = ({ navigation }) => {
 					<ShortcutBar
 						title1="Search Donor"
 						title2="Donate Plasma"
+						btncount={2}
+						title3=""
+						iconName3=""
 						iconName1="search"
 						iconName2="hand-holding-water"
 						onClick1={() => {
@@ -121,6 +124,7 @@ const PlasmaScreen = ({ navigation }) => {
 						onClick2={() => {
 							setScreenState(1);
 						}}
+						onClick3={() => {}}
 					/>
 				</View>
 

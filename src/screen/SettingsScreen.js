@@ -140,7 +140,10 @@ const SettingsScreen = ({ navigation }) => {
 								Active Oxygen Providers: {state.usercount[1]}
 							</Text>
 							<Text style={styles.userCount}>
-								Total Users: {state.usercount[2]}
+								Active Remdesivir Providers: {state.usercount[2]}
+							</Text>
+							<Text style={styles.userCount}>
+								Total Users: {state.usercount[3]}
 							</Text>
 							<Text></Text>
 							<TouchableOpacity

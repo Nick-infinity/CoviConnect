@@ -82,6 +82,7 @@ const RemdesivirProviderForm = ({ navigation }) => {
 			city,
 			state,
 			location,
+			type: 'remdesivirProvider',
 			availability,
 		};
 

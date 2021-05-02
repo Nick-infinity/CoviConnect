@@ -34,10 +34,14 @@ const OxygenScreen = ({ navigation }) => {
 					<ShortcutBar
 						title1="Search Oxygen"
 						title2="Provide Oxygen "
+						btncount={2}
+						title3=""
+						iconName3=""
 						iconName1="search"
 						iconName2="hand-holding-heart"
 						onClick1={() => setScreenState(0)}
 						onClick2={() => setScreenState(1)}
+						onClick3={() => {}}
 					/>
 				</View>
 

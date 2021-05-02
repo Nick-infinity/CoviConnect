@@ -363,7 +363,11 @@ const getUserPosts = (dispatch) => {
 				return;
 			}
 			const userPosts = response.data;
-			if (userPosts[0].length === 0 && userPosts[1].length === 0) {
+			if (
+				userPosts[0].length === 0 &&
+				userPosts[1].length === 0 &&
+				userPosts[2].length === 0
+			) {
 				dispatch({
 					type: 'error_msg_userposts',
 					payload: `You havent made any donations posts yet.`,
