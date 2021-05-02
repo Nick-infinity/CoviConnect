@@ -16,7 +16,16 @@ const RemdesivirCard = ({ item }) => {
 	//     contct2:
 	//     email:""
 	// }
-	const { name, city, state, contact, contact2 = '', email = '', area } = item;
+	const {
+		name,
+		city,
+		state,
+		contact,
+		contact2 = '',
+		email = '',
+		area,
+		location,
+	} = item;
 
 	const dialCall = (phn) => {
 		let phoneNumber = '';
@@ -38,9 +47,9 @@ const RemdesivirCard = ({ item }) => {
 				{name.toUpperCase()}
 			</Text>
 			<Text>{city}</Text>
-			<Text style={[styles.textStyle]}>{area}</Text>
+			<Text style={[styles.textStyle]}>{location}</Text>
 
-			{email !== '' ? (
+			{email !== '' && email !== 'none' ? (
 				<TouchableOpacity onPress={() => Linking.openURL(`mailto:${email}`)}>
 					<View style={styles.callcontainer}>
 						<Text style={[styles.textStyle]}>Email: {email}</Text>

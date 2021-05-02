@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-	baseURL: 'https://myapptracker5.herokuapp.com/', // this will change based on ngrok
+	baseURL: 'http://48e1975f3f61.ngrok.io', // this will change based on ngrok
 });
 
 export default instance;

@@ -525,6 +525,35 @@ const getremdesivir = (dispatch) => {
 	};
 };
 
+// post org
+const postRemdesivirReq = (dispatch) => {
+	return async (remdesivirPostObject) => {
+		try {
+			console.log('At context');
+			console.log(remdesivirPostObject);
+			// console.log(plasmaDonorInfo);
+			const response = await trackerApi.post('/remdesivir', {
+				remdesivirPostObject,
+			});
+
+			const res = response.data;
+			console.log('Response', res);
+			if (res === 'err') {
+				return false;
+			}
+
+			dispatch({
+				type: 'postHospitalPlasmaReq',
+			});
+
+			return true;
+		} catch (e) {
+			console.log('Error', e);
+			return false;
+		}
+	};
+};
+
 const resetStateOnSignout = (dispatch) => {
 	return async () => {
 		console.log('Clearing state on logout');
@@ -550,6 +579,7 @@ export const { Provider, Context } = createDataContext(
 		getUserCount,
 		resetStateOnSignout,
 		getremdesivir,
+		postRemdesivirReq,
 	},
 	{
 		userResponseMesg: '',
