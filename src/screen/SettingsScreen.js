@@ -158,13 +158,14 @@ const SettingsScreen = ({ navigation }) => {
 							</TouchableOpacity>
 							<Text
 								style={{
+									fontSize: 12,
 									textAlign: 'center',
 									marginTop: 10,
 									marginHorizontal: 10,
 									alignSelf: 'center',
 								}}
 							>
-								Covid Helper Version: Beta 1
+								Version: Beta-3
 							</Text>
 						</View>
 					</View>
