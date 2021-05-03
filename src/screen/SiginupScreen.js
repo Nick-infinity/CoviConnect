@@ -68,6 +68,8 @@ const SignupScreen = ({ navigation }) => {
 							setMobile(text);
 						}}
 						inputContainerStyle={inputStyle}
+						labelStyle={{ fontSize: RFPercentage(2) }}
+						inputStyle={{ fontSize: RFPercentage(2.5) }}
 					/>
 					<Input
 						autoCapitalize="none"
@@ -80,6 +82,8 @@ const SignupScreen = ({ navigation }) => {
 							setEmail(text);
 						}}
 						inputContainerStyle={inputStyle}
+						labelStyle={{ fontSize: RFPercentage(2) }}
+						inputStyle={{ fontSize: RFPercentage(2.5) }}
 					/>
 
 					<Input
@@ -91,6 +95,8 @@ const SignupScreen = ({ navigation }) => {
 						value={password}
 						onChangeText={(text) => setPassword(text)}
 						inputContainerStyle={inputStyle}
+						labelStyle={{ fontSize: RFPercentage(2) }}
+						inputStyle={{ fontSize: RFPercentage(2.5) }}
 					/>
 					<Text style={styles.btnGrpBannerStyle}>User category</Text>
 					<ButtonGroup
@@ -127,7 +133,13 @@ const SignupScreen = ({ navigation }) => {
 							navigation.navigate('Signin');
 						}}
 					>
-						<Text style={{ color: 'gray', alignSelf: 'center' }}>
+						<Text
+							style={{
+								color: 'gray',
+								alignSelf: 'center',
+								fontSize: RFPercentage(2),
+							}}
+						>
 							Already have an account? Log in instead
 						</Text>
 					</TouchableOpacity>
@@ -151,7 +163,8 @@ const inputStyle = {
 	borderColor: 'gray',
 	borderRadius: 15,
 	paddingHorizontal: windowWidth * 0.03,
-	paddingVertical: windowHeight * 0.005,
+	paddingVertical: windowHeight * 0.004,
+	marginBottom: -windowHeight * 0.013,
 	marginTop: windowHeight * 0.01,
 };
 const styles = StyleSheet.create({
@@ -161,7 +174,7 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 	},
 	btnGrpBannerStyle: {
-		fontSize: 16,
+		fontSize: RFPercentage(2),
 		fontWeight: 'bold',
 		color: '#87929d',
 		marginLeft: 10,

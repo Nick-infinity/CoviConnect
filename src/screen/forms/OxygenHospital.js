@@ -161,6 +161,8 @@ const OxygenHospital = ({ navigation }) => {
 									value={name}
 									onChangeText={(t) => setName(t)}
 									inputContainerStyle={inputStyle}
+									labelStyle={{ fontSize: RFPercentage(2) }}
+									inputStyle={{ fontSize: RFPercentage(2.5) }}
 								/>
 								<Input
 									keyboardType="numeric"
@@ -172,6 +174,8 @@ const OxygenHospital = ({ navigation }) => {
 										pinValidation(pin);
 									}}
 									inputContainerStyle={inputStyle}
+									labelStyle={{ fontSize: RFPercentage(2) }}
+									inputStyle={{ fontSize: RFPercentage(2.5) }}
 								/>
 								<Input
 									keyboardType="numeric"
@@ -180,6 +184,8 @@ const OxygenHospital = ({ navigation }) => {
 									value={contact}
 									onChangeText={(t) => setContact(t)}
 									inputContainerStyle={inputStyle}
+									labelStyle={{ fontSize: RFPercentage(2) }}
+									inputStyle={{ fontSize: RFPercentage(2.5) }}
 								/>
 
 								<Text style={styles.btnGrpBannerStyle}>
@@ -237,7 +243,7 @@ const inputStyle = {
 	borderColor: 'gray',
 	borderRadius: windowWidth * 0.032,
 	paddingHorizontal: windowWidth * 0.04,
-	paddingVertical: windowHeight * 0.007,
+	paddingVertical: windowHeight * 0.004,
 	marginTop: windowHeight * 0.013,
 };
 

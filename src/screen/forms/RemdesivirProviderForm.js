@@ -159,6 +159,8 @@ const RemdesivirProviderForm = ({ navigation }) => {
 									value={name}
 									onChangeText={(t) => setName(t)}
 									inputContainerStyle={inputStyle}
+									labelStyle={{ fontSize: RFPercentage(2) }}
+									inputStyle={{ fontSize: RFPercentage(2.5) }}
 								/>
 								<Input
 									keyboardType="numeric"
@@ -170,6 +172,8 @@ const RemdesivirProviderForm = ({ navigation }) => {
 										pinValidation(pin);
 									}}
 									inputContainerStyle={inputStyle}
+									labelStyle={{ fontSize: RFPercentage(2) }}
+									inputStyle={{ fontSize: RFPercentage(2.5) }}
 								/>
 								<Input
 									placeholder="Enter address"
@@ -177,6 +181,8 @@ const RemdesivirProviderForm = ({ navigation }) => {
 									value={location}
 									onChangeText={(t) => setLocation(t)}
 									inputContainerStyle={inputStyle}
+									labelStyle={{ fontSize: RFPercentage(2) }}
+									inputStyle={{ fontSize: RFPercentage(2.5) }}
 								/>
 								<Input
 									keyboardType="numeric"
@@ -185,6 +191,8 @@ const RemdesivirProviderForm = ({ navigation }) => {
 									value={contact}
 									onChangeText={(t) => setContact(t)}
 									inputContainerStyle={inputStyle}
+									labelStyle={{ fontSize: RFPercentage(2) }}
+									inputStyle={{ fontSize: RFPercentage(2.5) }}
 								/>
 								<Input
 									keyboardType="numeric"
@@ -193,6 +201,8 @@ const RemdesivirProviderForm = ({ navigation }) => {
 									value={contact2}
 									onChangeText={(t) => setContact2(t)}
 									inputContainerStyle={inputStyle}
+									labelStyle={{ fontSize: RFPercentage(2) }}
+									inputStyle={{ fontSize: RFPercentage(2.5) }}
 								/>
 
 								<Text style={styles.btnGrpBannerStyle}>
@@ -240,8 +250,9 @@ const inputStyle = {
 	borderColor: 'gray',
 	borderRadius: windowWidth * 0.04,
 	paddingHorizontal: windowWidth * 0.02,
-	paddingVertical: windowHeight * 0.007,
-	marginTop: windowHeight * 0.026,
+	paddingVertical: windowHeight * 0.004,
+	marginTop: windowHeight * 0.013,
+	marginBottom: -windowHeight * 0.013,
 };
 
 const styles = StyleSheet.create({
@@ -251,18 +262,19 @@ const styles = StyleSheet.create({
 		fontSize: RFPercentage(5),
 	},
 	container: {
-		height: windowHeight / 1.4,
+		borderRadius: windowWidth * 0.05,
 	},
 	secondContainer: {
+		borderRadius: windowWidth * 0.05,
 		marginBottom: windowHeight * 0.052,
 	},
 	formContainer: {
-		marginHorizontal: windowWidth * 0.02,
 		borderRadius: windowWidth * 0.05,
 		backgroundColor: 'white',
 		marginTop: 0,
 	},
 	fieldContainer: {
+		borderRadius: windowWidth * 0.05,
 		marginTop: windowHeight * 0.039,
 		marginBottom: windowHeight * 0.039,
 	},

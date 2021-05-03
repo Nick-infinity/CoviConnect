@@ -60,6 +60,8 @@ const SigninScreen = ({ navigation }) => {
 							setMobile(text);
 						}}
 						inputContainerStyle={inputStyle}
+						labelStyle={{ fontSize: RFPercentage(2) }}
+						inputStyle={{ fontSize: RFPercentage(2.5) }}
 					/>
 
 					<Input
@@ -71,6 +73,8 @@ const SigninScreen = ({ navigation }) => {
 						value={password}
 						onChangeText={(text) => setPassword(text)}
 						inputContainerStyle={inputStyle}
+						labelStyle={{ fontSize: RFPercentage(2) }}
+						inputStyle={{ fontSize: RFPercentage(2.5) }}
 					/>
 					{valid === 0 ? (
 						<Text style={styles.errorStyle}>Invalid mobile or password</Text>
@@ -93,7 +97,13 @@ const SigninScreen = ({ navigation }) => {
 							navigation.navigate('Signup');
 						}}
 					>
-						<Text style={{ color: 'gray', alignSelf: 'center' }}>
+						<Text
+							style={{
+								color: 'gray',
+								alignSelf: 'center',
+								fontSize: RFPercentage(2),
+							}}
+						>
 							New user? Sign Up
 						</Text>
 					</TouchableOpacity>
@@ -112,8 +122,8 @@ const inputStyle = {
 	borderColor: 'gray',
 	borderRadius: 15,
 	paddingHorizontal: windowWidth * 0.03,
-	paddingVertical: windowHeight * 0.005,
-	marginTop: windowHeight * 0.015,
+	paddingVertical: windowHeight * 0.004,
+	marginTop: windowHeight * 0.013,
 };
 const styles = StyleSheet.create({
 	bannerStyle: {
