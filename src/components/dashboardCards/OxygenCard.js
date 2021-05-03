@@ -1,8 +1,13 @@
 import React, { useContext } from 'react';
-import { Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { View, StyleSheet, Linking, Platform } from 'react-native';
 import { Context as DeleteContext } from '../../context/PlasmaDonorContext';
+
+// adpat to screeen size
+import { Dimensions } from 'react-native';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 import { Input, Text, Button, Icon, SearchBar } from 'react-native-elements';
 import PlasmaIndividual from '../../screen/forms/PlasmaIndividual';
@@ -37,18 +42,13 @@ const OxygenCard = ({ item }) => {
 				///////////////// for all///////////////////
 				<View style={styles.container}>
 					<View style={styles.leftContainer}>
-						<Text
-							style={
-								([styles.textStyle],
-								[{ color: 'gray', fontWeight: '700', fontSize: 18 }])
-							}
-						>
-							{name.toUpperCase()}
-						</Text>
-						<Text>{area}</Text>
+						<Text style={styles.textStyle}>{name.toUpperCase()}</Text>
+						<Text style={styles.regularText}>{area}</Text>
 
 						<Text style={styles.statusStyle}>Oxygen: {getAvailability()}</Text>
-						<Text>Posted on: {reverseString(updatedAt)}</Text>
+						<Text style={styles.regularText}>
+							Posted on: {reverseString(updatedAt)}
+						</Text>
 					</View>
 					<View style={styles.rightContainer}>
 						{availability === 0 ? (
@@ -83,17 +83,19 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-evenly',
 	},
 	leftContainer: {
-		width: Dimensions.get('screen').width / 2.5,
+		width: windowWidth / 2.5,
 	},
-
+	regularText: {
+		fontSize: RFPercentage(1.8),
+	},
 	container: {
-		borderRadius: 10,
+		borderRadius: windowWidth * 0.025,
 		borderWidth: 2,
-		marginHorizontal: 10,
-		marginBottom: 10,
+		marginHorizontal: windowWidth * 0.02,
+		marginBottom: windowHeight * 0.013,
 		borderColor: 'gray',
-		paddingHorizontal: 5,
-		paddingVertical: 5,
+		paddingHorizontal: windowWidth * 0.01,
+		paddingVertical: windowHeight * 0.004,
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 	},
@@ -102,32 +104,33 @@ const styles = StyleSheet.create({
 	},
 	textStyle: {
 		color: 'black',
+		color: 'gray',
+		fontWeight: '700',
+		fontSize: RFPercentage(2.5),
 	},
 	btnStyle: {
-		borderRadius: 7,
-		paddingHorizontal: 3,
+		borderRadius: windowWidth * 0.025,
+		paddingHorizontal: windowWidth * 0.01,
 		borderWidth: 1,
 		borderColor: 'gray',
-		marginTop: 5,
+		marginTop: windowHeight * 0.007,
 		alignItems: 'center',
-		paddingHorizontal: 5,
-		paddingVertical: 2,
+		paddingHorizontal: windowWidth * 0.01,
+		paddingVertical: windowHeight * 0.003,
 	},
 	deletebtnTextStyle: {
 		fontWeight: '700',
-		fontSize: 24,
+		fontSize: RFPercentage(3),
 		color: '#ff9994',
 	},
-	editbtnTextStyle: {
-		fontWeight: '700',
-		fontSize: 24,
-	},
+
 	changebtnTextStyle: {
 		fontWeight: '700',
-		fontSize: 18,
+		fontSize: RFPercentage(2.5),
 	},
 	statusStyle: {
 		fontWeight: '700',
+		fontSize: RFPercentage(1.8),
 	},
 });
 

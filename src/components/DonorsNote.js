@@ -2,6 +2,12 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text } from 'react-native-elements';
 
+// adpat to screeen size
+import { Dimensions } from 'react-native';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
 const DonorsNote = () => {
 	return (
 		<View style={styles.container}>
@@ -27,21 +33,21 @@ const DonorsNote = () => {
 
 const styles = StyleSheet.create({
 	container: {
-		marginTop: 10,
-		marginHorizontal: 10,
-		borderRadius: 20,
+		marginTop: windowHeight * 0.013,
+		marginHorizontal: windowWidth * 0.02,
+		borderRadius: windowWidth * 0.05,
 		borderColor: 'gray',
 		borderWidth: 1,
-		paddingHorizontal: 15,
-		paddingVertical: 5,
+		paddingHorizontal: windowWidth * 0.04,
+		paddingVertical: windowHeight * 0.007,
 	},
 	text: {
 		textAlign: 'left',
-
+		fontSize: RFPercentage(1.8),
 		color: 'gray',
 	},
 	banner: {
-		fontSize: 16,
+		fontSize: RFPercentage(2),
 		textAlign: 'center',
 		alignSelf: 'center',
 		color: '#ffaebe',

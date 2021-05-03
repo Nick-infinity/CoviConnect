@@ -3,6 +3,12 @@ import { StyleSheet, View } from 'react-native';
 import { Text, Input, Button, Icon, normalize } from 'react-native-elements';
 import Shortcut from './Shortcut';
 
+// adpat to screeen size
+import { Dimensions } from 'react-native';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
 const ShortcutBarPlasma = ({
 	title1,
 	title2,
@@ -27,17 +33,14 @@ const ShortcutBarPlasma = ({
 	);
 };
 const styles = StyleSheet.create({
-	ShortcutContainer: {},
 	container: {
 		flexDirection: 'row',
-		justifyContent: 'space-around',
-		marginTop: 10,
-		marginBottom: 10,
+		justifyContent: 'space-evenly',
 		backgroundColor: 'white',
-		borderRadius: 20,
-		paddingVertical: 10,
-		marginHorizontal: 10,
-		zIndex: 5,
+		borderRadius: windowWidth * 0.05,
+		paddingHorizontal: windowWidth * 0.02,
+		paddingVertical: windowHeight * 0.013,
+		marginHorizontal: windowWidth * 0.02,
 	},
 });
 export default ShortcutBarPlasma;

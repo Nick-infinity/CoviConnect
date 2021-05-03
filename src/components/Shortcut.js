@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
-import { TouchableHighlight, View } from 'react-native';
+import { TouchableHighlight, View, Dimensions } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { Text, Input, Button, Icon } from 'react-native-elements';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const Shortcut = ({ title, iconName, onClick }) => {
 	// const touchProps = {
@@ -14,40 +17,38 @@ const Shortcut = ({ title, iconName, onClick }) => {
 	// };
 
 	return (
-		<TouchableOpacity onPress={() => onClick()} style={[styles.btnNormal]}>
-			<View style={styles.ShortcutContainer}>
+		<View style={styles.ShortcutContainer}>
+			<TouchableOpacity onPress={() => onClick()}>
 				<Icon
 					color="white"
 					name={iconName}
 					type="font-awesome-5"
 					style={[styles.iconStyle]}
+					size={RFPercentage(3.2)}
 				/>
 				<Text style={[styles.titleStyle]}>{title}</Text>
-			</View>
-		</TouchableOpacity>
+			</TouchableOpacity>
+		</View>
 	);
 };
 
 const styles = StyleSheet.create({
 	ShortcutContainer: {
-		padding: 10,
-		justifyContent: 'center',
-		alignContent: 'center',
-		alignSelf: 'center',
-		alignItems: 'center',
-	},
-
-	btnNormal: {
 		borderColor: '#272727',
 		borderWidth: 1,
-		borderRadius: 20,
+		borderRadius: windowWidth * 0.07,
 		backgroundColor: '#272727',
-	},
-	titleStyle: {
-		marginTop: 5,
-		color: 'white',
+		paddingHorizontal: windowWidth * 0.04,
+		paddingVertical: windowHeight * 0.013,
+		marginHorizontal: windowWidth * 0.02,
 	},
 
+	titleStyle: {
+		color: 'white',
+		fontSize: RFPercentage(1.8),
+		marginTop: windowHeight * 0.007,
+	},
 	iconStyle: {},
 });
+
 export default Shortcut;

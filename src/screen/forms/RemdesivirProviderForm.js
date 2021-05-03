@@ -1,11 +1,17 @@
 import React, { useState, useContext } from 'react';
 import { TouchableOpacity } from 'react-native';
-import { View, StyleSheet, SafeAreaView, Dimensions } from 'react-native';
+import { View, StyleSheet, SafeAreaView } from 'react-native';
 import { Input, ButtonGroup, Text } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import ConsentText from '../../components/ConsentText';
 import pincodeApi from '../../api/pincode';
 import { Context as RemdesivirDonorContext } from '../../context/PlasmaDonorContext';
+
+// adpat to screeen size
+import { Dimensions } from 'react-native';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const RemdesivirProviderForm = ({ navigation }) => {
 	/* schmema for object
@@ -144,9 +150,7 @@ const RemdesivirProviderForm = ({ navigation }) => {
 			<View style={styles.container}>
 				<ScrollView showsVerticalScrollIndicator={false}>
 					<View style={styles.secondContainer}>
-						<Text h2 style={styles.banner}>
-							Information
-						</Text>
+						<Text style={styles.banner}>Information</Text>
 						<View style={styles.formContainer}>
 							<View style={styles.fieldContainer}>
 								<Input
@@ -215,9 +219,7 @@ const RemdesivirProviderForm = ({ navigation }) => {
 							onPress={() => onSaveClick()}
 						>
 							<View style={styles.btnContainer}>
-								<Text h4 style={styles.btnTextStyle}>
-									Save
-								</Text>
+								<Text style={styles.btnTextStyle}>Save</Text>
 							</View>
 						</TouchableOpacity>
 					</View>
@@ -228,71 +230,74 @@ const RemdesivirProviderForm = ({ navigation }) => {
 };
 
 const btnGroupStyle = {
-	marginBottom: 20,
-	height: 40,
-	borderRadius: 12,
+	marginBottom: windowHeight * 0.026,
+	height: windowHeight * 0.052,
+	borderRadius: windowWidth * 0.03,
 };
 const inputStyle = {
 	borderBottomWidth: 1,
 	borderWidth: 1,
 	borderColor: 'gray',
-	borderRadius: 15,
-	paddingHorizontal: 10,
-	paddingVertical: 5,
-	marginTop: 10,
+	borderRadius: windowWidth * 0.04,
+	paddingHorizontal: windowWidth * 0.02,
+	paddingVertical: windowHeight * 0.007,
+	marginTop: windowHeight * 0.026,
 };
 
-const windowWidth = Dimensions.get('screen').width;
-const windowHeight = Dimensions.get('screen').height;
 const styles = StyleSheet.create({
 	banner: {
 		textAlign: 'center',
+		fontWeight: 'bold',
+		fontSize: RFPercentage(5),
 	},
 	container: {
-		height: windowHeight / 1.62,
+		height: windowHeight / 1.4,
 	},
 	secondContainer: {
-		marginBottom: 40,
+		marginBottom: windowHeight * 0.052,
 	},
 	formContainer: {
-		marginHorizontal: 10,
-		borderRadius: 20,
+		marginHorizontal: windowWidth * 0.02,
+		borderRadius: windowWidth * 0.05,
 		backgroundColor: 'white',
 		marginTop: 0,
 	},
 	fieldContainer: {
-		marginTop: 30,
-		marginBottom: 30,
+		marginTop: windowHeight * 0.039,
+		marginBottom: windowHeight * 0.039,
 	},
 	btnGrpBannerStyle: {
-		fontSize: 16,
+		fontSize: RFPercentage(2),
 		fontWeight: 'bold',
 		color: '#87929d',
-		marginLeft: 10,
-		marginBottom: 10,
+		marginLeft: windowWidth * 0.02,
+		marginBottom: windowHeight * 0.013,
 	},
 	btnStyle: {
-		borderRadius: 20,
+		borderRadius: windowWidth * 0.05,
 	},
 	btnContainer: {
 		borderWidth: 1,
-		borderRadius: 20,
+		borderRadius: windowWidth * 0.05,
 		borderColor: 'gray',
-		paddingHorizontal: 20,
-		paddingVertical: 10,
-		marginHorizontal: 40,
+		paddingHorizontal: windowWidth * 0.04,
+		paddingVertical: windowHeight * 0.013,
+		marginHorizontal: windowWidth * 0.1,
 		alignItems: 'center',
-		marginTop: 20,
+		marginTop: windowHeight * 0.026,
 		backgroundColor: '#272727',
 	},
 	btnTextStyle: {
 		color: 'white',
+		fontWeight: 'bold',
+		fontSize: RFPercentage(3),
 	},
 	errorMesg: {
 		color: 'red',
 		alignSelf: 'center',
 		textAlign: 'center',
-		marginTop: 5,
+		marginTop: windowHeight * 0.007,
+		fontSize: RFPercentage(1.7),
 	},
 	btnContainerTop: {
 		flexDirection: 'row',
@@ -301,7 +306,7 @@ const styles = StyleSheet.create({
 	btnContainerBottom: {
 		flexDirection: 'row',
 		justifyContent: 'space-around',
-		marginHorizontal: 5,
+		marginHorizontal: windowWidth * 0.01,
 	},
 	btnContainer2: {},
 	checkBoxStyle: {},

@@ -3,6 +3,12 @@ import { StyleSheet } from 'react-native';
 import { View } from 'react-native';
 import { CheckBox, Text } from 'react-native-elements';
 
+// adpat to screeen size
+import { Dimensions } from 'react-native';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
 const MultiBloodGroupChecker = ({ takeBloodGroupValues }) => {
 	// states
 	const [ap, sap] = useState(false);
@@ -41,14 +47,14 @@ const MultiBloodGroupChecker = ({ takeBloodGroupValues }) => {
 				<CheckBox
 					textStyle={{ paddingRight: 0, paddingLeft: 0 }}
 					containerStyle={{
-						paddingHorizontal: 5,
+						paddingHorizontal: windowWidth * 0.01,
 						borderColor: 'gray',
 						backgroundColor: 'white',
-						borderRadius: 10,
+						borderRadius: windowWidth * 0.025,
 					}}
 					style={styles.checkBoxStyle}
 					title="A+"
-					size={20}
+					size={RFPercentage(2.8)}
 					checkedColor="#2089dc"
 					checked={ap}
 					onPress={() => sap(!ap)}
@@ -56,14 +62,14 @@ const MultiBloodGroupChecker = ({ takeBloodGroupValues }) => {
 				<CheckBox
 					textStyle={{ paddingRight: 0, paddingLeft: 0 }}
 					containerStyle={{
-						paddingHorizontal: 5,
+						paddingHorizontal: windowWidth * 0.01,
 						borderColor: 'gray',
 						backgroundColor: 'white',
-						borderRadius: 10,
+						borderRadius: windowWidth * 0.025,
 					}}
 					style={styles.checkBoxStyle}
 					title="A-"
-					size={20}
+					size={RFPercentage(2.8)}
 					checkedColor="#2089dc"
 					checked={an}
 					onPress={() => san(!an)}
@@ -71,14 +77,14 @@ const MultiBloodGroupChecker = ({ takeBloodGroupValues }) => {
 				<CheckBox
 					textStyle={{ paddingRight: 0, paddingLeft: 0 }}
 					containerStyle={{
-						paddingHorizontal: 5,
+						paddingHorizontal: windowWidth * 0.01,
 						borderColor: 'gray',
 						backgroundColor: 'white',
-						borderRadius: 10,
+						borderRadius: windowWidth * 0.025,
 					}}
 					style={styles.checkBoxStyle}
 					title="B+"
-					size={20}
+					size={RFPercentage(2.8)}
 					checkedColor="#2089dc"
 					checked={bp}
 					onPress={() => sbp(!bp)}
@@ -86,14 +92,14 @@ const MultiBloodGroupChecker = ({ takeBloodGroupValues }) => {
 				<CheckBox
 					textStyle={{ paddingRight: 0, paddingLeft: 0 }}
 					containerStyle={{
-						paddingHorizontal: 5,
+						paddingHorizontal: windowWidth * 0.01,
 						borderColor: 'gray',
 						backgroundColor: 'white',
-						borderRadius: 10,
+						borderRadius: windowWidth * 0.025,
 					}}
 					style={styles.checkBoxStyle}
 					title="B-"
-					size={20}
+					size={RFPercentage(2.8)}
 					checkedColor="#2089dc"
 					checked={bn}
 					onPress={() => sbn(!bn)}
@@ -103,14 +109,14 @@ const MultiBloodGroupChecker = ({ takeBloodGroupValues }) => {
 				<CheckBox
 					textStyle={{ paddingRight: 0, paddingLeft: 0 }}
 					containerStyle={{
-						paddingHorizontal: 5,
+						paddingHorizontal: windowWidth * 0.01,
 						borderColor: 'gray',
 						backgroundColor: 'white',
-						borderRadius: 10,
+						borderRadius: windowWidth * 0.025,
 					}}
 					style={styles.checkBoxStyle}
 					title="O+"
-					size={20}
+					size={RFPercentage(2.8)}
 					checkedColor="#2089dc"
 					checked={op}
 					onPress={() => sop(!op)}
@@ -118,14 +124,14 @@ const MultiBloodGroupChecker = ({ takeBloodGroupValues }) => {
 				<CheckBox
 					textStyle={{ paddingRight: 0, paddingLeft: 0 }}
 					containerStyle={{
-						paddingHorizontal: 5,
+						paddingHorizontal: windowWidth * 0.01,
 						borderColor: 'gray',
 						backgroundColor: 'white',
-						borderRadius: 10,
+						borderRadius: windowWidth * 0.025,
 					}}
 					style={styles.checkBoxStyle}
 					title="O-"
-					size={20}
+					size={RFPercentage(2.8)}
 					checkedColor="#2089dc"
 					checked={on}
 					onPress={() => son(!on)}
@@ -133,14 +139,14 @@ const MultiBloodGroupChecker = ({ takeBloodGroupValues }) => {
 				<CheckBox
 					textStyle={{ paddingRight: 0, paddingLeft: 0 }}
 					containerStyle={{
-						paddingHorizontal: 5,
+						paddingHorizontal: windowWidth * 0.01,
 						borderColor: 'gray',
 						backgroundColor: 'white',
-						borderRadius: 10,
+						borderRadius: windowWidth * 0.025,
 					}}
 					style={styles.checkBoxStyle}
 					title="AB+"
-					size={20}
+					size={RFPercentage(2.8)}
 					checkedColor="#2089dc"
 					checked={abp}
 					onPress={() => sabp(!abp)}
@@ -148,14 +154,14 @@ const MultiBloodGroupChecker = ({ takeBloodGroupValues }) => {
 				<CheckBox
 					textStyle={{ paddingRight: 0, paddingLeft: 0 }}
 					containerStyle={{
-						paddingHorizontal: 5,
+						paddingHorizontal: windowWidth * 0.01,
 						borderColor: 'gray',
 						backgroundColor: 'white',
-						borderRadius: 10,
+						borderRadius: windowWidth * 0.025,
 					}}
 					style={styles.checkBoxStyle}
 					title="AB-"
-					size={20}
+					size={RFPercentage(2.8)}
 					checkedColor="#2089dc"
 					checked={abn}
 					onPress={() => sabn(!abn)}
@@ -175,14 +181,14 @@ const styles = StyleSheet.create({
 	btnContainerBottom: {
 		flexDirection: 'row',
 		justifyContent: 'space-around',
-		marginHorizontal: 5,
+		marginHorizontal: windowWidth * 0.01,
 	},
 	btnGrpBannerStyle: {
-		fontSize: 16,
+		fontSize: RFPercentage(2),
 		fontWeight: 'bold',
 		color: '#87929d',
-		marginLeft: 10,
-		marginBottom: 10,
+		marginLeft: windowWidth * 0.02,
+		marginBottom: windowHeight * 0.013,
 	},
 });
 

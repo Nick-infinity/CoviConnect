@@ -1,7 +1,13 @@
 import React from 'react';
-import { Dimensions } from 'react-native';
+
 import { TouchableOpacity } from 'react-native';
 import { View, StyleSheet, Text, Linking, Platform } from 'react-native';
+
+// adpat to screeen size
+import { Dimensions } from 'react-native';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const RemdesivirCard = ({ item }) => {
 	// destructure the item object
@@ -25,6 +31,7 @@ const RemdesivirCard = ({ item }) => {
 		email = '',
 		area,
 		location,
+		updatedAt,
 	} = item;
 
 	const dialCall = (phn) => {
@@ -39,6 +46,14 @@ const RemdesivirCard = ({ item }) => {
 
 		Linking.openURL(phoneNumber);
 	};
+
+	function reverseString(str) {
+		str = str.substring(0, 10);
+		let arr = str.split('-');
+		str = arr[2] + '-' + arr[1] + '-' + arr[0];
+		return str;
+	}
+
 	return (
 		<View style={styles.container}>
 			<Text
@@ -69,20 +84,21 @@ const RemdesivirCard = ({ item }) => {
 					</View>
 				</TouchableOpacity>
 			) : null}
+			<Text style={styles.postedOn}>Posted on: {reverseString(updatedAt)}</Text>
 		</View>
 	);
 };
 
 const styles = StyleSheet.create({
 	container: {
-		borderRadius: 10,
+		borderRadius: windowWidth * 0.04,
 		borderWidth: 2,
-		marginHorizontal: 10,
-		marginBottom: 10,
+		marginHorizontal: windowWidth * 0.02,
+		marginBottom: windowHeight * 0.013,
 		borderColor: 'gray',
-		paddingHorizontal: 5,
-		paddingVertical: 5,
-		width: Dimensions.get('screen').width / 2.5,
+		paddingHorizontal: windowWidth * 0.01,
+		paddingVertical: windowHeight * 0.007,
+		width: windowWidth / 2.5,
 	},
 	locationcontainer: {
 		flexDirection: 'row',
@@ -90,12 +106,17 @@ const styles = StyleSheet.create({
 	textStyle: {
 		color: 'black',
 	},
+	postedOn: {
+		fontSize: RFPercentage(1.7),
+		color: 'gray',
+		textAlign: 'center',
+	},
 	callcontainer: {
-		borderRadius: 7,
-		paddingHorizontal: 3,
+		borderRadius: windowWidth * 0.03,
+		paddingHorizontal: windowWidth * 0.01,
 		borderWidth: 1,
 		borderColor: 'gray',
-		marginTop: 5,
+		marginTop: windowHeight * 0.007,
 	},
 });
 export default RemdesivirCard;
