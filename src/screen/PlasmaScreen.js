@@ -6,6 +6,7 @@ import {
 	ScrollView,
 	Text,
 	KeyboardAvoidingView,
+	TouchableOpacity,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Input, Icon, ButtonGroup, Overlay } from 'react-native-elements';
@@ -21,6 +22,7 @@ import PlasmaDonorCardOrganization from '../components/PlasmaDonorCardOrganizati
 // adpat to screeen size
 import { Dimensions } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
@@ -28,6 +30,7 @@ const PlasmaScreen = ({ navigation }) => {
 	// for cehcking which screen is running
 	const [screenState, setScreenState] = useState(0);
 	const [visible, setVisible] = useState(false);
+	const [isOverlayDisabled, setOverlayDisabled] = useState(0);
 	// 0 for search screen
 	// 1 for donor screen
 
@@ -39,8 +42,37 @@ const PlasmaScreen = ({ navigation }) => {
 	const [donorCategoryIndex, setdonorCategoryIndex] = useState(0);
 	const donorCategories = ['Hospitals', 'Organizations', 'Individuals'];
 
-	const toggleOverlay = () => {
+	const toggleOverlay = async () => {
+		if (isOverlayDisabled === 1) {
+			return;
+			// do nothing
+		} else if (isOverlayDisabled === 0) {
+			try {
+				let overlayDis = await AsyncStorage.getItem('isOverlayDisabled');
+				overlayDis != null ? JSON.parse(overlayDis) : 0;
+
+				setOverlayDisabled(overlayDis);
+
+				if (overlayDis === 0) {
+					setVisible(!visible);
+				}
+				return;
+			} catch (e) {
+				setVisible(!visible);
+				return;
+			}
+		}
 		setVisible(!visible);
+	};
+
+	const doNotSHowAgain = async () => {
+		setOverlayDisabled(1);
+		try {
+			await AsyncStorage.setItem('isOverlayDisabled', JSON.stringify(1));
+			setVisible(false);
+		} catch (e) {
+			console.log('err');
+		}
 	};
 
 	useEffect(() => {
@@ -136,6 +168,18 @@ const PlasmaScreen = ({ navigation }) => {
 							section
 						</Text>
 					</View>
+					<TouchableOpacity onPress={() => doNotSHowAgain()}>
+						<Text
+							style={{
+								fontSize: RFPercentage(1.6),
+								color: 'gray',
+								textAlign: 'center',
+								marginTop: windowHeight * 0.013,
+							}}
+						>
+							Do not show again
+						</Text>
+					</TouchableOpacity>
 				</ScrollView>
 			</Overlay>
 		);
