@@ -12,7 +12,7 @@ const windowHeight = Dimensions.get('window').height;
 
 const OxygenDonorCardHospital = ({ item }) => {
 	// destructure the item object
-	const { name, city, state, contact, area, updatedAt } = item;
+	const { name, city, state, contact, area, updatedAt, beds = '' } = item;
 
 	const dialCall = () => {
 		let phoneNumber = '';
@@ -37,6 +37,9 @@ const OxygenDonorCardHospital = ({ item }) => {
 		<View style={styles.container}>
 			<Text style={styles.nameStyle}>{name.toUpperCase()}</Text>
 			<Text style={styles.textStyle}>{area}</Text>
+			{beds !== '' ? (
+				<Text style={styles.textStyle}>Beds available: {beds}</Text>
+			) : null}
 
 			<TouchableOpacity onPress={() => dialCall()}>
 				<View style={styles.callcontainer}>

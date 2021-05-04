@@ -48,6 +48,7 @@ const OxygenHospital = ({ navigation }) => {
 	const [city, setCity] = useState('');
 	const [area, setArea] = useState('');
 	const [btnState, SetBtnState] = useState(true);
+	const [beds, setBeds] = useState('');
 
 	const clearFields = () => {
 		setName('');
@@ -57,6 +58,7 @@ const OxygenHospital = ({ navigation }) => {
 		setContact('');
 		setArea('');
 		SetAvailability(0);
+		setBeds('');
 	};
 
 	//check validity of data on submit
@@ -69,6 +71,7 @@ const OxygenHospital = ({ navigation }) => {
 			state === '' ||
 			state === undefined ||
 			city === '' ||
+			beds === '' ||
 			city === undefined ||
 			availability === 1
 		) {
@@ -86,6 +89,7 @@ const OxygenHospital = ({ navigation }) => {
 			contact,
 			pin,
 			city,
+			beds,
 			area,
 			state,
 			availability,
@@ -189,7 +193,7 @@ const OxygenHospital = ({ navigation }) => {
 								/>
 
 								<Text style={styles.btnGrpBannerStyle}>
-									Oxygen / Bed availability
+									Oxygen Beds availability
 								</Text>
 								<ButtonGroup
 									style={styles.btnGroupStyle}
@@ -200,6 +204,16 @@ const OxygenHospital = ({ navigation }) => {
 									selectedIndex={availability}
 									buttons={availabilityOptions}
 									containerStyle={btnGroupStyle}
+								/>
+								<Input
+									keyboardType="numeric"
+									placeholder="Enter number of available beds "
+									label="Available beds"
+									value={beds}
+									onChangeText={(t) => setBeds(t)}
+									inputContainerStyle={inputStyle}
+									labelStyle={{ fontSize: RFPercentage(2) }}
+									inputStyle={{ fontSize: RFPercentage(2.5) }}
 								/>
 							</View>
 						</View>
