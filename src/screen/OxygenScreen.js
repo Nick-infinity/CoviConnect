@@ -81,7 +81,8 @@ const OxygenScreen = ({ navigation }) => {
 						{state.oxygenresponseMsg ===
 							'Something went wrong. Please try again' ||
 						state.oxygenresponseMsg ===
-							'Cant find donors in your area.\n Enter proper city name or try with nearby city.' ? (
+							'Cant find donors in your area.\n Enter proper city name or try with nearby city.' ||
+						state.oxygenresponseMsg === 'Please enter a city name' ? (
 							<Text style={styles.errorMesg}>{state.oxygenresponseMsg}</Text>
 						) : null}
 						{donorCategoryIndex === 0 ? (

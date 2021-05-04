@@ -241,6 +241,7 @@ const PlasmaScreen = ({ navigation }) => {
 						/>
 						<Spacer />
 						{state.responseMsg === 'Something went wrong. Please try again' ||
+						state.responseMsg === 'Please enter a city name' ||
 						state.responseMsg ===
 							'Cant find donors in your area.\n Enter proper city name or try with nearby city.' ? (
 							<Text style={styles.errorMesg}>{state.responseMsg}</Text>

@@ -47,8 +47,13 @@ const TabScreens = () => {
 				name="Plasma"
 				component={PlasmaScreen}
 				options={{
-					tabBarIcon: ({ color, size }) => (
-						<Icon name="tint" type="font-awesome-5" color={color} size={size} />
+					tabBarIcon: ({ color }) => (
+						<Icon
+							name="tint"
+							type="font-awesome-5"
+							color={color}
+							size={RFPercentage(3)}
+						/>
 					),
 				}}
 			/>
@@ -56,12 +61,12 @@ const TabScreens = () => {
 				name="Oxygen"
 				component={OxygenScreen}
 				options={{
-					tabBarIcon: ({ color, size }) => (
+					tabBarIcon: ({ color }) => (
 						<Icon
 							name="lungs"
 							type="font-awesome-5"
 							color={color}
-							size={size}
+							size={RFPercentage(3)}
 						/>
 					),
 				}}
@@ -70,12 +75,12 @@ const TabScreens = () => {
 				name="Remdesivir"
 				component={RemdesivirScreen}
 				options={{
-					tabBarIcon: ({ color, size }) => (
+					tabBarIcon: ({ color }) => (
 						<Icon
 							name="syringe"
 							type="font-awesome-5"
 							color={color}
-							size={size}
+							size={RFPercentage(3)}
 						/>
 					),
 				}}
@@ -84,12 +89,12 @@ const TabScreens = () => {
 				name="Dashboard"
 				component={DonorDashBoardScreen}
 				options={{
-					tabBarIcon: ({ color, size }) => (
+					tabBarIcon: ({ color }) => (
 						<Icon
 							name="user-cog"
 							type="font-awesome-5"
 							color={color}
-							size={size}
+							size={RFPercentage(3)}
 						/>
 					),
 				}}
@@ -98,8 +103,13 @@ const TabScreens = () => {
 				name="About"
 				component={SettingsScreen}
 				options={{
-					tabBarIcon: ({ color, size }) => (
-						<Icon name="bars" type="font-awesome-5" color={color} size={size} />
+					tabBarIcon: ({ color }) => (
+						<Icon
+							name="bars"
+							type="font-awesome-5"
+							color={color}
+							size={RFPercentage(3)}
+						/>
 					),
 				}}
 			/>

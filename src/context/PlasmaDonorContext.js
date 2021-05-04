@@ -88,6 +88,15 @@ const getDonorListFromCity = (dispatch) => {
 	return async (searchCity) => {
 		dispatch({ type: 'error_msg', payload: '' });
 		console.log(searchCity);
+		if (
+			searchCity === null ||
+			searchCity === undefined ||
+			searchCity.length === 0 ||
+			searchCity === ''
+		) {
+			dispatch({ type: 'error_msg', payload: 'Please enter a city name' });
+			return;
+		}
 		try {
 			const response = await trackerApi.get('/plasma', {
 				params: { searchCity: searchCity },
@@ -213,6 +222,18 @@ const getOxygenDonorListFromCity = (dispatch) => {
 	return async (searchCity) => {
 		dispatch({ type: 'error_msg_oxygen', payload: '' });
 		console.log(searchCity, 'oxygen');
+		if (
+			searchCity === null ||
+			searchCity === undefined ||
+			searchCity === '' ||
+			searchCity.length === 0
+		) {
+			dispatch({
+				type: 'error_msg_oxygen',
+				payload: `Please enter a city name`,
+			});
+			return;
+		}
 		try {
 			const response = await trackerApi.get('/oxygen', {
 				params: { searchCity: searchCity },
@@ -487,17 +508,29 @@ const getUserCount = (dispatch) => {
 const getremdesivir = (dispatch) => {
 	return async (city) => {
 		console.log(city);
-		console.log('Runnig get remdesivir from context');
-		try {
-			//clear error
+		//clear error
+		dispatch({
+			type: 'error_msg_remdesivir',
+			payload: ``,
+		});
+		if (
+			city === null ||
+			city === undefined ||
+			city === '' ||
+			city.length === 0
+		) {
 			dispatch({
 				type: 'error_msg_remdesivir',
-				payload: ``,
+				payload: `Please enter a city name`,
 			});
-
+			return;
+		}
+		console.log('Runnig get remdesivir from context');
+		try {
 			const response = await trackerApi.get('/remdesivir', {
 				params: { city },
 			});
+			console.log('Waiting for rsposne');
 			console.log('From Context screen : ', response.data);
 			if (response.data === 'err') {
 				dispatch({

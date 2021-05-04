@@ -5,7 +5,7 @@ import { Text, Input, Icon } from 'react-native-elements';
 import ShortcutBar from '../components/ShortcutBar';
 import { FlatList, StatusBar } from 'react-native';
 
-import { Context as PlasmaDonorContext } from '../context/PlasmaDonorContext';
+import { Context as RemdesivirDonorContext } from '../context/PlasmaDonorContext';
 import RemdesivirCard from '../components/RemdesivirCard';
 import RemdesivirProviderForm from '../screen/forms/RemdesivirProviderForm';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -25,7 +25,7 @@ const RemdesivirScreen = ({ navigation }) => {
 
 	// for search
 	const [searchCity, setSearchCity] = useState('');
-	const { getremdesivir, state } = useContext(PlasmaDonorContext);
+	const { getremdesivir, state } = useContext(RemdesivirDonorContext);
 
 	return (
 		<View style={styles.container}>
@@ -92,10 +92,11 @@ const RemdesivirScreen = ({ navigation }) => {
 							}}
 						></Input>
 
-						{state.error_msg_remdesivir ===
+						{state.remdesivirErrorMesg ===
 							'Something went wrong. Please try again' ||
-						state.error_msg_remdesivir === 'No supplier found in your area' ? (
-							<Text style={styles.errorMesg}>{state.error_msg_remdesivir}</Text>
+						state.remdesivirErrorMesg === 'Please enter a city name' ||
+						state.remdesivirErrorMesg === 'No supplier found in your area' ? (
+							<Text style={styles.errorMesg}>{state.remdesivirErrorMesg}</Text>
 						) : null}
 
 						<FlatList
