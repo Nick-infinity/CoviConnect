@@ -510,7 +510,7 @@ const getremdesivir = (dispatch) => {
 			if (remdesivirList.length === 0) {
 				dispatch({
 					type: 'error_msg_remdesivir',
-					payload: `No supplier found in your area.`,
+					payload: `No supplier found in your area`,
 				});
 				return;
 			}

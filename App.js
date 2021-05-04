@@ -246,6 +246,7 @@ const customTabBarStyle = {
 	activeTintColor: '#272727',
 	inactiveTintColor: 'gray',
 	safeAreaInsets: 'bottom',
+	keyboardHidesTabBar: true,
 
 	style: {
 		borderTopLeftRadius: windowWidth * 0.05,
