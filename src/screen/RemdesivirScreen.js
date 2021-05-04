@@ -92,10 +92,10 @@ const RemdesivirScreen = ({ navigation }) => {
 							}}
 						></Input>
 
-						{state.responseMsg === 'Something went wrong. Please try again' ||
-						state.responseMsg ===
-							'Cant find donors in your area.\n Enter proper city name or try with nearby city.' ? (
-							<Text style={styles.errorMesg}>{state.responseMsg}</Text>
+						{state.error_msg_remdesivir ===
+							'Something went wrong. Please try again' ||
+						state.error_msg_remdesivir === 'No supplier found in your area' ? (
+							<Text style={styles.errorMesg}>{state.error_msg_remdesivir}</Text>
 						) : null}
 
 						<FlatList
