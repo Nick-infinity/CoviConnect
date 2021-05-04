@@ -137,8 +137,8 @@ const PlasmaScreen = ({ navigation }) => {
 								fontSize: RFPercentage(1.8),
 							}}
 						>
-							App provides single secure platform to connect plasma, oxygen &
-							remdesivir providers with patients
+							App provides single secure platform to connect plasma, oxygen/beds
+							& remdesivir providers with patients
 						</Text>
 
 						<Spacer />
@@ -152,10 +152,10 @@ const PlasmaScreen = ({ navigation }) => {
 							For Patients
 						</Text>
 						<Text style={styles.Overlaytext}>
-							1. You can search for plasma, oxygen, remdesivir providers
+							1. You can search for plasma, oxygen/beds, remdesivir providers
 						</Text>
 						<Text style={styles.Overlaytext}>
-							2. Click on search donor button and enter your city
+							2. Click on search button and enter your city
 						</Text>
 						<Text style={styles.Overlaytext}>
 							3. The app will show you list of available donors in your city

@@ -49,7 +49,7 @@ const SignupScreen = ({ navigation }) => {
 			<StatusBar backgroundColor="#aaaaaa" />
 			<ScrollView showsVerticalScrollIndicator={false}>
 				<View style={styles.container}>
-					<Text style={styles.appNameStyle}>Covid Helper</Text>
+					<Text style={styles.appNameStyle}>CoviConnect</Text>
 
 					<Spacer>
 						<Text style={styles.bannerStyle}>Sign Up for new account</Text>

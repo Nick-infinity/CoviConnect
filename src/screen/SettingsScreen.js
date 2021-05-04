@@ -192,7 +192,7 @@ const SettingsScreen = ({ navigation }) => {
 									alignSelf: 'center',
 								}}
 							>
-								Version: Beta-2
+								Version: R 1.2
 							</Text>
 						</View>
 					</View>
