@@ -6,8 +6,8 @@
  * @flow strict-local
  */
 import 'react-native-gesture-handler';
-import React, { useContext } from 'react';
-import { StyleSheet, useColorScheme } from 'react-native';
+import React, { useContext, useEffect } from 'react';
+import { StyleSheet, PermissionsAndroid } from 'react-native';
 import DonorDashBoardScreen from './src/screen/DonorDashBoardScreen';
 import SignupScreen from './src/screen/SiginupScreen';
 import SigninScreen from './src/screen/SigninScreen';
@@ -107,7 +107,52 @@ const TabScreens = () => {
 	);
 };
 
+export async function request_location_runtime_permission() {
+	try {
+		const granted = await PermissionsAndroid.request(
+			PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+
+			PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE
+		);
+		if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+			return;
+		} else {
+			Alert.alert(
+				'Storage Permission',
+				'Please allow storage permission for app to work normally',
+				[
+					{
+						text: 'OK',
+						onPress: () => {
+							PermissionsAndroid.request(
+								PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+
+								PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE
+							);
+						},
+						style: 'ok',
+					},
+				],
+				{
+					//   cancelable: true,
+					//   onDismiss: () =>
+					//     Alert.alert(
+					//       'This alert was dismissed by tapping outside of the alert dialog.',
+					//     ),
+				}
+			);
+		}
+	} catch (err) {
+		console.warn(err);
+	}
+}
+
 const App = () => {
+	//permission hook
+	useEffect(() => {
+		request_location_runtime_permission();
+	}, []);
+
 	const { state } = useContext(AuthContext);
 	const token = state.token;
 	if (token === null) {
