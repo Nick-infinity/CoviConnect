@@ -47,7 +47,7 @@ const RemdesivirDashCard = ({ item }) => {
 						<Text style={styles.statusStyle}>
 							Remdesivir: {getAvailability()}
 						</Text>
-						<Text tyle={styles.regularText}>
+						<Text style={styles.regularText}>
 							Posted on: {reverseString(updatedAt)}
 						</Text>
 					</View>

@@ -92,7 +92,9 @@ const PlasmaCard = ({ item, callback }) => {
 						</Text>
 
 						<Text style={styles.statusStyle}>Plasma: {getAvailability()}</Text>
-						<Text>Posted on: {reverseString(updatedAt)}</Text>
+						<Text style={styles.regularText}>
+							Posted on: {reverseString(updatedAt)}
+						</Text>
 					</View>
 					<View style={styles.rightContainer}>
 						<TouchableOpacity onPress={() => callback({ item })}>
