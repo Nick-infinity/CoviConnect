@@ -36,21 +36,17 @@ const OrganizationDonorOrganization = ({ item }) => {
 
 	return (
 		<View style={styles.container}>
-			<Text
-				style={([styles.textStyle], [{ color: 'gray', fontWeight: '700' }])}
-			>
-				{name.toUpperCase()}
-			</Text>
-			<Text style={[styles.textStyle]}>{area}</Text>
+			<Text style={styles.nameStyle}>{name.toUpperCase()}</Text>
+			<Text style={styles.textStyle}>{area}</Text>
 
 			<TouchableOpacity onPress={() => dialCall(contact)}>
 				<View style={styles.callcontainer}>
-					<Text style={[styles.textStyle]}>Call: {contact}</Text>
+					<Text style={styles.textStyle}>Call: {contact}</Text>
 				</View>
 			</TouchableOpacity>
 			<TouchableOpacity onPress={() => dialCall(contact2)}>
 				<View style={styles.callcontainer}>
-					<Text style={[styles.textStyle]}>Call: {contact2}</Text>
+					<Text style={styles.textStyle}>Call: {contact2}</Text>
 				</View>
 			</TouchableOpacity>
 			<Text style={styles.postedOn}>Posted on: {reverseString(updatedAt)}</Text>
@@ -72,8 +68,14 @@ const styles = StyleSheet.create({
 	locationcontainer: {
 		flexDirection: 'row',
 	},
+	nameStyle: {
+		color: 'gray',
+		fontWeight: '700',
+		fontSize: RFPercentage(2.1),
+	},
 	textStyle: {
 		color: 'black',
+		fontSize: RFPercentage(2),
 	},
 	postedOn: {
 		fontSize: RFPercentage(1.7),

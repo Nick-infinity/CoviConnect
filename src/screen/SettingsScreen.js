@@ -236,6 +236,7 @@ const styles = StyleSheet.create({
 		borderColor: 'gray',
 		marginHorizontal: windowWidth * 0.02,
 		paddingHorizontal: windowWidth * 0.02,
+		backgroundColor: 'white',
 	},
 	containerTop: {
 		marginBottom: windowHeight * 0.013,

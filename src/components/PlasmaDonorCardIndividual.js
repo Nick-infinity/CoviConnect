@@ -45,11 +45,7 @@ const PlasmaDonorCardIndividual = ({ item }) => {
 
 	return (
 		<View style={styles.container}>
-			<Text
-				style={([styles.textStyle], [{ color: 'gray', fontWeight: '700' }])}
-			>
-				{name.toUpperCase()}
-			</Text>
+			<Text style={styles.nameStyle}>{name.toUpperCase()}</Text>
 			<Text style={[styles.textStyle]}>Age: {age}</Text>
 			<Text style={[styles.textStyle]}>{area}</Text>
 			<Text style={[styles.textStyle]}>Blood Group: {bloodGroup}</Text>
@@ -78,8 +74,14 @@ const styles = StyleSheet.create({
 	locationcontainer: {
 		flexDirection: 'row',
 	},
+	nameStyle: {
+		color: 'gray',
+		fontWeight: '700',
+		fontSize: RFPercentage(2.1),
+	},
 	textStyle: {
 		color: 'black',
+		fontSize: RFPercentage(2),
 	},
 	postedOn: {
 		fontSize: RFPercentage(1.7),
