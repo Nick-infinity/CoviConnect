@@ -105,7 +105,7 @@ const OxygenIndividual = ({ navigation }) => {
 	const pinValidation = async (pincode) => {
 		try {
 			const response = await pincodeApi.get(`/${pincode}`);
-			const status = response.data.Status;
+			const status = await response.data.Status;
 			//console.log(response.data);
 			if (status === 'Error') {
 				setPin('');

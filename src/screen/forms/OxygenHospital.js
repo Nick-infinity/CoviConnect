@@ -103,8 +103,9 @@ const OxygenHospital = ({ navigation }) => {
 	//get state and city from custom api and validate pin
 	const pinValidation = async (pincode) => {
 		try {
+			console.log(`/${pincode}`);
 			const response = await pincodeApi.get(`/${pincode}`);
-			const status = response.data.Status;
+			const status = await response.data.Status;
 			//console.log(response.data);
 			if (status === 'Error') {
 				setPin('');
