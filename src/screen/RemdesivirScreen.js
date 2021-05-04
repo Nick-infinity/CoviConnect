@@ -69,7 +69,7 @@ const RemdesivirScreen = ({ navigation }) => {
 									style={[styles.iconStyle]}
 								/>
 								<Text style={[styles.titleStyle]}>
-									Click to find remdesivir distributor list
+									Remdesivir distributor list
 								</Text>
 							</View>
 						</TouchableOpacity>
@@ -184,6 +184,9 @@ const styles = StyleSheet.create({
 		//alignSelf: 'center',
 		alignItems: 'center',
 		flexDirection: 'row',
+		borderColor: 'gray',
+		borderWidth: 1,
+		borderRadius: windowWidth * 0.05,
 	},
 
 	btnNormal: {
