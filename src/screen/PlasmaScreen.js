@@ -44,24 +44,40 @@ const PlasmaScreen = ({ navigation }) => {
 
 	const toggleOverlay = async () => {
 		if (isOverlayDisabled === 1) {
+			//	console.log('Read from State:Overlay is disabled in state');
 			return;
 			// do nothing
 		} else if (isOverlayDisabled === 0) {
+			//	console.log('Read from State:Overlay is enabld in state');
+			//	console.log('Now reading storage');
 			try {
 				let overlayDis = await AsyncStorage.getItem('isOverlayDisabled');
-				overlayDis != null ? JSON.parse(overlayDis) : 0;
+				//	console.log(overlayDis, 'From storeage without parsing');
+				overlayDis !== null ? JSON.parse(overlayDis) : 0;
+				//	console.log(overlayDis, 'From storeage with parsing');
 
-				setOverlayDisabled(overlayDis);
-
-				if (overlayDis === 0) {
-					setVisible(!visible);
+				if (overlayDis === null || overlayDis === 0 || overlayDis === '0') {
+					//		console.log('Found overlay enabld in storage: Showig ovelray now');
+					//enable when overlay is not disabled
+					setVisible(true);
+					return;
 				}
+				setVisible(false);
+				//	console.log('Setting setoverlaydisbld to ', 1);
+				setOverlayDisabled(1);
 				return;
 			} catch (e) {
-				setVisible(!visible);
+				//	console.log('Found some error readinf from storgae: showing overlay');
+				// enable ooverlay if we face error in  reding from storage
+				setVisible(true);
 				return;
 			}
 		}
+		//	console.log('Last resort: Showing overlay');
+		setVisible(!visible);
+	};
+
+	const onOverlayBackPress = () => {
 		setVisible(!visible);
 	};
 
@@ -76,6 +92,7 @@ const PlasmaScreen = ({ navigation }) => {
 	};
 
 	useEffect(() => {
+		console.log('Calling toggle overlay from useeffect');
 		toggleOverlay();
 	}, []);
 
@@ -83,7 +100,7 @@ const PlasmaScreen = ({ navigation }) => {
 		return (
 			<Overlay
 				isVisible={visible}
-				onBackdropPress={toggleOverlay}
+				onBackdropPress={onOverlayBackPress}
 				overlayStyle={{
 					borderRadius: windowWidth * 0.05,
 					width: windowWidth * 0.9,
