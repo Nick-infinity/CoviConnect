@@ -21,7 +21,11 @@ const Shortcut = ({ title, iconName, onClick, iconSelector }) => {
 			style={[
 				styles.ShortcutContainer,
 				iconSelector === 1
-					? { borderColor: 'gray', borderWidth: windowWidth * 0.005 }
+					? {
+							borderColor: 'gray',
+							borderWidth: windowWidth * 0.005,
+							backgroundColor: '#343434',
+					  }
 					: null,
 			]}
 		>
