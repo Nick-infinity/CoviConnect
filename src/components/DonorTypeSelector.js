@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Vibration } from 'react-native';
 import { View } from 'react-native';
 import { Text, Input, Button, Icon } from 'react-native-elements';
 // adpat to screeen size
@@ -18,7 +18,10 @@ const DonorTypeSelector = ({ myNav, scrn1, scrn2, scrn3 }) => {
 				<View style={styles.btncontainer}>
 					<TouchableOpacity
 						style={styles.btnStyle}
-						onPress={() => myNav.navigate(scrn1)}
+						onPress={() => {
+							Vibration.vibrate(20);
+							myNav.navigate(scrn1);
+						}}
 					>
 						<Icon
 							size={RFPercentage(5)}
@@ -30,7 +33,10 @@ const DonorTypeSelector = ({ myNav, scrn1, scrn2, scrn3 }) => {
 					</TouchableOpacity>
 					<TouchableOpacity
 						style={styles.btnStyle}
-						onPress={() => myNav.navigate(scrn2)}
+						onPress={() => {
+							Vibration.vibrate(20);
+							myNav.navigate(scrn2);
+						}}
 					>
 						<Icon
 							size={RFPercentage(5)}
@@ -42,7 +48,10 @@ const DonorTypeSelector = ({ myNav, scrn1, scrn2, scrn3 }) => {
 					</TouchableOpacity>
 					<TouchableOpacity
 						style={styles.btnStyle}
-						onPress={() => myNav.navigate(scrn3)}
+						onPress={() => {
+							Vibration.vibrate(20);
+							myNav.navigate(scrn3);
+						}}
 					>
 						<Icon
 							size={RFPercentage(5)}

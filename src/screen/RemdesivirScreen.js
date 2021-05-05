@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, StyleSheet, Linking } from 'react-native';
+import { View, StyleSheet, Linking, Vibration } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text, Input, Icon } from 'react-native-elements';
 import ShortcutBar from '../components/ShortcutBar';
@@ -56,6 +56,7 @@ const RemdesivirScreen = ({ navigation }) => {
 					<View style={styles.resultScreen}>
 						<TouchableOpacity
 							onPress={() => {
+								Vibration.vibrate(20);
 								Linking.openURL(
 									`https://drive.google.com/file/d/1Uu0u2hsE3f-sgU52en6tuWPavo5y-fe0/view?usp=sharing`
 								);

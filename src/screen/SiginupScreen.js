@@ -7,6 +7,7 @@ import {
 	StatusBar,
 	ScrollView,
 	Dimensions,
+	Vibration,
 } from 'react-native';
 import { Context as AuthContext } from '../context/AuthContext';
 import { Text, Input, ButtonGroup } from 'react-native-elements';
@@ -117,7 +118,13 @@ const SignupScreen = ({ navigation }) => {
 						<Text style={styles.errorStyle}>{state.errorMessage}</Text>
 					) : null}
 					<Spacer>
-						<TouchableOpacity style={styles.btnStyle} onPress={() => isValid()}>
+						<TouchableOpacity
+							style={styles.btnStyle}
+							onPress={() => {
+								Vibration.vibrate(20);
+								isValid();
+							}}
+						>
 							<View style={styles.btnContainer}>
 								<Text style={styles.btnTextStyle}>Signup</Text>
 							</View>

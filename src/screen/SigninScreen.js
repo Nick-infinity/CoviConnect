@@ -6,6 +6,7 @@ import {
 	SafeAreaView,
 	StatusBar,
 	Dimensions,
+	Vibration,
 } from 'react-native';
 import { Context as AuthContext } from '../context/AuthContext';
 import { Text, Input } from 'react-native-elements';
@@ -83,7 +84,13 @@ const SigninScreen = ({ navigation }) => {
 						<Text style={styles.errorStyle}>{state.errorMessage}</Text>
 					) : null}
 					<Spacer>
-						<TouchableOpacity style={styles.btnStyle} onPress={() => isValid()}>
+						<TouchableOpacity
+							style={styles.btnStyle}
+							onPress={() => {
+								Vibration.vibrate(20);
+								isValid();
+							}}
+						>
 							<View style={styles.btnContainer}>
 								<Text style={styles.btnTextStyle}>Login</Text>
 							</View>

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Vibration } from 'react-native';
 import { View, StyleSheet, SafeAreaView } from 'react-native';
 import { Input, Button, Icon, ButtonGroup, Text } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -142,6 +142,7 @@ const PlasmaIndividual = ({ navigation }) => {
 
 	// onClick for save button for postt req
 	const onSaveClick = async () => {
+		Vibration.vibrate(20);
 		const res = isSubmissionValid();
 		if (res) {
 			SetValid(1);

@@ -6,6 +6,7 @@ import {
 	TouchableOpacity,
 	Linking,
 	StatusBar,
+	Vibration,
 } from 'react-native';
 import { Context as AuthContext } from '../context/AuthContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -175,6 +176,7 @@ const SettingsScreen = ({ navigation }) => {
 							<Text></Text>
 							<TouchableOpacity
 								onPress={() => {
+									Vibration.vibrate(20);
 									resetStateOnSignout();
 									signout();
 								}}

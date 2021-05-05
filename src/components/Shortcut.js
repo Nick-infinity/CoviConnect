@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Vibration } from 'react-native';
 import { TouchableHighlight, View, Dimensions } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { Text, Input, Button, Icon } from 'react-native-elements';
@@ -29,7 +29,12 @@ const Shortcut = ({ title, iconName, onClick, iconSelector }) => {
 					: null,
 			]}
 		>
-			<TouchableOpacity onPress={() => onClick()}>
+			<TouchableOpacity
+				onPress={() => {
+					Vibration.vibrate(20);
+					onClick();
+				}}
+			>
 				<Icon
 					color="white"
 					name={iconName}
