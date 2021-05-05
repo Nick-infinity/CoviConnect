@@ -217,6 +217,7 @@ const PlasmaScreen = ({ navigation }) => {
 					iconName3=""
 					iconName1="search"
 					iconName2="hand-holding-water"
+					iconSelector={screenState}
 					onClick1={() => {
 						setScreenState(0);
 					}}

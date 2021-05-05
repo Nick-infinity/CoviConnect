@@ -190,6 +190,7 @@ const DonorDashBoardScreen = ({ navigation }) => {
 					title1="Plasma Posts"
 					title2="Oxygen Posts"
 					title3="Remde. Posts"
+					iconSelector={screenState}
 					iconName1="tint"
 					iconName2="lungs"
 					iconName3="syringe"
@@ -200,7 +201,7 @@ const DonorDashBoardScreen = ({ navigation }) => {
 						setScreenState(1);
 					}}
 					onClick3={() => {
-						setScreenState(3);
+						setScreenState(2);
 					}}
 				/>
 			</View>
@@ -234,7 +235,7 @@ const DonorDashBoardScreen = ({ navigation }) => {
 							}}
 						/>
 					) : null}
-					{screenState === 3 ? (
+					{screenState === 2 ? (
 						<FlatList
 							data={state.userPosts[2]}
 							keyExtractor={(item) => item._id}

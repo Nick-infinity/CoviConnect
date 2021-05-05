@@ -10,6 +10,7 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const ShortcutBarPlasma = ({
+	iconSelector,
 	title1,
 	title2,
 	title3,
@@ -23,11 +24,26 @@ const ShortcutBarPlasma = ({
 }) => {
 	return (
 		<View style={styles.container}>
-			<Shortcut title={title1} iconName={iconName1} onClick={onClick1} />
+			<Shortcut
+				title={title1}
+				iconSelector={iconSelector == 0 ? 1 : 0}
+				iconName={iconName1}
+				onClick={onClick1}
+			/>
 
-			<Shortcut title={title2} iconName={iconName2} onClick={onClick2} />
+			<Shortcut
+				title={title2}
+				iconSelector={iconSelector == 1 ? 1 : 0}
+				iconName={iconName2}
+				onClick={onClick2}
+			/>
 			{btncount === 3 ? (
-				<Shortcut title={title3} iconName={iconName3} onClick={onClick3} />
+				<Shortcut
+					title={title3}
+					iconSelector={iconSelector == 2 ? 1 : 0}
+					iconName={iconName3}
+					onClick={onClick3}
+				/>
 			) : null}
 		</View>
 	);

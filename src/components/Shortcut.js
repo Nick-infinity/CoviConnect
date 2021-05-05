@@ -7,7 +7,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const Shortcut = ({ title, iconName, onClick }) => {
+const Shortcut = ({ title, iconName, onClick, iconSelector }) => {
 	// const touchProps = {
 	// 	underlayColor: 'gray',
 	// 	// style: isPress ? styles.btnPress : styles.btnNormal, // <-- but you can still apply other style changes
@@ -17,7 +17,14 @@ const Shortcut = ({ title, iconName, onClick }) => {
 	// };
 
 	return (
-		<View style={styles.ShortcutContainer}>
+		<View
+			style={[
+				styles.ShortcutContainer,
+				iconSelector === 1
+					? { borderColor: 'gray', borderWidth: windowWidth * 0.005 }
+					: null,
+			]}
+		>
 			<TouchableOpacity onPress={() => onClick()}>
 				<Icon
 					color="white"
@@ -34,8 +41,6 @@ const Shortcut = ({ title, iconName, onClick }) => {
 
 const styles = StyleSheet.create({
 	ShortcutContainer: {
-		borderColor: '#272727',
-		borderWidth: 1,
 		borderRadius: windowWidth * 0.07,
 		backgroundColor: '#272727',
 		paddingHorizontal: windowWidth * 0.04,

@@ -41,6 +41,7 @@ const RemdesivirScreen = ({ navigation }) => {
 					title2="Provide Remdesivir"
 					iconName1="search"
 					iconName2="hand-holding-medical"
+					iconSelector={screenState}
 					onClick1={() => {
 						setScreenState(0);
 					}}

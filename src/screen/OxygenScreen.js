@@ -40,6 +40,7 @@ const OxygenScreen = ({ navigation }) => {
 					title2="Provide Oxygen "
 					btncount={2}
 					title3=""
+					iconSelector={screenState}
 					iconName3=""
 					iconName1="search"
 					iconName2="hand-holding-heart"
