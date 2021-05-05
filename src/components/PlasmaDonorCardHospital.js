@@ -2,7 +2,7 @@ import color from 'color';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { View, StyleSheet, Text, Linking, Platform } from 'react-native';
-
+import { FirstLetterUpperCase } from '../components/FirstLetterUpperCase';
 import { Input, Button, Icon, SearchBar } from 'react-native-elements';
 
 // adpat to screeen size
@@ -48,6 +48,8 @@ const PlasmaDonorCardHospital = ({ item }) => {
 		<View style={styles.container}>
 			<Text style={styles.nameStyle}>{name.toUpperCase()}</Text>
 			<Text style={styles.textStyle}>{area}</Text>
+			<Text style={styles.textStyle}>{FirstLetterUpperCase(city)}</Text>
+
 			<Text style={styles.textStyle}>Plasma for: {bloodGroups.join(' ')}</Text>
 
 			<TouchableOpacity onPress={() => dialCall()}>

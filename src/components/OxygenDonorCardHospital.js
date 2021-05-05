@@ -4,6 +4,8 @@ import { View, StyleSheet, Text, Linking, Platform } from 'react-native';
 
 import { Input, Button, Icon, SearchBar } from 'react-native-elements';
 
+import { FirstLetterUpperCase } from '../components/FirstLetterUpperCase';
+
 // adpat to screeen size
 import { Dimensions } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
@@ -37,6 +39,7 @@ const OxygenDonorCardHospital = ({ item }) => {
 		<View style={styles.container}>
 			<Text style={styles.nameStyle}>{name.toUpperCase()}</Text>
 			<Text style={styles.textStyle}>{area}</Text>
+			<Text style={styles.textStyle}>{FirstLetterUpperCase(city)}</Text>
 			{beds !== '' ? (
 				<Text style={styles.textStyle}>Beds available: {beds}</Text>
 			) : null}

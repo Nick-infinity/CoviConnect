@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { View, StyleSheet } from 'react-native';
 import { Context as DeleteContext } from '../../context/PlasmaDonorContext';
+import { FirstLetterUpperCase } from '../../components/FirstLetterUpperCase';
 
 // adpat to screeen size
 import { Dimensions } from 'react-native';
@@ -29,6 +30,7 @@ const PlasmaCard = ({ item, callback }) => {
 		bloodGroup = '',
 		type,
 		area,
+		city,
 		_id,
 	} = item;
 
@@ -59,6 +61,7 @@ const PlasmaCard = ({ item, callback }) => {
 					<View style={styles.leftContainer}>
 						<Text style={styles.textStyle}>{name.toUpperCase()}</Text>
 						<Text style={styles.regularText}>{area}</Text>
+						<Text style={styles.regularText}>{FirstLetterUpperCase(city)}</Text>
 
 						<Text style={styles.regularText}>Plasma for: {bloodGroup}</Text>
 
@@ -86,6 +89,7 @@ const PlasmaCard = ({ item, callback }) => {
 					<View style={styles.leftContainer}>
 						<Text style={styles.textStyle}>{name.toUpperCase()}</Text>
 						<Text style={styles.regularText}>{area}</Text>
+						<Text style={styles.regularText}>{FirstLetterUpperCase(city)}</Text>
 
 						<Text style={styles.regularText}>
 							Plasma for: {bloodGroups.join(' ')}

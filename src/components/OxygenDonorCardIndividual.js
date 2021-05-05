@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 
 import { Text, Input, Button, Icon, SearchBar } from 'react-native-elements';
+import { FirstLetterUpperCase } from '../components/FirstLetterUpperCase';
 // adpat to screeen size
 import { Dimensions } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
@@ -36,6 +37,8 @@ const OxygenDonorCardIndividual = ({ item }) => {
 			<Text style={styles.nameStyle}>{name.toUpperCase()}</Text>
 			<Text style={styles.textStyle}>Age: {age}</Text>
 			<Text style={styles.textStyle}>{area}</Text>
+			<Text style={styles.textStyle}>{FirstLetterUpperCase(city)}</Text>
+
 			<TouchableOpacity onPress={() => dialCall(contact)}>
 				<View style={styles.callcontainer}>
 					<Text style={styles.textStyle}>Call: {contact}</Text>

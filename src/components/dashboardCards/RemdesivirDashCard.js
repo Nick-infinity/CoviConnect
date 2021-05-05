@@ -14,7 +14,7 @@ const windowHeight = Dimensions.get('window').height;
 const RemdesivirDashCard = ({ item }) => {
 	const { deletePost, getUserPosts } = useContext(DeleteContext);
 	// destructure the item object
-	const { name, updatedAt, availability, location, _id, type } = item;
+	const { name, updatedAt, availability, location, _id, type, city } = item;
 
 	const getAvailability = () => {
 		if (availability === 0) {
@@ -43,6 +43,7 @@ const RemdesivirDashCard = ({ item }) => {
 					<View style={styles.leftContainer}>
 						<Text style={styles.textStyle}>{name.toUpperCase()}</Text>
 						<Text tyle={styles.regularText}>{location}</Text>
+						<Text style={styles.regularText}>{city}</Text>
 
 						<Text style={styles.statusStyle}>
 							Remdesivir: {getAvailability()}

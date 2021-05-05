@@ -3,7 +3,7 @@ import { TouchableOpacity } from 'react-native';
 import { View, StyleSheet, Text, Linking, Platform } from 'react-native';
 
 import { Input, Button, Icon, SearchBar } from 'react-native-elements';
-
+import { FirstLetterUpperCase } from '../components/FirstLetterUpperCase';
 // adpat to screeen size
 import { Dimensions } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
@@ -38,6 +38,7 @@ const OrganizationDonorOrganization = ({ item }) => {
 		<View style={styles.container}>
 			<Text style={styles.nameStyle}>{name.toUpperCase()}</Text>
 			<Text style={styles.textStyle}>{area}</Text>
+			<Text style={styles.textStyle}>{FirstLetterUpperCase(city)}</Text>
 
 			<TouchableOpacity onPress={() => dialCall(contact)}>
 				<View style={styles.callcontainer}>

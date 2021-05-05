@@ -12,10 +12,12 @@ const windowHeight = Dimensions.get('window').height;
 import { Input, Text, Button, Icon, SearchBar } from 'react-native-elements';
 import PlasmaIndividual from '../../screen/forms/PlasmaIndividual';
 
+import { FirstLetterUpperCase } from '../../components/FirstLetterUpperCase';
+
 const OxygenCard = ({ item }) => {
 	const { deletePost, getUserPosts } = useContext(DeleteContext);
 	// destructure the item object
-	const { name, updatedAt, availability, type, area, _id } = item;
+	const { name, updatedAt, availability, type, area, _id, city } = item;
 
 	const getAvailability = () => {
 		if (availability === 0) {
@@ -44,6 +46,7 @@ const OxygenCard = ({ item }) => {
 					<View style={styles.leftContainer}>
 						<Text style={styles.textStyle}>{name.toUpperCase()}</Text>
 						<Text style={styles.regularText}>{area}</Text>
+						<Text style={styles.regularText}>{FirstLetterUpperCase(city)}</Text>
 
 						<Text style={styles.statusStyle}>Oxygen: {getAvailability()}</Text>
 						<Text style={styles.regularText}>

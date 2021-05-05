@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Linking } from 'react-native';
+import { FirstLetterUpperCase } from '../components/FirstLetterUpperCase';
 
 import { Text, Input, Button, Icon, SearchBar } from 'react-native-elements';
 
@@ -48,6 +49,8 @@ const PlasmaDonorCardIndividual = ({ item }) => {
 			<Text style={styles.nameStyle}>{name.toUpperCase()}</Text>
 			<Text style={[styles.textStyle]}>Age: {age}</Text>
 			<Text style={[styles.textStyle]}>{area}</Text>
+			<Text style={styles.textStyle}>{FirstLetterUpperCase(city)}</Text>
+
 			<Text style={[styles.textStyle]}>Blood Group: {bloodGroup}</Text>
 			<Text style={[styles.textStyle]}>Recovered on: {recoveryDate}</Text>
 			<TouchableOpacity onPress={() => dialCall(contact)}>
