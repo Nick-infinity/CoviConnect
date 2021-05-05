@@ -16,6 +16,9 @@ import pincodeApi from '../../api/pincode';
 
 import { Context as OxygenDonorContext } from '../../context/PlasmaDonorContext';
 
+// for showinf saved toast
+import { ToastMsg } from '../../components/ToastMsg';
+
 // adpat to screeen size
 import { Dimensions } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
@@ -136,7 +139,7 @@ const OxygenHospital = ({ navigation }) => {
 			const res = await postHospitalOxygenReq(hospitalOxygenPostReqObject);
 			if (res) {
 				clearFields();
-
+				ToastMsg('Saved Successfully');
 				console.log('Submitted');
 				SetBtnState(true);
 				navigation.goBack();

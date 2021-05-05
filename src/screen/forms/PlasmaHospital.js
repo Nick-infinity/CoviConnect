@@ -17,6 +17,9 @@ import pincodeApi from '../../api/pincode';
 
 import { Context as PlasmaDonorContext } from '../../context/PlasmaDonorContext';
 
+// for showinf saved toast
+import { ToastMsg } from '../../components/ToastMsg';
+
 // adpat to screeen size
 import { Dimensions } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
@@ -135,6 +138,7 @@ const PlasmaHospital = ({ navigation }) => {
 			const res = await postHospitalPlasmaReq(hospitalPlasmaPostReqObject);
 			if (res) {
 				clearFields();
+				ToastMsg('Saved Successfully');
 				console.log('Submitted');
 				SetBtnState(true);
 				navigation.goBack();
