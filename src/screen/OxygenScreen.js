@@ -68,7 +68,9 @@ const OxygenScreen = ({ navigation }) => {
 							onChangeText={(city) => setSearchCity(city)}
 							onSubmitEditing={() => {
 								console.log(searchCity.toLocaleLowerCase());
-								getOxygenDonorListFromCity(searchCity.toLocaleLowerCase());
+								getOxygenDonorListFromCity(
+									searchCity.toLocaleLowerCase().trim()
+								);
 							}}
 						></Input>
 						<ButtonGroup

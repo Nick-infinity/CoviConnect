@@ -246,7 +246,7 @@ const PlasmaScreen = ({ navigation }) => {
 							onChangeText={(city) => setSearchCity(city)}
 							onSubmitEditing={() => {
 								console.log(searchCity.toLocaleLowerCase());
-								getDonorListFromCity(searchCity.toLocaleLowerCase());
+								getDonorListFromCity(searchCity.toLocaleLowerCase().trim());
 							}}
 						></Input>
 

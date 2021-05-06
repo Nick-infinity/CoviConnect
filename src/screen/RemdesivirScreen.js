@@ -90,7 +90,7 @@ const RemdesivirScreen = ({ navigation }) => {
 							onChangeText={(city) => setSearchCity(city)}
 							onSubmitEditing={() => {
 								console.log(searchCity.toLocaleLowerCase());
-								getremdesivir(searchCity.toLocaleLowerCase());
+								getremdesivir(searchCity.toLocaleLowerCase().trim());
 							}}
 						></Input>
 

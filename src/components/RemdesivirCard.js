@@ -57,8 +57,9 @@ const RemdesivirCard = ({ item }) => {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.nameStyle}>{name.toUpperCase()}</Text>
-			<Text>{city}</Text>
+
 			<Text style={styles.textStyle}>{location}</Text>
+			<Text style={styles.textStyle}>{city}</Text>
 
 			{email !== '' && email !== 'none' ? (
 				<TouchableOpacity onPress={() => Linking.openURL(`mailto:${email}`)}>
