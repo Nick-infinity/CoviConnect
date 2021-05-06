@@ -79,6 +79,8 @@ const styles = StyleSheet.create({
 		paddingHorizontal: windowWidth * 0.01,
 		paddingVertical: windowHeight * 0.007,
 		width: windowWidth / 2.5,
+		backgroundColor: 'white',
+		elevation: 3,
 	},
 	locationcontainer: {
 		flexDirection: 'row',
@@ -103,6 +105,8 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderColor: 'gray',
 		marginTop: windowHeight * 0.007,
+		backgroundColor: '#f2f2f2',
+		elevation: 3,
 	},
 });
 
