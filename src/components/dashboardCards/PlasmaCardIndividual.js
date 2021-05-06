@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 import { TouchableOpacity } from 'react-native';
-import { View, StyleSheet, Linking, Platform } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Context as DeleteContext } from '../../context/PlasmaDonorContext';
-
-import { Input, Text, Button, Icon, SearchBar } from 'react-native-elements';
+import { FirstLetterUpperCase } from '../../components/FirstLetterUpperCase';
 
 // adpat to screeen size
 import { Dimensions } from 'react-native';
@@ -11,10 +10,21 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const RemdesivirDashCard = ({ item }) => {
+import { Text } from 'react-native-elements';
+
+const PlasmaCardIndividaul = ({ item }) => {
 	const { deletePost, getUserPosts } = useContext(DeleteContext);
 	// destructure the item object
-	const { name, updatedAt, availability, location, _id, type, city } = item;
+	const {
+		name,
+		updatedAt,
+		availability,
+		bloodGroup,
+		type,
+		area,
+		city,
+		_id,
+	} = item;
 
 	const getAvailability = () => {
 		if (availability === 0) {
@@ -40,31 +50,20 @@ const RemdesivirDashCard = ({ item }) => {
 			<View style={styles.container}>
 				<View style={styles.leftContainer}>
 					<Text style={styles.textStyle}>{name.toUpperCase()}</Text>
-					<Text tyle={styles.regularText}>{location}</Text>
-					<Text style={styles.regularText}>{city}</Text>
+					<Text style={styles.regularText}>{area}</Text>
+					<Text style={styles.regularText}>{FirstLetterUpperCase(city)}</Text>
 
-					<Text style={styles.statusStyle}>
-						Remdesivir: {getAvailability()}
-					</Text>
-					<Text style={styles.regularText}>
-						Posted on: {reverseString(updatedAt)}
-					</Text>
+					<Text style={styles.regularText}>Plasma for: {bloodGroup}</Text>
+
+					<Text style={styles.statusStyle}>Plasma: {getAvailability()}</Text>
+					<Text>Posted on: {reverseString(updatedAt)}</Text>
 				</View>
 				<View style={styles.rightContainer}>
-					{availability === 0 ? (
-						<TouchableOpacity onPress={() => deleteUserPosts(1)}>
-							<View style={styles.btnStyle}>
-								<Text style={styles.changebtnTextStyle}>Set Unavailable</Text>
-							</View>
-						</TouchableOpacity>
-					) : null}
-					{availability === 1 ? (
-						<TouchableOpacity onPress={() => deleteUserPosts(0)}>
-							<View style={styles.btnStyle}>
-								<Text style={styles.changebtnTextStyle}>Set Available</Text>
-							</View>
-						</TouchableOpacity>
-					) : null}
+					<TouchableOpacity onPress={() => deleteUserPosts(-2)}>
+						<View style={styles.btnStyle}>
+							<Text style={styles.donatedbtnTextStyle}>Donated</Text>
+						</View>
+					</TouchableOpacity>
 
 					<TouchableOpacity onPress={() => deleteUserPosts(-1)}>
 						<View style={styles.btnStyle}>
@@ -85,9 +84,7 @@ const styles = StyleSheet.create({
 		width: windowWidth / 2.5,
 		flex: 1,
 	},
-	regularText: {
-		fontSize: RFPercentage(1.8),
-	},
+
 	container: {
 		borderRadius: windowWidth * 0.025,
 		borderWidth: 2,
@@ -108,6 +105,9 @@ const styles = StyleSheet.create({
 		fontWeight: '700',
 		fontSize: RFPercentage(2.5),
 	},
+	regularText: {
+		fontSize: RFPercentage(1.8),
+	},
 	btnStyle: {
 		borderRadius: windowWidth * 0.025,
 		paddingHorizontal: windowWidth * 0.01,
@@ -125,11 +125,11 @@ const styles = StyleSheet.create({
 	},
 	editbtnTextStyle: {
 		fontWeight: '700',
-		fontSize: 24,
+		fontSize: RFPercentage(3),
 	},
-	changebtnTextStyle: {
+	donatedbtnTextStyle: {
 		fontWeight: '700',
-		fontSize: RFPercentage(2.5),
+		fontSize: RFPercentage(3),
 	},
 	statusStyle: {
 		fontWeight: '700',
@@ -137,4 +137,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default RemdesivirDashCard;
+export default PlasmaCardIndividaul;

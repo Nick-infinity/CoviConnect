@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Vibration } from 'react-native';
 import { Text, Button, Overlay, ButtonGroup } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Context as userPostsContext } from '../context/PlasmaDonorContext';
@@ -12,10 +12,14 @@ import MultiBloodGroupChecker from '../components/MultiBloodGroupChecker';
 import Spacer from '../components/Spacer';
 import RemdesivirDashCard from '../components/dashboardCards/RemdesivirDashCard';
 
+// for showinf saved toast
+import { ToastMsg } from '../components/ToastMsg';
+
 // adpat to screeen size
 import { Dimensions } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { ScrollView } from 'react-native-gesture-handler';
+import PlasmaCardIndividaul from '../components/dashboardCards/PlasmaCardIndividual';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
@@ -71,12 +75,14 @@ const DonorDashBoardScreen = ({ navigation }) => {
 
 	// onClick for save button for update req
 	const onSaveClick = async (_id, type, availability, bloodGroups) => {
+		Vibration.vibrate(20);
 		const res = isSubmissionValid();
 		if (res) {
 			SetValid(1);
 			const res = await updatePost(_id, type, availability, bloodGroups);
 			if (res) {
 				toggleOverlay();
+				ToastMsg('Updated Successfully');
 				getUserPosts();
 				console.log('Submitted');
 			} else if (res === false) {
@@ -222,7 +228,11 @@ const DonorDashBoardScreen = ({ navigation }) => {
 							data={state.userPosts[0]}
 							keyExtractor={(item) => item._id}
 							renderItem={({ item }) => {
-								return <PlasmaCard item={item} callback={editPost} />;
+								if (item.type === 'pIndividual') {
+									return <PlasmaCardIndividaul item={item} />;
+								} else {
+									return <PlasmaCard item={item} callback={editPost} />;
+								}
 							}}
 						/>
 					) : null}

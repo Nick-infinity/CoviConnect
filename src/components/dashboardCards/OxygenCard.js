@@ -40,43 +40,40 @@ const OxygenCard = ({ item }) => {
 
 	return (
 		<>
-			{availability !== -1 ? (
-				///////////////// for all///////////////////
-				<View style={styles.container}>
-					<View style={styles.leftContainer}>
-						<Text style={styles.textStyle}>{name.toUpperCase()}</Text>
-						<Text style={styles.regularText}>{area}</Text>
-						<Text style={styles.regularText}>{FirstLetterUpperCase(city)}</Text>
+			<View style={styles.container}>
+				<View style={styles.leftContainer}>
+					<Text style={styles.textStyle}>{name.toUpperCase()}</Text>
+					<Text style={styles.regularText}>{area}</Text>
+					<Text style={styles.regularText}>{FirstLetterUpperCase(city)}</Text>
 
-						<Text style={styles.statusStyle}>Oxygen: {getAvailability()}</Text>
-						<Text style={styles.regularText}>
-							Posted on: {reverseString(updatedAt)}
-						</Text>
-					</View>
-					<View style={styles.rightContainer}>
-						{availability === 0 ? (
-							<TouchableOpacity onPress={() => deleteUserPosts(1)}>
-								<View style={styles.btnStyle}>
-									<Text style={styles.changebtnTextStyle}>Set Unavailable</Text>
-								</View>
-							</TouchableOpacity>
-						) : null}
-						{availability === 1 ? (
-							<TouchableOpacity onPress={() => deleteUserPosts(0)}>
-								<View style={styles.btnStyle}>
-									<Text style={styles.changebtnTextStyle}>Set Available</Text>
-								</View>
-							</TouchableOpacity>
-						) : null}
-
-						<TouchableOpacity onPress={() => deleteUserPosts(-1)}>
+					<Text style={styles.statusStyle}>Oxygen: {getAvailability()}</Text>
+					<Text style={styles.regularText}>
+						Posted on: {reverseString(updatedAt)}
+					</Text>
+				</View>
+				<View style={styles.rightContainer}>
+					{availability === 0 ? (
+						<TouchableOpacity onPress={() => deleteUserPosts(1)}>
 							<View style={styles.btnStyle}>
-								<Text style={styles.deletebtnTextStyle}>Delete</Text>
+								<Text style={styles.changebtnTextStyle}>Set Unavailable</Text>
 							</View>
 						</TouchableOpacity>
-					</View>
+					) : null}
+					{availability === 1 ? (
+						<TouchableOpacity onPress={() => deleteUserPosts(0)}>
+							<View style={styles.btnStyle}>
+								<Text style={styles.changebtnTextStyle}>Set Available</Text>
+							</View>
+						</TouchableOpacity>
+					) : null}
+
+					<TouchableOpacity onPress={() => deleteUserPosts(-1)}>
+						<View style={styles.btnStyle}>
+							<Text style={styles.deletebtnTextStyle}>Delete</Text>
+						</View>
+					</TouchableOpacity>
 				</View>
-			) : null}
+			</View>
 		</>
 	);
 };
@@ -87,6 +84,7 @@ const styles = StyleSheet.create({
 	},
 	leftContainer: {
 		width: windowWidth / 2.5,
+		flex: 1,
 	},
 	regularText: {
 		fontSize: RFPercentage(1.8),

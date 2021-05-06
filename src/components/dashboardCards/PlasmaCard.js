@@ -10,24 +10,16 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-import {
-	Input,
-	Text,
-	Button,
-	Icon,
-	SearchBar,
-	Overlay,
-} from 'react-native-elements';
+import { Text } from 'react-native-elements';
 
 const PlasmaCard = ({ item, callback }) => {
 	const { deletePost, getUserPosts } = useContext(DeleteContext);
 	// destructure the item object
 	const {
 		name,
-		bloodGroups = '',
+		bloodGroups,
 		updatedAt,
 		availability,
-		bloodGroup = '',
 		type,
 		area,
 		city,
@@ -53,68 +45,41 @@ const PlasmaCard = ({ item, callback }) => {
 		getUserPosts();
 	};
 
+	const spaceSepareatedBloodGroups = (bloodgroups) => {
+		return bloodgroups.join(' ');
+	};
+
 	return (
 		<>
-			{type === 'pIndividual' && availability === 0 ? (
-				///////////////// for individual///////////////////
-				<View style={styles.container}>
-					<View style={styles.leftContainer}>
-						<Text style={styles.textStyle}>{name.toUpperCase()}</Text>
-						<Text style={styles.regularText}>{area}</Text>
-						<Text style={styles.regularText}>{FirstLetterUpperCase(city)}</Text>
+			<View style={styles.container}>
+				<View style={styles.leftContainer}>
+					<Text style={styles.textStyle}>{name.toUpperCase()}</Text>
+					<Text style={styles.regularText}>{area}</Text>
+					<Text style={styles.regularText}>{FirstLetterUpperCase(city)}</Text>
 
-						<Text style={styles.regularText}>Plasma for: {bloodGroup}</Text>
+					<Text style={styles.regularText}>
+						Plasma for: {spaceSepareatedBloodGroups(bloodGroups)}
+					</Text>
 
-						<Text style={styles.statusStyle}>Plasma: {getAvailability()}</Text>
-						<Text>Posted on: {reverseString(updatedAt)}</Text>
-					</View>
-					<View style={styles.rightContainer}>
-						<TouchableOpacity onPress={() => deleteUserPosts(-2)}>
-							<View style={styles.btnStyle}>
-								<Text style={styles.donatedbtnTextStyle}>Donated</Text>
-							</View>
-						</TouchableOpacity>
-
-						<TouchableOpacity onPress={() => deleteUserPosts(-1)}>
-							<View style={styles.btnStyle}>
-								<Text style={styles.deletebtnTextStyle}>Delete</Text>
-							</View>
-						</TouchableOpacity>
-					</View>
+					<Text style={styles.statusStyle}>Plasma: {getAvailability()}</Text>
+					<Text style={styles.regularText}>
+						Posted on: {reverseString(updatedAt)}
+					</Text>
 				</View>
-			) : null}
-			{/* /////////////////// for hospital and organixations/////////////////// */}
-			{type !== 'pIndividual' && availability !== -1 ? (
-				<View style={styles.container}>
-					<View style={styles.leftContainer}>
-						<Text style={styles.textStyle}>{name.toUpperCase()}</Text>
-						<Text style={styles.regularText}>{area}</Text>
-						<Text style={styles.regularText}>{FirstLetterUpperCase(city)}</Text>
+				<View style={styles.rightContainer}>
+					<TouchableOpacity onPress={() => callback({ item })}>
+						<View style={styles.btnStyle}>
+							<Text style={styles.editbtnTextStyle}>Edit</Text>
+						</View>
+					</TouchableOpacity>
 
-						<Text style={styles.regularText}>
-							Plasma for: {bloodGroups.join(' ')}
-						</Text>
-
-						<Text style={styles.statusStyle}>Plasma: {getAvailability()}</Text>
-						<Text style={styles.regularText}>
-							Posted on: {reverseString(updatedAt)}
-						</Text>
-					</View>
-					<View style={styles.rightContainer}>
-						<TouchableOpacity onPress={() => callback({ item })}>
-							<View style={styles.btnStyle}>
-								<Text style={styles.editbtnTextStyle}>Edit</Text>
-							</View>
-						</TouchableOpacity>
-
-						<TouchableOpacity onPress={() => deleteUserPosts(-1)}>
-							<View style={styles.btnStyle}>
-								<Text style={styles.deletebtnTextStyle}>Delete</Text>
-							</View>
-						</TouchableOpacity>
-					</View>
+					<TouchableOpacity onPress={() => deleteUserPosts(-1)}>
+						<View style={styles.btnStyle}>
+							<Text style={styles.deletebtnTextStyle}>Delete</Text>
+						</View>
+					</TouchableOpacity>
 				</View>
-			) : null}
+			</View>
 		</>
 	);
 };
@@ -125,6 +90,7 @@ const styles = StyleSheet.create({
 	},
 	leftContainer: {
 		width: windowWidth / 2.5,
+		flex: 1,
 	},
 
 	container: {
